@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>রাত ২টায় কাস্টমার মেসেজ দেয়। AI ঘুমায় না — GTM Automation Bangladesh</title>
+  <meta name="description" content="Facebook কমেন্ট, Messenger, WhatsApp — সব জায়গায় সেকেন্ডে reply। একজন এক্সিকিউটিভের ৫% খরচে। কখনো ছুটি নেয় না, কখনো রিজাইন দেয় না।" />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            night: { 950: '#05070f', 900: '#0a0f1e', 800: '#101830', 700: '#1a2440' },
+            neon:  { blue: '#38bdf8', indigo: '#6366f1', purple: '#a855f7' }
+          },
+          fontFamily: {
+            bangla: ['"Noto Sans Bengali"', '"Roboto Slab"', 'sans-serif']
+          },
+          boxShadow: {
+            'neon-blue':  '0 0 24px rgba(56,189,248,.45), 0 0 60px rgba(56,189,248,.18)',
+            'neon-purple':'0 0 24px rgba(168,85,247,.40), 0 0 60px rgba(168,85,247,.16)',
+            'glass':      '0 8px 32px rgba(2,6,23,.55)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- বাংলা ফন্ট -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Roboto+Slab:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans Bengali', 'Roboto Slab', sans-serif;
+      /* হলুদ AI হেল্পার-বট দলের ফিক্সড ব্যাকগ্রাউন্ড (মিনিয়ন-স্টাইল) */
+      background-color: #05070f;
+      background-image:
+        linear-gradient(180deg, rgba(5,7,15,.93) 0%, rgba(5,7,15,.88) 45%, rgba(5,7,15,.94) 100%),
+        url('bot-bg.svg');
+      background-attachment: fixed;
+      background-repeat: no-repeat, repeat;
+      background-size: auto, 480px 480px;
+    }
+
+    .glass {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 32px rgba(2,6,23,.55);
+    }
+    .glass-strong {
+      background: rgba(255,255,255,.09);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    .neon-text {
+      background: linear-gradient(92deg, #38bdf8 0%, #818cf8 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 18px rgba(99,102,241,.35));
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: .12s; }
+    .reveal-d2 { transition-delay: .24s; }
+
+    .glow-blob { position:absolute; border-radius:9999px; filter: blur(90px); opacity:.35; pointer-events:none; }
+    @keyframes drift { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-24px) scale(1.08)} }
+    .drift-slow { animation: drift 14s ease-in-out infinite; }
+    .drift-slower { animation: drift 20s ease-in-out infinite reverse; }
+
+    #navbar { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    #navbar.scrolled { background: rgba(5,7,15,.85); backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(2,6,23,.6); border-color: rgba(255,255,255,.08); }
+
+    .field:focus { outline: none; border-color: rgba(56,189,248,.7); box-shadow: 0 0 0 3px rgba(56,189,248,.15), 0 0 18px rgba(56,189,248,.25); }
+
+    /* রেঞ্জ স্লাইডার (নিয়ন) */
+    input[type="range"] { -webkit-appearance: none; appearance: none; background: transparent; }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 8px; border-radius: 9999px;
+      background: linear-gradient(90deg, #38bdf8 var(--fill,50%), rgba(255,255,255,.12) var(--fill,50%));
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 22px; height: 22px; margin-top: -7px; border-radius: 9999px;
+      background: #fff; border: 3px solid #38bdf8;
+      box-shadow: 0 0 14px rgba(56,189,248,.8); cursor: pointer;
+    }
+    input[type="range"]::-moz-range-track { height: 8px; border-radius: 9999px; background: rgba(255,255,255,.12); }
+    input[type="range"]::-moz-range-progress { height: 8px; border-radius: 9999px; background: #38bdf8; }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 9999px; background: #fff;
+      border: 3px solid #38bdf8; box-shadow: 0 0 14px rgba(56,189,248,.8); cursor: pointer;
+    }
+
+    /* মোল্ডি বাবল (হিরো চ্যাট) */
+    .moody-bubble { opacity: 0; transform: translateY(14px); animation: moodyIn .5s ease forwards; }
+    @keyframes moodyIn { to { opacity: 1; transform: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity:1; transform:none; transition:none; }
+      .drift-slow, .drift-slower { animation: none; }
+      .typing-dot { animation: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
+
+  <!-- ব্যাকগ্রাউন্ড বট-টাইলের ইনলাইন সোর্স (বাইরের ফাইল না পেলে JS এটাকে data-URI বানিয়ে বসায়) -->
+  <svg id="bot-bg-source" xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480" style="display:none" aria-hidden="true">
+    <g transform="translate(92 118) rotate(-8)"><line x1="0" y1="-46" x2="0" y2="-58" stroke="#C99A00" stroke-width="4"/><circle cx="0" cy="-63" r="6" fill="#818cf8"/><rect x="-34" y="-46" width="68" height="92" rx="32" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><rect x="-52" y="-18" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3" transform="rotate(24 -46 -5)"/><rect x="32" y="-6" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><circle cx="-13" cy="-10" r="10" fill="#fff"/><circle cx="-13" cy="-10" r="4" fill="#1F2937"/><circle cx="13" cy="-10" r="10" fill="#fff"/><circle cx="13" cy="-10" r="4" fill="#1F2937"/><path d="M-10 12 Q0 22 10 12" fill="none" stroke="#1F2937" stroke-width="3" stroke-linecap="round"/></g>
+    <g transform="translate(338 86) rotate(6) scale(.85)"><line x1="0" y1="-46" x2="0" y2="-58" stroke="#C99A00" stroke-width="4"/><circle cx="0" cy="-63" r="6" fill="#38bdf8"/><rect x="-34" y="-46" width="68" height="92" rx="32" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><rect x="-44" y="-6" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><rect x="32" y="-6" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><path d="M-30 -16 A 30 30 0 0 1 30 -16" fill="none" stroke="#0F172A" stroke-width="6" stroke-linecap="round"/><path d="M26 -10 Q32 6 16 10" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/><circle cx="-13" cy="-6" r="9" fill="#fff"/><circle cx="-13" cy="-6" r="4" fill="#1F2937"/><circle cx="13" cy="-6" r="9" fill="#fff"/><circle cx="13" cy="-6" r="4" fill="#1F2937"/><path d="M-10 16 Q0 24 10 16" fill="none" stroke="#1F2937" stroke-width="3" stroke-linecap="round"/></g>
+    <g transform="translate(118 372) rotate(5) scale(.9)"><line x1="0" y1="-46" x2="0" y2="-58" stroke="#C99A00" stroke-width="4"/><circle cx="0" cy="-63" r="6" fill="#a855f7"/><rect x="-34" y="-46" width="68" height="92" rx="32" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><rect x="-44" y="-6" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><rect x="28" y="-2" width="22" height="36" rx="5" fill="#0F172A" stroke="#38bdf8" stroke-width="2"/><rect x="33" y="4" width="12" height="16" rx="2" fill="#38bdf8" opacity=".8"/><circle cx="-13" cy="-10" r="10" fill="#fff"/><circle cx="-13" cy="-10" r="4" fill="#1F2937"/><circle cx="13" cy="-10" r="10" fill="#fff"/><circle cx="13" cy="-10" r="4" fill="#1F2937"/><path d="M-10 12 Q0 20 10 12" fill="none" stroke="#1F2937" stroke-width="3" stroke-linecap="round"/></g>
+    <g transform="translate(368 344) rotate(-10) scale(1.05)"><line x1="0" y1="-46" x2="0" y2="-58" stroke="#C99A00" stroke-width="4"/><circle cx="0" cy="-63" r="6" fill="#818cf8"/><rect x="-34" y="-46" width="68" height="92" rx="32" fill="#FFD84D" stroke="#C99A00" stroke-width="3"/><rect x="-48" y="-22" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3" transform="rotate(-30 -42 -9)"/><rect x="36" y="-22" width="12" height="26" rx="6" fill="#FFD84D" stroke="#C99A00" stroke-width="3" transform="rotate(30 42 -9)"/><circle cx="-13" cy="-10" r="10" fill="#fff"/><circle cx="-13" cy="-10" r="4" fill="#1F2937"/><circle cx="13" cy="-10" r="10" fill="#fff"/><circle cx="13" cy="-10" r="4" fill="#1F2937"/><path d="M-12 12 Q0 26 12 12 Z" fill="#1F2937"/></g>
+    <circle cx="236" cy="236" r="5" fill="#FFD84D" opacity=".55"/><circle cx="30" cy="300" r="4" fill="#FFD84D" opacity=".45"/><circle cx="452" cy="210" r="4" fill="#FFD84D" opacity=".45"/><circle cx="210" cy="40" r="4" fill="#818cf8" opacity=".5"/><circle cx="260" cy="452" r="5" fill="#818cf8" opacity=".45"/><circle cx="20" cy="20" r="4" fill="#38bdf8" opacity=".4"/><circle cx="462" cy="466" r="4" fill="#38bdf8" opacity=".4"/>
+  </svg>
+  <script>
+    (function () {
+      // বাইরের bot-bg.svg লোড না হলে (যেমন app-serve প্রিভিউতে) ইনলাইন সোর্স থেকে data-URI বসাও
+      var probe = new Image();
+      probe.onerror = function () {
+        var src = document.getElementById('bot-bg-source');
+        if (!src) return;
+        var uri = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(src.outerHTML) + '")';
+        document.body.style.backgroundImage =
+          'linear-gradient(180deg, rgba(5,7,15,.93) 0%, rgba(5,7,15,.88) 45%, rgba(5,7,15,.94) 100%), ' + uri;
+      };
+      probe.src = 'bot-bg.svg';
+    })();
+  </script>
+
+  <!-- ================= নেভিগেশন ================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 border-b border-transparent">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6" aria-label="প্রধান মেনু">
+      <a href="#hero" class="flex items-center gap-2">
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-neon-blue to-neon-purple shadow-neon-blue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-8 8H6l-3 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg>
+        </span>
+        <span class="text-lg font-bold text-white">GTM <span class="neon-text">Automation</span></span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+        <a href="#cost" class="transition hover:text-white">খরচ</a>
+        <a href="#features" class="transition hover:text-white">ফিচার</a>
+        <a href="#calculator" class="transition hover:text-white">ক্যালকুলেটর</a>
+        <a href="#pricing" class="transition hover:text-white">প্রাইসিং</a>
+        <a href="#lead-form" class="rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">ফ্রি ডেমো</a>
+      </div>
+
+      <button id="menu-btn" class="grid h-10 w-10 place-items-center rounded-lg glass md:hidden" aria-label="মেনু খুলুন" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-night-950/95 px-4 py-4 md:hidden">
+      <a href="#cost" class="block py-2 text-slate-300">খরচ</a>
+      <a href="#features" class="block py-2 text-slate-300">ফিচার</a>
+      <a href="#calculator" class="block py-2 text-slate-300">ক্যালকুলেটর</a>
+      <a href="#pricing" class="block py-2 text-slate-300">প্রাইসিং</a>
+      <a href="#lead-form" class="mt-2 block rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple py-2 text-center font-semibold text-white">ফ্রি ডেমো দেখুন</a>
+    </div>
+  </header>
+
+  <!-- ================= হিরো ================= -->
+  <section id="hero" class="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
+    <div class="glow-blob drift-slow left-[-10%] top-[-10%] h-72 w-72 bg-neon-blue/60"></div>
+    <div class="glow-blob drift-slower right-[-8%] top-1/3 h-80 w-80 bg-neon-purple/50"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,.08),transparent_60%)]"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <!-- টেক্সট -->
+        <div class="text-center lg:text-left">
+          <span class="reveal inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs text-slate-300">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.9)]"></span>
+            E-commerce ও Facebook marketer-দের জন্য
+          </span>
+
+          <h1 class="reveal reveal-d1 mt-5 text-3xl font-extrabold leading-snug text-white sm:text-4xl lg:text-[2.6rem] lg:leading-[1.28]">
+            একজন কাস্টমার কেয়ার এক্সিকিউটিভ রাখতে
+            <span class="neon-text">মাসে ১৫,০০০–২০,০০০ টাকা</span>।
+            আমাদের AI করে সেটা <span class="neon-text">৫০০ টাকায়</span> — ঘুমায় না।
+          </h1>
+
+          <p class="reveal reveal-d2 mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg lg:mx-0">
+            Facebook কমেন্ট, মেসেঞ্জার, WhatsApp — সব জায়গায় সেকেন্ডে reply।
+            কর্মচারী ছুটি নেয়, অসুস্থ হয়, রাগ করে রিজাইন দেয় — AI করে না।
+          </p>
+
+          <div class="reveal reveal-d2 mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <a href="#lead-form"
+               class="w-full rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple px-8 py-3.5 text-center text-base font-bold text-white shadow-neon-blue transition hover:scale-[1.03] hover:shadow-neon-purple sm:w-auto">
+              ফ্রি ডেমো দেখুন
+            </a>
+            <a href="#calculator"
+               class="w-full rounded-xl border-2 border-white/70 px-8 py-3.5 text-center text-base font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue sm:w-auto">
+              কত টাকা বাঁচবে, ক্যালকুলেট করুন
+            </a>
+          </div>
+
+          <p class="reveal reveal-d2 mt-6 text-sm text-slate-500">
+            কমেন্টে রিপ্লাই দিতে দিতে ক্লান্ত? রাতে ঘুমানোর সময়ও ফোন চোখে? এটা এখন AI-এর কাজ।
+          </p>
+        </div>
+
+        <!-- চ্যাট বাবল অ্যানিমেশন -->
+        <div class="reveal reveal-d1 mt-4 lg:mt-0">
+          <div class="glass mx-auto max-w-md rounded-3xl p-4 sm:p-6">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-neon-blue to-neon-purple text-xs font-bold text-white">AI</span>
+                <div>
+                  <p class="text-sm font-semibold text-white">আপনার পেজ</p>
+                  <p class="flex items-center gap-1.5 text-xs text-emerald-400">
+                    <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> AI অনলাইন — ২৪/৭
+                  </p>
+                </div>
+              </div>
+              <span class="rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-slate-300">Messenger</span>
+            </div>
+
+            <div id="chat-demo" class="mt-4 space-y-3 text-sm" aria-label="AI রিপ্লাই ডেমো" aria-live="polite">
+              <!-- JS এখানে বাবল ঘুরিয়ে ফিরিয়ে চালায় -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= আসল খরচ (Pain Agitation) ================= -->
+  <section id="cost" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">একজন কাস্টমার কেয়ার এক্সিকিউটিভ রাখলে <span class="neon-text">আসলে কত যায়?</span></h2>
+        <p class="mt-3 text-slate-400">শুধু বেতন না — আসল হিসাবটা দেখুন।</p>
+      </div>
+
+      <div class="reveal glass mt-10 rounded-3xl p-6 sm:p-10">
+        <ul class="divide-y divide-white/10 text-sm sm:text-base">
+          <li class="flex items-start justify-between gap-4 py-3.5">
+            <span class="text-slate-300">বেতন</span>
+            <span class="whitespace-nowrap font-semibold text-white">৳15,000–20,000/মাস</span>
+          </li>
+          <li class="flex items-start justify-between gap-4 py-3.5">
+            <span class="text-slate-300">ট্রেনিং সময়</span>
+            <span class="whitespace-nowrap text-right font-medium text-amber-300">২-৪ সপ্তাহ <span class="block text-xs font-normal text-slate-500">(এই সময় ভুল উত্তর দেয়)</span></span>
+          </li>
+          <li class="flex items-start justify-between gap-4 py-3.5">
+            <span class="text-slate-300">ছুটি/অসুস্থতা</span>
+            <span class="whitespace-nowrap text-right font-medium text-amber-300">মাসে ২-৪ দিন <span class="block text-xs font-normal text-slate-500">কাস্টমার সার্ভিস বন্ধ</span></span>
+          </li>
+          <li class="flex items-start justify-between gap-4 py-3.5">
+            <span class="text-slate-300">রাত-দিন কভারেজ</span>
+            <span class="whitespace-nowrap text-right font-medium text-amber-300">২য় শিফট = আরও ৳15,000+</span>
+          </li>
+          <li class="flex items-start justify-between gap-4 py-3.5">
+            <span class="text-slate-300">রিজাইন করলে</span>
+            <span class="whitespace-nowrap text-right font-medium text-amber-300">আবার হায়ার, আবার ট্রেনিং</span>
+          </li>
+          <li class="flex items-center justify-between gap-4 rounded-2xl bg-red-400/10 px-4 py-4">
+            <span class="font-bold text-red-300">মোট বাস্তব খরচ (২ শিফট + turnover risk)</span>
+            <span class="whitespace-nowrap text-lg font-extrabold text-red-300">৳৩০,০০০–৪০,০০০/মাস</span>
+          </li>
+        </ul>
+
+        <div class="mt-8 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-5 text-center">
+          <p class="text-lg font-extrabold text-white sm:text-xl">
+            vs আমাদের AI: <span class="neon-text">৳৫০০–১,৫০০/মাস</span>
+          </p>
+          <p class="mt-1.5 text-sm text-slate-300">কখনো ছুটি নেয় না। কখনো রিজাইন দেয় না।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= আগে vs এখন ================= -->
+  <section id="compare" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">মানুষ এক্সিকিউটিভ দিয়ে vs <span class="neon-text">AI বট দিয়ে</span></h2>
+        <p class="mt-3 text-slate-400">একই কাজ — কিন্তু খরচ, স্পিড আর থাকার সংখ্যা পুরো আলাদা।</p>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <div class="reveal glass rounded-2xl p-6 sm:p-8" style="background:rgba(244,63,94,.05); border-color:rgba(244,63,94,.2)">
+          <h3 class="flex items-center gap-2 text-lg font-bold text-red-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+            মানুষ এক্সিকিউটিভ দিয়ে
+          </h3>
+          <ul class="mt-5 space-y-3.5 text-sm leading-relaxed text-slate-300 sm:text-base">
+            <li class="flex gap-3"><span class="text-red-400">❌</span> অফিস আওয়ারের বাইরে কোনো রিপ্লাই নেই</li>
+            <li class="flex gap-3"><span class="text-red-400">❌</span> একসাথে ৫টা মেসেজ আসলে ৪টা wait করে</li>
+            <li class="flex gap-3"><span class="text-red-400">❌</span> নতুন প্রোডাক্ট/অফার এলে প্রতিবার নতুন করে শেখাতে হয়</li>
+            <li class="flex gap-3"><span class="text-red-400">❌</span> ভুল তথ্য দিলে কাস্টমার হারায়, রেপুটেশন নষ্ট</li>
+            <li class="flex gap-3"><span class="text-red-400">❌</span> বেতন + ছুটি + ট্রেনিং — স্থায়ী খরচ</li>
+          </ul>
+        </div>
+
+        <div class="reveal reveal-d1 glass rounded-2xl p-6 sm:p-8" style="background:rgba(16,185,129,.05); border-color:rgba(52,211,153,.25)">
+          <h3 class="flex items-center gap-2 text-lg font-bold text-emerald-300">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>
+            AI বট দিয়ে
+          </h3>
+          <ul class="mt-5 space-y-3.5 text-sm leading-relaxed text-slate-200 sm:text-base">
+            <li class="flex gap-3"><span class="text-emerald-400">✅</span> ২৪/৭ — রাত ৩টাতেও সেকেন্ডে রিপ্লাই</li>
+            <li class="flex gap-3"><span class="text-emerald-400">✅</span> ১০০টা মেসেজ একসাথে আসলেও সবগুলার সাথে সাথে উত্তর</li>
+            <li class="flex gap-3"><span class="text-emerald-400">✅</span> আপনার প্রোডাক্ট/পলিসি একবার শেখানো — সবসময় মনে রাখে</li>
+            <li class="flex gap-3"><span class="text-emerald-400">✅</span> ভুল তথ্য দেয় না, complex প্রশ্নে মানুষের কাছে handover করে</li>
+            <li class="flex gap-3"><span class="text-emerald-400">✅</span> ফ্ল্যাট মাসিক ফি — কোনো hidden cost নেই</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ফিচারসমূহ ================= -->
+  <section id="features" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="glow-blob drift-slower left-1/2 top-0 h-64 w-64 -translate-x-1/2 bg-neon-indigo/40"></div>
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">কমেন্টে রিপ্লাই দিতে দিতে <span class="neon-text">ক্লান্ত?</span> এবার AI-এর পালা</h2>
+        <p class="mt-3 text-slate-400">Facebook marketer-দের জানা সমস্যা — এবং প্রতিটার সমাধান।</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <article class="reveal glass group rounded-2xl p-6 transition duration-300 hover:-translate-y-1.5 hover:border-neon-blue/40 sm:p-7">
+          <div class="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-neon-blue/25 to-neon-indigo/25 shadow-neon-blue transition group-hover:scale-110">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3V4z"/><path d="M9 9h6M9 12h4"/></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-white">Facebook Comment + Messenger + WhatsApp — এক বট</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">
+            কাস্টমার যেখান থেকেই মেসেজ দিক, AI সেখানেই রিপ্লাই দেয়। আলাদা করে কাউকে ম্যানেজ করতে হয় না।
+          </p>
+        </article>
+
+        <article class="reveal reveal-d1 glass group rounded-2xl p-6 transition duration-300 hover:-translate-y-1.5 hover:border-neon-purple/40 sm:p-7">
+          <div class="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-neon-purple/25 to-neon-blue/25 shadow-neon-purple transition group-hover:scale-110">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 1 5 5c0 1.7-.8 3-2 4l1 3h-8l1-3c-1.2-1-2-2.3-2-4a5 5 0 0 1 5-5z"/><path d="M9 19h6M10 22h4"/></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-white">আপনার প্রোডাক্ট, দাম, পলিসি — নিজের মতো জানে</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">
+            সাইজ চার্ট, ডেলিভারি টাইম, রিটার্ন পলিসি — সব একবার দিলেই AI মনে রাখে। কাস্টমার যা জিজ্ঞেস করুক, সঠিক উত্তর দেয়।
+          </p>
+        </article>
+
+        <article class="reveal reveal-d2 glass group rounded-2xl p-6 transition duration-300 hover:-translate-y-1.5 hover:border-neon-blue/40 sm:p-7">
+          <div class="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-neon-indigo/25 to-neon-purple/25 shadow-neon-blue transition group-hover:scale-110">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-white">AI সব কিছু একা করে না — বুঝে কখন হ্যান্ডওভার করতে হয়</h3>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">
+            রাগান্বিত কাস্টমার বা জটিল অভিযোগ পেলে, AI নিজে থেকে সিদ্ধান্ত না নিয়ে আপনাকে notify করে। ঝুঁকি নেয় না।
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= খরচ ক্যালকুলেটর ================= -->
+  <section id="calculator" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="glow-blob drift-slow left-[-6%] top-1/3 h-72 w-72 bg-neon-blue/40"></div>
+    <div class="relative mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">আপনি কত <span class="neon-text">বাঁচাবেন?</span></h2>
+        <p class="mt-3 text-slate-400">স্লাইডারটা টানুন — আপনার পেজে প্রতিদিন যতটা মেসেজ আসে।</p>
+      </div>
+
+      <div class="reveal glass mt-10 rounded-3xl p-6 sm:p-10">
+        <label for="msg-slider" class="block text-center text-base font-semibold text-slate-200">
+          প্রতিদিন মেসেজ: <span id="msg-count" class="text-neon-blue">৫০</span>টা
+        </label>
+        <input id="msg-slider" type="range" min="10" max="500" step="10" value="50"
+               class="mt-5 w-full" aria-describedby="calc-results" />
+
+        <div id="calc-results" class="mt-8 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl border border-red-400/20 bg-red-400/5 p-4 text-center">
+            <p class="text-xs text-slate-400">মানুষ দিয়ে (২ শিফট)</p>
+            <p class="mt-1.5 text-xl font-extrabold text-red-300">৳<span id="human-cost">৩০,০০০</span></p>
+            <p class="mt-1 text-[11px] text-slate-500">বেতন + শিফট + ছুটির ঝুঁকি</p>
+          </div>
+          <div class="rounded-2xl border border-neon-blue/30 bg-neon-blue/5 p-4 text-center">
+            <p class="text-xs text-slate-400">আমাদের AI দিয়ে</p>
+            <p class="mt-1.5 text-xl font-extrabold text-white">৳<span id="ai-cost">৫০০</span></p>
+            <p class="mt-1 text-[11px] text-slate-500">ফ্ল্যাট মাসিক ফি</p>
+          </div>
+          <div class="rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4 text-center shadow-neon-blue">
+            <p class="text-xs text-slate-300">মাসে সাশ্রয়</p>
+            <p class="mt-1.5 text-2xl font-extrabold text-emerald-300" style="text-shadow:0 0 18px rgba(52,211,153,.5)">৳<span id="saving">২৯,৫০০</span></p>
+            <p class="mt-1 text-[11px] text-slate-400">বছরে ৳<span id="saving-year">৩,৫৪,০০০</span></p>
+          </div>
+        </div>
+
+        <p class="mt-6 text-center text-xs text-slate-500">
+          * হিসাবটা একজন দিন-শিফট + একজন রাত-শিফট এক্সিকিউটিভের বাস্তব খরচের ভিত্তিতে (বেতন + ছুটি/turnover)। আপনার সংখ্যা আলাদা হলে ফ্রি ক্যালকুলেশনে হুবহু হিসাব করে দেব।
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= কীভাবে শুরু করবেন ================= -->
+  <section id="how" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">কীভাবে শুরু করবেন — <span class="neon-text">৩টি ধাপ</span></h2>
+        <p class="mt-3 text-slate-400">৪৮ ঘণ্টার মধ্যে আপনার পেজে AI কাজ শুরু করে।</p>
+      </div>
+
+      <div class="relative mt-14">
+        <div class="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-neon-blue/60 via-neon-purple/60 to-transparent md:left-0 md:top-8 md:h-px md:w-full md:bg-gradient-to-r" aria-hidden="true"></div>
+
+        <div class="grid gap-10 md:grid-cols-3 md:gap-8">
+          <div class="reveal relative">
+            <div class="flex items-center gap-4 md:block">
+              <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-neon-blue to-neon-indigo text-lg font-extrabold text-white shadow-neon-blue">১</span>
+              <h3 class="text-lg font-bold text-white md:mt-4">আপনার তথ্য দিন</h3>
+            </div>
+            <div class="glass mt-5 rounded-2xl p-4">
+              <ul class="space-y-1.5 text-sm text-slate-300">
+                <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-neon-blue"></span>প্রোডাক্ট লিস্ট + দাম</li>
+                <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-neon-blue"></span>ডেলিভারি ও রিটার্ন পলিসি</li>
+                <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-neon-blue"></span>সাধারণ প্রশ্নের উত্তর (FAQ)</li>
+              </ul>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">WhatsApp বা ফর্মে শেয়ার করুন — যেভাবে সুবিধা।</p>
+          </div>
+
+          <div class="reveal reveal-d1 relative">
+            <div class="flex items-center gap-4 md:block">
+              <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-neon-indigo to-neon-purple text-lg font-extrabold text-white shadow-neon-purple">২</span>
+              <h3 class="text-lg font-bold text-white md:mt-4">আমরা AI ট্রেইন করি</h3>
+            </div>
+            <div class="glass mt-5 flex items-center justify-center gap-3 rounded-2xl p-4">
+              <span class="rounded-lg bg-neon-blue/15 px-3 py-2 text-xs text-neon-blue">আপনার তথ্য</span>
+              <span class="text-neon-purple">→</span>
+              <span class="rounded-lg bg-neon-purple/15 px-3 py-2 text-xs text-neon-purple">ট্রেইনিং</span>
+              <span class="text-emerald-400">→</span>
+              <span class="rounded-lg bg-emerald-400/15 px-3 py-2 text-xs text-emerald-300">রেডি ✅</span>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">২৪-৪৮ ঘণ্টার মধ্যে আপনার বিজনেসের জন্য কাস্টম বট রেডি।</p>
+          </div>
+
+          <div class="reveal reveal-d2 relative">
+            <div class="flex items-center gap-4 md:block">
+              <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br from-neon-purple to-neon-blue text-lg font-extrabold text-white shadow-neon-blue">৩</span>
+              <h3 class="text-lg font-bold text-white md:mt-4">লাইভ হয়ে যায়</h3>
+            </div>
+            <div class="glass mt-5 grid place-items-center rounded-2xl p-4">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11L9.5 22 19 9.5h-6.5L13 2z"/></svg>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">Facebook/WhatsApp এ কানেক্ট করা মাত্র, কাস্টমার রিপ্লাই পাওয়া শুরু — আপনি ঘুমালেও।</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= প্রাইসিং ================= -->
+  <section id="pricing" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">একজন এক্সিকিউটিভের বেতনের <span class="neon-text">৫% এরও কমে</span> শুরু</h2>
+        <p class="mt-3 text-slate-400">কোনো লুকানো খরচ নেই। যেটা লিখেছি, সেটাই।</p>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <article class="reveal glass flex flex-col rounded-2xl p-6 sm:p-7">
+          <h3 class="text-lg font-bold text-white">Starter</h3>
+          <p class="mt-3"><span class="text-3xl font-extrabold text-white">৳500</span><span class="text-sm text-slate-400">/মাস</span></p>
+          <p class="mt-2 text-sm text-slate-400">নতুন পেজের জন্য শুরু করার প্ল্যান।</p>
+          <ul class="mt-5 space-y-2.5 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-neon-blue">✓</span> দৈনিক ৫০টা পর্যন্ত কথোপকথন</li>
+            <li class="flex gap-2"><span class="text-neon-blue">✓</span> Facebook + Messenger</li>
+            <li class="flex gap-2"><span class="text-neon-blue">✓</span> ব্যবসার তথ্য অনুযায়ী ট্রেইনিং</li>
+          </ul>
+          <a href="#lead-form" class="mt-6 block rounded-xl border border-white/25 py-2.5 text-center text-sm font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">ফ্রি ডেমো দেখুন</a>
+        </article>
+
+        <article class="reveal reveal-d1 glass relative flex flex-col rounded-2xl p-6 sm:p-7" style="border-color:rgba(56,189,248,.45)">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple px-3 py-1 text-[11px] font-bold text-white shadow-neon-blue">জনপ্রিয়</span>
+          <h3 class="text-lg font-bold text-white">Professional</h3>
+          <p class="mt-3"><span class="text-3xl font-extrabold text-white">৳1,500</span><span class="text-sm text-slate-400">/মাস</span></p>
+          <p class="mt-2 text-sm text-slate-400">নিয়মিত অর্ডার আসা পেজের জন্য।</p>
+          <ul class="mt-5 space-y-2.5 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> দৈনিক ২০০টা পর্যন্ত কথোপকথন</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Facebook + Messenger + WhatsApp</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> মানুষের কাছে হ্যান্ডওভার + notify</li>
+          </ul>
+          <a href="#lead-form" class="mt-6 block rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple py-2.5 text-center text-sm font-bold text-white shadow-neon-blue transition hover:scale-[1.02] hover:shadow-neon-purple">ফ্রি ডেমো দেখুন</a>
+        </article>
+
+        <article class="reveal reveal-d2 glass flex flex-col rounded-2xl p-6 sm:p-7">
+          <h3 class="text-lg font-bold text-white">Enterprise</h3>
+          <p class="mt-3"><span class="text-3xl font-extrabold text-white">কাস্টম</span></p>
+          <p class="mt-2 text-sm text-slate-400">বড় পেজ/গ্রুপ আর একাধিক চ্যানেলের জন্য।</p>
+          <ul class="mt-5 space-y-2.5 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-neon-purple">✓</span> আনলিমিটেড কথোপকথন</li>
+            <li class="flex gap-2"><span class="text-neon-purple">✓</span> Reporting + মানুষের টিমের সাথে টিমওয়ার্ক</li>
+            <li class="flex gap-2"><span class="text-neon-purple">✓</span> আপনার নিয়মে কাস্টম সেটআপ</li>
+          </ul>
+          <a href="#lead-form" class="mt-6 block rounded-xl border border-white/25 py-2.5 text-center text-sm font-semibold text-white transition hover:border-neon-purple hover:text-neon-purple">কথা বলুন</a>
+        </article>
+      </div>
+
+      <p class="reveal mt-8 text-center text-sm text-slate-500">৳500 = একজন এক্সিকিউটিভের বেতনের ৫% এরও কম। প্রতি মাসে।</p>
+    </div>
+  </section>
+
+  <!-- ================= লিড ফর্ম ================= -->
+  <section id="lead-form" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
+    <div class="glow-blob drift-slow right-[-6%] bottom-0 h-72 w-72 bg-neon-purple/40"></div>
+    <div class="relative mx-auto max-w-2xl px-4 sm:px-6">
+      <div class="reveal glass-strong rounded-3xl p-6 sm:p-10">
+        <h2 class="text-center text-2xl font-extrabold text-white sm:text-3xl">আপনার কাস্টমার কেয়ার খরচ কমাতে চান?</h2>
+        <p class="mt-3 text-center text-slate-400">তথ্য দিন — আপনার পেজের হিসাব করে ফ্রি ডেমো প্ল্যান পাঠাব।</p>
+
+        <form id="early-access-form" class="mt-8 space-y-5" novalidate>
+          <div>
+            <label for="name" class="mb-1.5 block text-sm font-semibold text-slate-200">আপনার নাম</label>
+            <input id="name" name="name" type="text" required autocomplete="name"
+                   class="field w-full rounded-xl border border-white/15 bg-night-900/70 px-4 py-3 text-white placeholder-slate-500"
+                   placeholder="যেমন: সাকিব হাসান" />
+            <p class="err mt-1.5 hidden text-sm text-red-400">অনুগ্রহ করে আপনার নাম লিখুন।</p>
+          </div>
+
+          <div>
+            <label for="contact" class="mb-1.5 block text-sm font-semibold text-slate-200">কাজের ইমেইল বা WhatsApp নম্বর</label>
+            <input id="contact" name="contact" type="text" required
+                   class="field w-full rounded-xl border border-white/15 bg-night-900/70 px-4 py-3 text-white placeholder-slate-500"
+                   placeholder="you@company.com অথবা 01XXXXXXXXX" />
+            <p class="err mt-1.5 hidden text-sm text-red-400">সঠিক ইমেইল (যেমন name@company.com) বা ১১ ডিজিটের মোবাইল নম্বর দিন।</p>
+          </div>
+
+          <div>
+            <label for="volume" class="mb-1.5 block text-sm font-semibold text-slate-200">দৈনিক কতগুলো কাস্টমার মেসেজ আসে?</label>
+            <select id="volume" name="daily_messages" required
+                    class="field w-full rounded-xl border border-white/15 bg-night-900/70 px-4 py-3 text-white [&>option]:bg-night-900">
+              <option value="" selected disabled>নির্বাচন করুন</option>
+              <option value="<10">১০ এর নিচে</option>
+              <option value="10-50">১০–৫০</option>
+              <option value="50-200">৫০–২০০</option>
+              <option value="200+">২০০+</option>
+            </select>
+            <p class="err mt-1.5 hidden text-sm text-red-400">দৈনিক মেসেজের পরিমাণ নির্বাচন করুন।</p>
+          </div>
+
+          <button type="submit"
+                  class="w-full rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple py-3.5 text-base font-bold text-white shadow-neon-blue transition hover:scale-[1.02] hover:shadow-neon-purple">
+            ফ্রি ক্যালকুলেশন পান
+          </button>
+
+          <p id="form-status" class="hidden rounded-xl border p-3 text-center text-sm" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ফুটার ================= -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:px-6">
+      <p class="text-sm text-slate-500">© 2026 GTM Automation Bangladesh</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400" aria-label="ফুটার লিংক">
+        <a href="#" class="transition hover:text-neon-blue">Privacy Policy</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="#" class="transition hover:text-neon-blue">Terms of Service</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="#" class="transition hover:text-neon-blue">Contact Us</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- স্টিকি নেভ ---------- */
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ---------- মোবাইল মেনু ---------- */
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    /* ---------- স্ক্রল রিভিল ---------- */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ---------- হিরো চ্যাট ডেমো (লুপিং অ্যানিমেশন) ---------- */
+    const chatDemo = document.getElementById('chat-demo');
+    const BUBBLES = [
+      { who: 'customer', text: 'ভাই, এই জামা এক্সএল সাইজ আছে? রাত ২টা ৫ মিনিট 😅' },
+      { who: 'ai',       text: 'জি ভাই, XL আছে ✅ ঢাকায় ডেলিভারি ২৪ ঘণ্টায়। অর্ডার করবেন?' },
+      { who: 'customer', text: 'দাম কত?' },
+      { who: 'ai',       text: '৮৯০ টাকা, ক্যাশ অন ডেলিভারি সুবিধা আছে। ঠিকানা দিলেই বুকিং হয়ে যাবে।' }
+    ];
+
+    function bubbleEl(b, typing) {
+      const wrap = document.createElement('div');
+      wrap.className = 'moody-bubble flex ' + (b.who === 'customer' ? 'justify-start' : 'justify-end');
+      const inner = document.createElement('div');
+      inner.className = b.who === 'customer'
+        ? 'max-w-[80%] rounded-2xl rounded-bl-sm bg-white/10 px-3.5 py-2 text-slate-200'
+        : 'max-w-[80%] rounded-2xl rounded-br-sm bg-gradient-to-r from-neon-blue/25 to-neon-purple/25 px-3.5 py-2 text-white border border-neon-blue/30';
+      if (typing) {
+        inner.innerHTML = '<span class="typing-dot inline-block h-1.5 w-1.5 rounded-full bg-slate-300"></span><span class="typing-dot mx-1 inline-block h-1.5 w-1.5 rounded-full bg-slate-400" style="animation-delay:.2s"></span><span class="typing-dot inline-block h-1.5 w-1.5 rounded-full bg-slate-300" style="animation-delay:.4s"></span>';
+      } else {
+        inner.textContent = b.text;
+      }
+      wrap.appendChild(inner);
+      return wrap;
+    }
+
+    let ci = 0;
+    async function playChatLoop() {
+      chatDemo.innerHTML = '';
+      ci = 0;
+      while (ci < BUBBLES.length) {
+        const b = BUBBLES[ci];
+        if (b.who === 'ai') {
+          const t = bubbleEl(b, true);
+          t.querySelector('.typing-dot').style.animation = 'moodyIn .5s ease forwards';
+          chatDemo.appendChild(t);
+          await new Promise(r => setTimeout(r, 1400)); // typing indicator
+          t.remove();
+        }
+        chatDemo.appendChild(bubbleEl(b, false));
+        ci++;
+        await new Promise(r => setTimeout(r, 1300));
+      }
+      await new Promise(r => setTimeout(r, 3200));
+      playChatLoop(); // আবার শুরু
+    }
+    playChatLoop();
+
+    /* ---------- খরচ ক্যালকুলেটর ---------- */
+    const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+    const toBn = (n) => String(n).replace(/\d/g, d => bnDigits[d]);
+    const fmtBn = (n) => toBn(n.toLocaleString('en-US'));
+
+    const slider = document.getElementById('msg-slider');
+    const aiCostEl = document.getElementById('ai-cost');
+    const humanCostEl = document.getElementById('human-cost');
+    const savingEl = document.getElementById('saving');
+    const savingYearEl = document.getElementById('saving-year');
+    const msgCountEl = document.getElementById('msg-count');
+
+    function aiPlanFor(msgs) {
+      if (msgs <= 50) return 500;
+      if (msgs <= 200) return 1500;
+      return 3000; // Enterprise-ঘেঁষা আনুমানিক
+    }
+
+    function updateCalc() {
+      const msgs = Number(slider.value);
+      const pct = ((msgs - slider.min) / (slider.max - slider.min)) * 100;
+      slider.style.setProperty('--fill', pct + '%');
+
+      const ai = aiPlanFor(msgs);
+      const human = 30000;         // ২ শিফট বাস্তব খরচ (নিচের নোট দেখুন)
+      const saving = Math.max(human - ai, 0);
+
+      msgCountEl.textContent = fmtBn(msgs);
+      humanCostEl.textContent = fmtBn(human);
+      aiCostEl.textContent = fmtBn(ai);
+      savingEl.textContent = fmtBn(saving);
+      savingYearEl.textContent = fmtBn(saving * 12);
+    }
+    slider.addEventListener('input', updateCalc);
+    updateCalc();
+
+    /* ---------- ফর্ম ভ্যালিডেশন + ওয়েবহুক ---------- */
+    // ──────────────────────────────────────────────────────────────
+    // WEBHOOK_URL — এখানে আপনার n8n Webhook node-এর URL বসান
+    // ফরম্যাট: http://127.0.0.1:5678/webhook/<webhookId>
+    // উদাহরণ: http://127.0.0.1:5678/webhook/gtm-landing-webhook
+    // ──────────────────────────────────────────────────────────────
+    const WEBHOOK_URL = 'http://127.0.0.1:5678/webhook/gtm-landing-webhook';
+
+    const form = document.getElementById('early-access-form');
+    const status = document.getElementById('form-status');
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const phoneRe = /^01[3-9]\d{8}$/;
+
+    const showErr = (el, show) => el.closest('div').querySelector('.err').classList.toggle('hidden', !show);
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const name = form.name;
+      const contact = form.contact;
+      const volume = form.daily_messages;
+
+      const c = contact.value.trim();
+      const contactOk = emailRe.test(c) || phoneRe.test(c.replace(/[\s-]/g, ''));
+
+      const bad = {
+        name: !name.value.trim(),
+        contact: !contactOk,
+        volume: !volume.value
+      };
+      showErr(name, bad.name);
+      showErr(contact, bad.contact);
+      showErr(volume, bad.volume);
+      if (bad.name || bad.contact || bad.volume) return;
+
+      const data = {
+        name: name.value.trim(),
+        contact: c,
+        contact_type: emailRe.test(c) ? 'email' : 'whatsapp',
+        daily_messages: volume.value,
+        estimated_daily_messages: Number(slider.value),
+        source: 'gtm-autolanding-v2-ai-care',
+        submitted_at: new Date().toISOString()
+      };
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'পাঠানো হচ্ছে…';
+
+      try {
+        if (WEBHOOK_URL) {
+          await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+        } else {
+          console.log('[webhook pending] ফর্ম ডেটা:', data);
+          await new Promise(r => setTimeout(r, 600));
+        }
+        status.className = 'rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 text-center text-sm text-emerald-300';
+        status.textContent = '✅ ধন্যবাদ! ২৪ ঘণ্টার মধ্যে আপনার পেজের ফ্রি ক্যালকুলেশন পাঠাব।';
+        form.reset();
+      } catch (err) {
+        status.className = 'rounded-xl border border-red-400/40 bg-red-400/10 p-3 text-center text-sm text-red-300';
+        status.textContent = 'দুঃখিত, পাঠানো যায়নি। একটু পরে আবার চেষ্টা করুন।';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'ফ্রি ক্যালকুলেশন পান';
+      }
+    });
+  </script>
+</body>
+</html>
