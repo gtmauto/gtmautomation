@@ -114,6 +114,44 @@
       .typing-dot { animation: none !important; }
       html { scroll-behavior: auto; }
     }
+
+    /* ফ্লোটিং Messenger বাটন */
+    .messenger-fab, .whatsapp-fab {
+      position: fixed;
+      right: max(1rem, env(safe-area-inset-right));
+      z-index: 60;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.15rem; border-radius: 9999px;
+      font-weight: 700; font-size: .95rem; line-height: 1;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .messenger-fab {
+      bottom: max(1rem, env(safe-area-inset-bottom));
+      background: #0084ff; color: #fff;
+      box-shadow: 0 6px 24px rgba(0,132,255,.45), 0 0 0 1px rgba(255,255,255,.15) inset;
+    }
+    .whatsapp-fab {
+      /* Messenger-এর ঠিক ওপরে — একটার সাথে আরেকটা মেলে না */
+      bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.1rem);
+      background: #25D366; color: #fff;
+      box-shadow: 0 6px 24px rgba(37,211,102,.45), 0 0 0 1px rgba(255,255,255,.15) inset;
+    }
+    .messenger-fab:hover, .messenger-fab:focus-visible {
+      background: #0074e8; transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 32px rgba(0,132,255,.6);
+    }
+    .whatsapp-fab:hover, .whatsapp-fab:focus-visible {
+      background: #1fb857; transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 32px rgba(37,211,102,.6);
+    }
+    @media (max-width: 400px) {
+      .messenger-fab, .whatsapp-fab { padding: .7rem .95rem; font-size: .85rem; }
+      .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.8rem); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .messenger-fab, .whatsapp-fab { transition: none; }
+      .messenger-fab:hover, .whatsapp-fab:hover { transform: none; }
+    }
   </style>
 </head>
 
@@ -369,42 +407,65 @@
     </div>
   </section>
 
-  <!-- ================= খরচ ক্যালকুলেটর ================= -->
+  <!-- ================= ROI ক্যালকুলেটর (৫ ট্যাব) ================= -->
   <section id="calculator" class="relative py-16 sm:py-24" style="scroll-margin-top:5rem">
     <div class="glow-blob drift-slow left-[-6%] top-1/3 h-72 w-72 bg-neon-blue/40"></div>
-    <div class="relative mx-auto max-w-3xl px-4 sm:px-6">
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6">
       <div class="reveal mx-auto max-w-2xl text-center">
-        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">আপনি কত <span class="neon-text">বাঁচাবেন?</span></h2>
-        <p class="mt-3 text-slate-400">স্লাইডারটা টানুন — আপনার পেজে প্রতিদিন যতটা মেসেজ আসে।</p>
+        <h2 class="text-2xl font-extrabold text-white sm:text-3xl">অটোমেশনে আপনার <span class="neon-text">কত লাভ হবে?</span></h2>
+        <p class="mt-3 text-slate-400">ট্যাব বেছে নিন, নিজের সংখ্যা বসান — হিসাব সাথে সাথে বদলাবে।</p>
       </div>
 
-      <div class="reveal glass mt-10 rounded-3xl p-6 sm:p-10">
-        <label for="msg-slider" class="block text-center text-base font-semibold text-slate-200">
-          প্রতিদিন মেসেজ: <span id="msg-count" class="text-neon-blue">৫০</span>টা
-        </label>
-        <input id="msg-slider" type="range" min="10" max="500" step="10" value="50"
-               class="mt-5 w-full" aria-describedby="calc-results" />
+      <div id="roi-calc" class="reveal glass mt-10 rounded-3xl p-5 sm:p-8">
+        <!-- ট্যাবগুলো JS থেকে বসে -->
+        <div id="roi-tabs" class="flex flex-wrap gap-2" role="tablist" aria-label="ক্যালকুলেটরের ট্যাব"></div>
 
-        <div id="calc-results" class="mt-8 grid gap-4 sm:grid-cols-3">
-          <div class="rounded-2xl border border-red-400/20 bg-red-400/5 p-4 text-center">
-            <p class="text-xs text-slate-400">মানুষ দিয়ে (২ শিফট)</p>
-            <p class="mt-1.5 text-xl font-extrabold text-red-300">৳<span id="human-cost">৩০,০০০</span></p>
-            <p class="mt-1 text-[11px] text-slate-500">বেতন + শিফট + ছুটির ঝুঁকি</p>
-          </div>
-          <div class="rounded-2xl border border-neon-blue/30 bg-neon-blue/5 p-4 text-center">
-            <p class="text-xs text-slate-400">আমাদের AI দিয়ে</p>
-            <p class="mt-1.5 text-xl font-extrabold text-white">৳<span id="ai-cost">৫০০</span></p>
-            <p class="mt-1 text-[11px] text-slate-500">ফ্ল্যাট মাসিক ফি</p>
-          </div>
+        <!-- মূল ইনপুট (সবসময় দেখা যায়) -->
+        <div id="roi-inputs" role="tabpanel" class="mt-6 grid gap-x-5 gap-y-4 sm:grid-cols-2"></div>
+
+        <!-- অ্যাডভান্সড -->
+        <button type="button" id="roi-adv-btn" aria-expanded="false"
+                class="mt-5 rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-neon-blue hover:text-neon-blue">
+          অ্যাডভান্সড অপশন ▾
+        </button>
+        <div id="roi-advanced" class="mt-4 hidden grid gap-x-5 gap-y-4 sm:grid-cols-2"></div>
+
+        <!-- অনুমান: অটোমেশনে কতটা উন্নতি হবে (ইউজার বদলাতে পারে) -->
+        <div class="mt-6 rounded-2xl border border-neon-blue/25 bg-neon-blue/5 p-4">
+          <p class="text-sm font-bold text-slate-200">অটোমেশনে কতটা উন্নতি হবে — এটা আপনি ঠিক করুন</p>
+          <div id="roi-uplift" class="mt-4 grid gap-x-5 gap-y-4 sm:grid-cols-2"></div>
+          <p class="mt-3 text-xs text-slate-500">ডিফল্টগুলো রক্ষণশীল ধরা হয়েছে — নিজের অভিজ্ঞতা অনুযায়ী বদলাতে পারেন।</p>
+        </div>
+
+        <!-- আউটপুট -->
+        <div id="roi-results" class="mt-6 grid gap-4 sm:grid-cols-2">
           <div class="rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4 text-center shadow-neon-blue">
-            <p class="text-xs text-slate-300">মাসে সাশ্রয়</p>
-            <p class="mt-1.5 text-2xl font-extrabold text-emerald-300" style="text-shadow:0 0 18px rgba(52,211,153,.5)">৳<span id="saving">২৯,৫০০</span></p>
-            <p class="mt-1 text-[11px] text-slate-400">বছরে ৳<span id="saving-year">৩,৫৪,০০০</span></p>
+            <p class="text-xs text-slate-300">মাসে আনুমানিক সাশ্রয় / বাড়তি আয়</p>
+            <p class="mt-1.5 text-2xl font-extrabold text-emerald-300" style="text-shadow:0 0 18px rgba(52,211,153,.5)">৳<span id="roi-benefit">০</span></p>
+          </div>
+          <div class="rounded-2xl border border-white/15 bg-white/5 p-4 text-center">
+            <p class="text-xs text-slate-400">নিট লাভ (প্যাকেজ খরচ বাদে)</p>
+            <p class="mt-1.5 text-2xl font-extrabold text-white">৳<span id="roi-net">০</span><span class="text-sm font-medium text-slate-400">/মাস</span></p>
+          </div>
+          <div class="rounded-2xl border border-white/15 bg-white/5 p-4 text-center">
+            <p class="text-xs text-slate-400">মাসিক ROI (লাভের হার)</p>
+            <p class="mt-1.5 text-xl font-extrabold text-neon-blue"><span id="roi-pct">০</span>%</p>
+          </div>
+          <div class="rounded-2xl border border-white/15 bg-white/5 p-4 text-center">
+            <p class="text-xs text-slate-400">প্যাকেজের খরচ উঠে আসবে</p>
+            <p class="mt-1.5 text-xl font-extrabold text-white"><span id="roi-payback">—</span> দিনে</p>
           </div>
         </div>
 
+        <p class="mt-4 text-center text-base text-slate-200">
+          আপনার জন্য মানানসই প্যাকেজ: <span id="roi-plan" class="font-extrabold text-neon-blue">—</span>
+        </p>
+
+        <!-- জরুরি সতর্কতা (শর্তসাপেক্ষে দেখা যায়) -->
+        <div id="roi-warn" class="mt-3 hidden rounded-xl border border-amber-400/30 bg-amber-400/10 p-3 text-sm text-amber-200" role="alert"></div>
+
         <p class="mt-6 text-center text-xs text-slate-500">
-          * হিসাবটা একজন দিন-শিফট + একজন রাত-শিফট এক্সিকিউটিভের বাস্তব খরচের ভিত্তিতে (বেতন + ছুটি/turnover)। আপনার সংখ্যা আলাদা হলে ফ্রি ক্যালকুলেশনে হুবহু হিসাব করে দেব।
+          * এটা আনুমানিক হিসাব, আসল ফল ব্যবসাভেদে আলাদা।
         </p>
       </div>
     </div>
@@ -653,41 +714,206 @@
     }
     playChatLoop();
 
-    /* ---------- খরচ ক্যালকুলেটর ---------- */
+    /* ---------- ROI ক্যালকুলেটর (৫ ট্যাব, plain JS) ---------- */
     const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
     const toBn = (n) => String(n).replace(/\d/g, d => bnDigits[d]);
-    const fmtBn = (n) => toBn(n.toLocaleString('en-US'));
+    const fmtBn = (n) => toBn(Number(n).toLocaleString('en-US'));
 
-    const slider = document.getElementById('msg-slider');
-    const aiCostEl = document.getElementById('ai-cost');
-    const humanCostEl = document.getElementById('human-cost');
-    const savingEl = document.getElementById('saving');
-    const savingYearEl = document.getElementById('saving-year');
-    const msgCountEl = document.getElementById('msg-count');
+    // ── দাম এক জায়গায় (PRICES) — পরে বদলাতে সুবিধা ──
+    const ROI_PRICES = {
+      order:     { label: 'অর্ডার অটোমেশন', plans: [ { name: 'Starter', price: 5000 }, { name: 'Professional', price: 10000 }, { name: 'Enterprise', price: 15000 } ] },
+      support:   { label: 'কাস্টমার সাপোর্ট', plans: [ { name: 'Starter', price: 500 }, { name: 'Professional', price: 1500 } ] },
+      lead:      { label: 'লিড জেনারেশন', plans: [ { name: 'Starter', price: 1000 }, { name: 'Professional', price: 3000 } ] },
+      funnel:    { label: 'সেলস ফানেল', plans: [ { name: 'Starter', price: 5000 }, { name: 'Professional', price: 10000 } ] },
+      analytics: { label: 'অ্যানালিটিক্স (অ্যাড-অন)', plans: [ { name: 'Add-on', price: 2000 } ] }
+    };
 
-    function aiPlanFor(msgs) {
-      if (msgs <= 50) return 500;
-      if (msgs <= 200) return 1500;
-      return 3000; // Enterprise-ঘেঁষা আনুমানিক
+    // ২০টা ইনপুট + উন্নতি-শতাংশ — ডিফল্ট সব রক্ষণশীল
+    const ROI_INP = {
+      d_orders:     { label: 'দৈনিক অর্ডার সংখ্যা', def: 20, hint: 'না জানলে ২০ রাখুন' },
+      aov:          { label: 'গড় অর্ডার মূল্য (৳)', def: 1200, hint: 'না জানলে ১২০০ রাখুন' },
+      margin:       { label: 'পণ্যে গড় লাভের হার (%)', def: 30, hint: 'না জানলে ৩০ রাখুন' },
+      workdays:     { label: 'মাসে কার্যদিবস', def: 26, hint: 'না জানলে ২৬ রাখুন' },
+      ad_spend:     { label: 'মাসিক বিজ্ঞাপন খরচ (৳)', def: 10000, hint: 'বিজ্ঞাপন না চালালে ০ রাখুন' },
+      op_confirm:   { label: 'অর্ডার কনফার্ম করার কর্মী সংখ্যা', def: 1, hint: 'না জানলে ১ রাখুন' },
+      salary:       { label: 'কর্মীর গড় মাসিক বেতন (৳)', def: 15000, hint: 'না জানলে ১৫০০০ রাখুন' },
+      confirm_min:  { label: 'প্রতি অর্ডার কনফার্ম করতে গড় সময় (মিনিট)', def: 5, hint: 'না জানলে ৫ রাখুন' },
+      cc_staff:     { label: 'কাস্টমার কেয়ার কর্মী সংখ্যা', def: 1, hint: 'না জানলে ১ রাখুন' },
+      night_pct:    { label: 'রাত/ছুটিতে উত্তর না মেলা মেসেজের হার (%)', def: 30, hint: 'না জানলে ৩০ রাখুন' },
+      fake_pct:     { label: 'ভুয়া বা ফেক অর্ডারের হার (%)', def: 15, hint: 'না জানলে ১৫ রাখুন' },
+      return_pct:   { label: 'ফেরত (রিটার্ন) অর্ডারের হার (%)', def: 15, hint: 'না জানলে ১৫ রাখুন' },
+      courier_loss: { label: 'প্রতি ফেরত অর্ডারে কুরিয়ার লোকসান (৳)', def: 120, hint: 'না জানলে ১২০ রাখুন' },
+      cancel_pct:   { label: 'দেরি/ফোন না ধরায় বাতিল অর্ডারের হার (%)', def: 10, hint: 'না জানলে ১০ রাখুন' },
+      badaddr_pct:  { label: 'ভুল বা অসম্পূর্ণ ঠিকানার হার (%)', def: 10, hint: 'না জানলে ১০ রাখুন' },
+      leads:        { label: 'মাসে আসা মেসেজ বা লিড সংখ্যা', def: 300, hint: 'না জানলে ৩০০ রাখুন' },
+      conv_pct:     { label: 'লিড থেকে অর্ডারে রূপান্তরের হার (%)', def: 10, hint: 'না জানলে ১০ রাখুন' },
+      followup_pct: { label: 'যেসব লিডের ফলো-আপ হয়ই না (%)', def: 60, hint: 'না জানলে ৬০ রাখুন' },
+      repeat_pct:   { label: 'রিপিট কাস্টমারের হার (%)', def: 10, hint: 'না জানলে ১০ রাখুন' },
+      buy_freq:     { label: 'একজন কাস্টমার বছরে গড়ে কতবার কেনে', def: 4, hint: 'না জানলে ৪ রাখুন' },
+
+      u_fake:   { label: 'ফেক অর্ডার কমবে (%)', def: 50, hint: 'ডিফল্ট রক্ষণশীল' },
+      u_ret:    { label: 'রিটার্ন কমবে (%)', def: 30, hint: 'ডিফল্ট রক্ষণশীল' },
+      u_cancel: { label: 'বাতিল অর্ডার কমবে (%)', def: 60, hint: 'দ্রুত উত্তরে বাতিল কমে' },
+      u_addr:   { label: 'ঠিকানা-সমস্যা কমবে (%)', def: 70, hint: 'অটো ঠিকানা যাচাই' },
+      u_night:  { label: 'রাতের মেসেজও উত্তর হবে (%)', def: 80, hint: 'AI ২৪/৭ জাগ্রত' },
+      u_conv:   { label: 'লিড→অর্ডার কনভার্সন বাড়বে (%)', def: 25, hint: 'ডিফল্ট রক্ষণশীল' },
+      u_fup:    { label: 'ফলো-আপ হওয়া লিড বাড়বে (%)', def: 70, hint: 'অটো ফলো-আপ' },
+      u_speed:  { label: 'দ্রুত উত্তরে বাতিল অর্ডার কমবে (%)', def: 60, hint: 'সেকেন্ডে উত্তর' },
+      u_ad:     { label: 'বিজ্ঞাপন খরচ বাঁচবে (%)', def: 25, hint: 'ডেটা-ভিত্তিক সিদ্ধান্ত' }
+    };
+
+    // প্রতি ট্যাবে কোন ইনপুট: core সবসময় দেখা যায়, adv "অ্যাডভান্সড"-এর ভেতরে
+    const ROI_TABS = {
+      order:     { core: ['d_orders','aov','op_confirm','salary','fake_pct','return_pct'],
+                   adv:  ['margin','workdays','ad_spend','confirm_min','cc_staff','night_pct','courier_loss','cancel_pct','badaddr_pct','leads','conv_pct','followup_pct','repeat_pct','buy_freq'] },
+      support:   { core: ['leads','cc_staff','salary','night_pct','conv_pct'],
+                   adv:  ['d_orders','aov','margin','workdays','confirm_min','fake_pct','return_pct','courier_loss','cancel_pct','badaddr_pct','followup_pct','repeat_pct','buy_freq'] },
+      lead:      { core: ['leads','conv_pct','followup_pct','aov','margin'],
+                   adv:  ['d_orders','cc_staff','salary','workdays','confirm_min','night_pct','fake_pct','return_pct','courier_loss','cancel_pct','badaddr_pct','repeat_pct','buy_freq','ad_spend'] },
+      funnel:    { core: ['leads','conv_pct','aov','margin','ad_spend'],
+                   adv:  ['d_orders','cc_staff','salary','workdays','confirm_min','night_pct','fake_pct','return_pct','courier_loss','cancel_pct','badaddr_pct','followup_pct','repeat_pct','buy_freq'] },
+      analytics: { core: ['leads','conv_pct','aov','margin','ad_spend'],
+                   adv:  ['d_orders','cc_staff','salary','workdays','confirm_min','night_pct','fake_pct','return_pct','courier_loss','cancel_pct','badaddr_pct','repeat_pct','buy_freq'] }
+    };
+
+    // প্রতি ট্যাবের "অনুমান" ঘর (ডিফল্ট রক্ষণশীল, ইউজার বদলাতে পারে)
+    const ROI_UPLIFT = {
+      order:     ['u_fake','u_ret','u_cancel','u_addr'],
+      support:   ['u_night','u_conv','u_fup','u_speed'],
+      lead:      ['u_fup','u_conv','u_speed'],
+      funnel:    ['u_fup','u_conv','u_speed','u_ret'],
+      analytics: ['u_ad','u_conv','u_fup']
+    };
+
+    const roiState = { tab: 'order' };
+
+    // খালি/নেগেটিভ/অসংখ্যা → ০, পেজ কখনো ভাঙবে না
+    const roiNum = (id) => { const el = document.getElementById(id); if (!el) return 0; const n = parseFloat(el.value); return Number.isFinite(n) && n > 0 ? n : 0; };
+    const rv = (k) => roiNum('roi-' + k);
+    const part = (x, p) => x * (p / 100);
+
+    function roiBaseline(t) {
+      const orders = rv('d_orders'), aov = rv('aov'), leads = rv('leads'), margin = rv('margin');
+      const revenue = orders * aov;
+      const salary = (rv('op_confirm') + rv('cc_staff')) * rv('salary');
+      const night  = part(part(leads, rv('night_pct')), aov * (margin / 100) * 0.5);
+      const fake   = part(revenue, rv('fake_pct'));
+      const ret    = part(revenue, rv('return_pct')) + part(orders, rv('return_pct')) * rv('courier_loss');
+      const cancel = part(revenue, rv('cancel_pct'));
+      const addr   = part(revenue, rv('badaddr_pct'));
+      const conv   = Math.max(part(leads, rv('conv_pct')) * aov * (margin / 100) - revenue, 0);
+      const fup    = Math.max(part(part(leads, rv('followup_pct')), rv('conv_pct') * 0.5) * aov * (margin / 100) - revenue, 0);
+      const ads    = part(rv('ad_spend'), 30);
+      return { salary, night, fake, ret, cancel, addr, conv, fup, ads };
     }
 
-    function updateCalc() {
-      const msgs = Number(slider.value);
-      const pct = ((msgs - slider.min) / (slider.max - slider.min)) * 100;
-      slider.style.setProperty('--fill', pct + '%');
-
-      const ai = aiPlanFor(msgs);
-      const human = 30000;         // ২ শিফট বাস্তব খরচ (নিচের নোট দেখুন)
-      const saving = Math.max(human - ai, 0);
-
-      msgCountEl.textContent = fmtBn(msgs);
-      humanCostEl.textContent = fmtBn(human);
-      aiCostEl.textContent = fmtBn(ai);
-      savingEl.textContent = fmtBn(saving);
-      savingYearEl.textContent = fmtBn(saving * 12);
+    function roiGains(t, B) {
+      const g = {
+        fake:   part(B.fake,   rv('u_fake')),
+        ret:    part(B.ret,    rv('u_ret')),
+        cancel: part(B.cancel, rv('u_cancel')),
+        addr:   part(B.addr,   rv('u_addr')),
+        night:  part(B.night,  rv('u_night')),
+        conv:   part(B.conv,   rv('u_conv')),
+        fup:    part(B.fup,    rv('u_fup')),
+        ads:    part(B.ads,    rv('u_ad'))
+      };
+      const orderGains = g.fake + g.ret + g.cancel + g.addr + part(B.salary, 40) + g.night;
+      const leadGains  = g.conv + g.fup;
+      if (t === 'order')     return orderGains;
+      if (t === 'support')   return g.night + part(B.salary, 40) + g.conv;
+      if (t === 'lead')      return leadGains;
+      if (t === 'funnel')    return leadGains + g.ret;
+      return g.ads + part(leadGains, 40); // analytics
     }
-    slider.addEventListener('input', updateCalc);
-    updateCalc();
+
+    // লাভ অনুযায়ী সবচেয়ে সস্তা মানানসই প্যাকেজ
+    function roiPlanFor(t, benefit) {
+      const plans = ROI_PRICES[t].plans;
+      for (const p of plans) { if (benefit >= p.price * 2) return p; }
+      return plans[0];
+    }
+
+    function roiUpdate() {
+      const t = roiState.tab;
+      const B = roiBaseline(t);
+      const benefit = Math.round(roiGains(t, B));
+      const plan = roiPlanFor(t, benefit);
+      const price = plan.price;
+      const net = benefit - price;
+      const roiPct = price > 0 ? Math.round((net / price) * 100) : (benefit > 0 ? 999 : 0);
+      const days = benefit > 0 ? Math.max(1, Math.ceil(price / (benefit / 30))) : 0;
+
+      document.getElementById('roi-benefit').textContent = fmtBn(benefit);
+      document.getElementById('roi-net').textContent = fmtBn(Math.max(net, 0)) + (net < 0 ? ' (ক্ষতি)' : '');
+      document.getElementById('roi-pct').textContent = fmtBn(Math.min(roiPct, 999));
+      document.getElementById('roi-payback').textContent = benefit > 0 ? fmtBn(days) : '—';
+      document.getElementById('roi-plan').textContent = plan.name + ' (৳' + fmtBn(price) + '/মাস)';
+
+      const warn = document.getElementById('roi-warn');
+      const missing = [];
+      if (!rv('d_orders')) missing.push('দৈনিক অর্ডার');
+      if (!rv('leads')) missing.push('মাসিক লিড');
+      if (missing.length) {
+        warn.textContent = '⚠️ ' + missing.join(', ') + ' খালি বা ০ রাখা আছে — হিসাব অসম্পূর্ণ হতে পারে।';
+        warn.classList.remove('hidden');
+      } else {
+        warn.classList.add('hidden');
+      }
+    }
+
+    function roiInputHtml(k) {
+      const d = ROI_INP[k];
+      return '<div>' +
+        '<label for="roi-' + k + '" class="mb-1.5 block text-sm font-semibold text-slate-200">' + d.label + '</label>' +
+        '<input id="roi-' + k + '" type="number" min="0" step="any" value="' + d.def + '" inputmode="decimal"' +
+        ' class="field w-full rounded-xl border border-white/15 bg-night-900/70 px-4 py-2.5 text-white" />' +
+        (d.hint ? '<span class="mt-1 block text-[11px] text-slate-500">' + d.hint + '</span>' : '') +
+        '</div>';
+    }
+
+    const roiTabsEl = document.getElementById('roi-tabs');
+    const roiCoreEl = document.getElementById('roi-inputs');
+    const roiAdvEl  = document.getElementById('roi-advanced');
+    const roiUplEl  = document.getElementById('roi-uplift');
+    const roiAdvBtn = document.getElementById('roi-adv-btn');
+
+    Object.entries(ROI_PRICES).forEach(([key, cfg]) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.tab = key;
+      b.setAttribute('role', 'tab');
+      b.textContent = cfg.label;
+      b.addEventListener('click', () => roiRender(key));
+      roiTabsEl.appendChild(b);
+    });
+
+    roiAdvBtn.addEventListener('click', () => {
+      const open = roiAdvEl.classList.toggle('hidden') === false;
+      roiAdvBtn.setAttribute('aria-expanded', String(open));
+      roiAdvBtn.textContent = open ? 'অ্যাডভান্সড অপশন ▴' : 'অ্যাডভান্সড অপশন ▾';
+    });
+
+    function roiRender(t) {
+      roiState.tab = t;
+      roiTabsEl.querySelectorAll('button').forEach(b => {
+        const on = b.dataset.tab === t;
+        b.className = on
+          ? 'rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple px-4 py-2 text-sm font-bold text-white shadow-neon-blue'
+          : 'rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-neon-blue/60 hover:text-white';
+        b.setAttribute('aria-selected', String(on));
+      });
+      roiCoreEl.innerHTML = ROI_TABS[t].core.map(roiInputHtml).join('');
+      roiAdvEl.innerHTML  = ROI_TABS[t].adv.map(roiInputHtml).join('');
+      roiUplEl.innerHTML  = ROI_UPLIFT[t].map(roiInputHtml).join('');
+      roiAdvEl.classList.add('hidden');
+      roiAdvBtn.setAttribute('aria-expanded', 'false');
+      roiAdvBtn.textContent = 'অ্যাডভান্সড অপশন ▾';
+      document.getElementById('roi-calc').querySelectorAll('input').forEach(i => i.addEventListener('input', roiUpdate));
+      roiUpdate();
+    }
+
+    roiRender('order');
 
     /* ---------- ফর্ম ভ্যালিডেশন + ওয়েবহুক ---------- */
     // ──────────────────────────────────────────────────────────────
@@ -760,5 +986,17 @@
       }
     });
   </script>
+
+  <!-- ফ্লোটিং Messenger বাটন (সাধারণ লিংক — কোনো SDK/বাইরের স্ক্রিপ্ট নেই) -->
+  <a href="https://m.me/gmtautomation" target="_blank" rel="noopener" class="messenger-fab" aria-label="Messenger-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.92 1.46 5.52 3.74 7.22V22l3.42-1.88c.9.25 1.86.38 2.84.38 5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1.06 12.44-2.55-2.72-4.97 2.72 5.47-5.81 2.61 2.72 4.9-2.72-5.46 5.81z"/></svg>
+    Messenger-এ কথা বলুন
+  </a>
+
+  <!-- ফ্লোটিং WhatsApp বাটন (Messenger-এর ঠিক ওপরে, সাধারণ লিংক) -->
+  <a href="https://wa.me/8801544419518?text=%E0%A6%B9%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%B2%E0%A7%8B%2C%20%E0%A6%86%E0%A6%AA%E0%A6%A8%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B0%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A6%B0%E0%A7%8D%E0%A6%95%E0%A7%87%20%E0%A6%9C%E0%A6%BE%E0%A6%A8%E0%A6%A4%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.42-9.4 2.52 0 4.88.98 6.66 2.76a9.34 9.34 0 0 1 2.75 6.65c0 5.19-4.22 9.41-9.42 9.41zM20.5 3.49A11.78 11.78 0 0 0 12.04 0C5.49 0 .16 5.33.16 11.88c0 2.09.55 4.14 1.59 5.94L.06 24l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.43-8.41z"/></svg>
+    WhatsApp-এ কথা বলুন
+  </a>
 </body>
 </html>
