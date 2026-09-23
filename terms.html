@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>শর্তাবলী (Terms of Service) — GTM Automation Bangladesh</title>
+  <meta name="description" content="GTM Automation সার্ভিসের ব্যবহারের শর্তাবলী — সার্ভিস কী দেয়, আপনার দায়িত্ব, AI-র সীমা, বিলিং, বাতিল, রিফান্ড ও দায়সীমা।" />
+  <link rel="canonical" href="https://gtmauto.github.io/gtmautomation/terms.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="শর্তাবলী (Terms of Service) — GTM Automation" />
+  <meta property="og:description" content="সার্ভিস, দায়িত্ব, AI-র সীমা, বিলিং, বাতিল ও রিফান্ড নিয়ে পরিষ্কার শর্তাবলী।" />
+  <meta property="og:url" content="https://gtmauto.github.io/gtmautomation/terms.html" />
+  <meta name="theme-color" content="#05070f" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            night: { 950: '#05070f', 900: '#0a0f1e', 800: '#101830', 700: '#1a2440' },
+            neon:  { blue: '#38bdf8', indigo: '#6366f1', purple: '#a855f7' }
+          },
+          fontFamily: { bangla: ['"Noto Sans Bengali"', '"Roboto Slab"', 'sans-serif'] },
+          boxShadow: {
+            'neon-blue':  '0 0 24px rgba(56,189,248,.45), 0 0 60px rgba(56,189,248,.18)',
+            'glass':      '0 8px 32px rgba(2,6,23,.55)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Roboto+Slab:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans Bengali', 'Roboto Slab', sans-serif;
+      background-color: #05070f;
+      background-image:
+        linear-gradient(180deg, rgba(5,7,15,.93) 0%, rgba(5,7,15,.88) 45%, rgba(5,7,15,.94) 100%),
+        url('bot-bg.svg');
+      background-attachment: fixed;
+      background-repeat: no-repeat, repeat;
+      background-size: auto, 480px 480px;
+    }
+    .glass {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 32px rgba(2,6,23,.55);
+    }
+    .neon-text {
+      background: linear-gradient(92deg, #38bdf8 0%, #818cf8 50%, #a855f7 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 18px rgba(99,102,241,.35));
+    }
+    #navbar { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    #navbar.scrolled { background: rgba(5,7,15,.85); backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(2,6,23,.6); border-color: rgba(255,255,255,.08); }
+
+    .doc p, .doc li { color: #cbd5e1; line-height: 1.95; }
+    .doc h2 { color: #fff; font-weight: 800; font-size: 1.2rem; line-height: 1.7; margin-bottom: .6rem; }
+    .doc h3 { color: #e2e8f0; font-weight: 700; font-size: 1.02rem; }
+    .doc a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
+    .doc strong { color: #fff; font-weight: 700; }
+    .doc ul { list-style: none; padding-left: 0; }
+    .doc li { position: relative; padding-left: 1.1rem; }
+    .doc li::before { content: "•"; position: absolute; left: .2rem; color: #38bdf8; }
+    .doc section { scroll-margin-top: 96px; }
+
+    .toc a { color: #94a3b8; }
+    .toc a:hover { color: #38bdf8; }
+
+    .messenger-fab, .whatsapp-fab {
+      position: fixed; right: max(1rem, env(safe-area-inset-right)); z-index: 60;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.15rem; border-radius: 9999px;
+      font-weight: 700; font-size: .95rem; line-height: 1;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .messenger-fab { bottom: max(1rem, env(safe-area-inset-bottom)); background: #0084ff; color: #fff; box-shadow: 0 6px 24px rgba(0,132,255,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.1rem); background: #25D366; color: #fff; box-shadow: 0 6px 24px rgba(37,211,102,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .messenger-fab:hover, .messenger-fab:focus-visible { background: #0074e8; transform: translateY(-2px) scale(1.03); }
+    .whatsapp-fab:hover, .whatsapp-fab:focus-visible { background: #1fb857; transform: translateY(-2px) scale(1.03); }
+    @media (max-width: 400px) {
+      .messenger-fab, .whatsapp-fab { padding: .7rem .95rem; font-size: .85rem; }
+      .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.8rem); }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      #navbar, .messenger-fab, .whatsapp-fab, .no-print { display: none !important; }
+      .glass { border: 1px solid #ddd !important; box-shadow: none !important; background: #fff !important; }
+      .doc p, .doc li, .doc h2, .doc h3, .doc strong { color: #111 !important; }
+      .doc a { color: #0645ad !important; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    :target { scroll-margin-top: 96px; }
+  </style>
+</head>
+
+<body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
+
+  <!-- ================= নেভিগেশন ================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 border-b border-transparent">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6" aria-label="প্রধান মেনু">
+      <a href="index.html" class="flex items-center gap-2">
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-neon-blue to-neon-purple shadow-neon-blue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-8 8H6l-3 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg>
+        </span>
+        <span class="text-lg font-bold text-white">GTM <span class="neon-text">Automation</span></span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+        <a href="index.html#cost" class="transition hover:text-white">খরচ</a>
+        <a href="index.html#features" class="transition hover:text-white">ফিচার</a>
+        <a href="index.html#calculator" class="transition hover:text-white">ক্যালকুলেটর</a>
+        <a href="index.html#pricing" class="transition hover:text-white">প্রাইসিং</a>
+        <a href="faq.html" class="transition hover:text-white">FAQ</a>
+        <a href="index.html#lead-form" class="rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">ফ্রি ডেমো</a>
+      </div>
+
+      <button id="menu-btn" class="grid h-10 w-10 place-items-center rounded-lg glass md:hidden" aria-label="মেনু খুলুন" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-night-950/95 px-4 py-4 md:hidden">
+      <a href="index.html#cost" class="block py-2 text-slate-300">খরচ</a>
+      <a href="index.html#features" class="block py-2 text-slate-300">ফিচার</a>
+      <a href="index.html#calculator" class="block py-2 text-slate-300">ক্যালকুলেটর</a>
+      <a href="index.html#pricing" class="block py-2 text-slate-300">প্রাইসিং</a>
+      <a href="faq.html" class="block py-2 text-slate-300">FAQ</a>
+      <a href="privacy.html" class="block py-2 text-slate-300">প্রাইভেসি পলিসি</a>
+      <a href="terms.html" class="block py-2 font-semibold text-white">শর্তাবলী</a>
+      <a href="index.html#lead-form" class="mt-2 block rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple py-2 text-center font-semibold text-white">ফ্রি ডেমো দেখুন</a>
+    </div>
+  </header>
+
+  <!-- ================= শিরোনাম ================= -->
+  <section class="relative overflow-hidden pt-28 pb-8 sm:pt-36 sm:pb-10">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,.10),transparent_60%)]"></div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6">
+      <nav class="mb-4 text-sm text-slate-400" aria-label="ব্রেডক্রাম্ব">
+        <a href="index.html" class="transition hover:text-neon-blue">হোম</a>
+        <span class="px-2 text-slate-600" aria-hidden="true">/</span>
+        <span class="text-slate-300">শর্তাবলী</span>
+      </nav>
+
+      <h1 class="text-3xl font-extrabold leading-snug text-white sm:text-4xl">
+        ব্যবহারের <span class="neon-text">শর্তাবলী</span>
+      </h1>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+        আমরা সত্যিই কী দিই, আপনার কী দায়িত্ব, AI কোথায় ভুল করতে পারে, বিলিং ও বাতিল কীভাবে হয় —
+        সব সোজা ভাষায়। নিচে ইংরেজি সংস্করণও আছে।
+      </p>
+      <div class="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+        <span class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5">কার্যকর: ২৩ সেপ্টেম্বর ২০২৬</span>
+        <a href="faq.html" class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5 transition hover:text-neon-blue">সাধারণ জিজ্ঞাসা (FAQ)</a>
+        <a href="privacy.html" class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5 transition hover:text-neon-blue">প্রাইভেসি পলিসি</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= সূচিপত্র ================= -->
+  <div class="mx-auto max-w-4xl px-4 pb-4 sm:px-6">
+    <nav class="toc glass rounded-2xl p-5" aria-label="সূচিপত্র">
+      <p class="mb-3 text-sm font-semibold text-white">সূচিপত্র</p>
+      <ul class="grid gap-2 text-sm sm:grid-cols-2">
+        <li><a href="#who">১. আমরা কারা / এই ডকুমেন্ট</a></li>
+        <li><a href="#service">২. সার্ভিস আসলে কী</a></li>
+        <li><a href="#yours">৩. আপনার দায়িত্ব</a></li>
+        <li><a href="#ai">৪. AI-র সীমাবদ্ধতা</a></li>
+        <li><a href="#billing">৫. প্ল্যান, বিলিং ও মূল্য</a></li>
+        <li><a href="#cancel">৬. বাতিল ও রিফান্ড</a></li>
+        <li><a href="#uptime">৭. আপটাইম ও তৃতীয় পক্ষ</a></li>
+        <li><a href="#data">৮. আপনার তথ্য ও কনটেন্ট</a></li>
+        <li><a href="#ip">৯. বৌদ্ধিক সম্পত্তি</a></li>
+        <li><a href="#abuse">১০. নিষিদ্ধ ব্যবহার ও সাসপেনশন</a></li>
+        <li><a href="#liability">১১. দায়সীমা</a></li>
+        <li><a href="#changes">১২. পরিবর্তন</a></li>
+        <li><a href="#end">১৩. চুক্তির সমাপ্তি</a></li>
+        <li><a href="#law">১৪. প্রযোজ্য আইন ও যোগাযোগ</a></li>
+        <li><a href="#english">English version</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ================= মূল ডকুমেন্ট ================= -->
+  <main class="mx-auto max-w-4xl px-4 pb-24 sm:px-6">
+    <div class="doc glass rounded-2xl p-6 sm:p-9">
+
+      <section id="who">
+        <h2>১. আমরা কারা / এই ডকুমেন্ট</h2>
+        <p>
+          এই শর্তাবলী <strong>GTM Automation</strong>-এর AI কাস্টমার-কেয়ার সার্ভিসের (“সার্ভিস”)
+          জন্য প্রযোজ্য। আমরা দিই (“আমরা”), এবং গ্রাহক ব্যবসা নেয় (“আপনি”)। সাবস্ক্রাইব করলে,
+          বা আমরা পরিবর্তনের নোটিশ দেওয়ার পরেও সার্ভিস ব্যবহার চালিয়ে গেলে, আপনি এই শর্তাবলী মেনে নিচ্ছেন।
+        </p>
+        <p class="mt-3">
+          এই ডকুমেন্ট নিয়ে যেকোনো প্রশ্নে যোগাযোগ — WhatsApp <a href="https://wa.me/8801886723675">01886723675</a>
+          অথবা Messenger <a href="https://m.me/gtmautomation">m.me/gtmautomation</a>। উত্তর দেয় মানুষ।
+        </p>
+        <p class="mt-3">
+          <strong>বাংলা সংস্করণটিই মূল প্রযোজ্য টেক্সট</strong>; ইংরেজি অংশটি সুবিধার জন্য অনুবাদ।
+        </p>
+      </section>
+
+      <section id="service" class="mt-9">
+        <h2>২. সার্ভিস আসলে কী</h2>
+        <ul class="space-y-3">
+          <li>আপনার সাথে কানেক্ট করা চ্যানেলে আসা কাস্টমার মেসেজের <strong>AI দিয়ে অটো-রিপ্লাই</strong>। ২৩ সেপ্টেম্বর ২০২৬ পর্যন্ত চালু: <strong>Facebook পেজের Messenger</strong> ও <strong>Instagram DM</strong>। <strong>WhatsApp Business (+880 1886 723675)</strong> অনবোর্ডিং হচ্ছে — চালু হওয়ার আগে ওই নম্বরে আমাদের মানব-টিম উত্তর দেয়।</li>
+          <li>বট উত্তর দেয় <strong>শুধু আপনার দেওয়া ব্যবসার তথ্য</strong> (নলেজ বেস) থেকে — ওয়েব ব্রাউজ করে না, নিজে থেকে দাম বা পলিসি বানায় না।</li>
+          <li>জটিল কেস — অভিযোগ, রিফান্ড, পেমেন্ট প্রশ্ন, বা নলেজ বেসে উত্তর নেই এমন কিছু — <strong>মানুষের কাছে এস্কালেট</strong> হয়, এবং টিম একই চ্যাটে উত্তর দেয়।</li>
+          <li>ল্যান্ডিং পেজের ফর্ম থেকে লিড ক্যাপচার (নাম, ইমেইল/WhatsApp নম্বর, দৈনিক মেসেজের পরিমাণ)।</li>
+          <li>কথোপকথনের প্রেক্ষাপট: প্রতি চ্যাটের শেষ ~১০টি মেসেজ, যাতে উত্তর প্রাসঙ্গিক থাকে।</li>
+        </ul>
+        <p class="mt-4">
+          আমরা <strong>ফিজিক্যাল পণ্য বিক্রি করি না</strong>, আপনার ইনফ্রা হোস্ট করি না, এবং আপনার হয়ে কোনো
+          কেনাকাটা বা পেমেন্ট করি না। AI কোনো পেমেন্ট নেয় না।
+        </p>
+      </section>
+
+      <section id="yours" class="mt-9">
+        <h2>৩. আপনার দায়িত্ব</h2>
+        <ul class="space-y-3">
+          <li>আমাদের <strong>সঠিক ব্যবসার তথ্য</strong> (দাম, ডেলিভারি, পলিসি, সাধারণ প্রশ্নোত্তর) দিন এবং হালনাগাদ রাখুন। বট ওই তথ্য থেকেই উত্তর দেয় — আপনি যা লিখবেন, কাস্টমার ঠিক সেটাই শুনবে।</li>
+          <li><strong>আপনার বট কাস্টমারদের যে প্রতিশ্রুতি দেয়, তার দায়িত্ব আপনার</strong> — যেমন কর্মচারী লিখলে হতো। দাম বা পলিসি বদলালে আমাদের জানান; নলেজ বেস আপডেট সাধারণত ডাউনটাইম ছাড়াই কার্যকর হয়।</li>
+          <li>শুধু বৈধভাবে বিক্রয়যোগ্য পণ্য/সার্ভিস অফার করুন, এবং সংশ্লিষ্ট প্ল্যাটফর্মের নীতি মানুন (Meta-র Platform Terms ও Commerce Policies, এবং প্রযোজ্য বাংলাদেশি আইন)।</li>
+          <li>অননুমোদিত বাল্ক মেসেজিং, স্প্যাম, ফিশিং বা হয়রানির জন্য সার্ভিস ব্যবহার করবেন না। চ্যানেলগুলো সেই কাস্টমারদের উত্তর দেওয়ার জন্য, যারা নিজে আপনাকে মেসেজ দেন।</li>
+          <li>নিজের চ্যানেল অ্যাকাউন্ট ও পাসওয়ার্ড নিরাপদ রাখুন; আপত্তিকর কিছু সন্দেহ হলে সাথে সাথে জানান।</li>
+          <li>চ্যাটে <strong>কার্ড নম্বর, ব্যাংক তথ্য, পিন, OTP বা পাসওয়ার্ড পাঠাবেন না</strong> — আমরা কখনো চাই না।</li>
+          <li>আপনার টিমের কাছে আসা এস্কালেটেড কেসগুলোর উত্তর দিন — সার্ভিস সেগুলো আপনার কাছে পৌঁছে দেয়, আপনার কাস্টমার-ডিসপিউট আমরা আপনার হয়ে মিটিয়ে দিই না।</li>
+        </ul>
+      </section>
+
+      <section id="ai" class="mt-9">
+        <h2>৪. AI-র সীমাবদ্ধতা (একবার পড়ে নিন)</h2>
+        <ul class="space-y-3">
+          <li>সার্ভিসটি একটি AI অ্যাসিস্ট্যান্ট — মানুষ নয়, পেশাদার পরামর্শদাতাও নয়। শুধু আপনার নলেজ বেস থেকে উত্তর দিতে ও বুঝতে না পারলে এস্কালেট করতে বানানো হলেও এটি <strong>ভুল, অসম্পূর্ণ বা মেসেজ ভুল বুঝতে পারে</strong>।</li>
+          <li>বটের উত্তর কাস্টমারের জন্য <strong>তথ্য, বাধ্যতামূলক অফার বা চুক্তি নয়</strong> — আমাদের সাথে আপনার, বা আপনার সাথে আপনার কাস্টমারের চুক্তি এতে তৈরি হয় না।</li>
+          <li>আইনি, মেডিকেল, ট্যাক্স বা আর্থিক পরামর্শ হিসেবে এর উপর ভরসা করবেন না; যেখানে ভুল হলে নিরাপত্তা বা বড় অঙ্কের টাকা ঝুঁকিতে পড়ে, সেখানে মানুষের রিভিউ ছাড়া ব্যবহার করবেন না।</li>
+          <li>যেকোনো কাস্টমার চ্যাটে <strong>“মানুষ”</strong> লিখলেই মানুষের কাছে পৌঁছে যাবে।</li>
+        </ul>
+      </section>
+
+      <section id="billing" class="mt-9">
+        <h2>৫. প্ল্যান, বিলিং ও মূল্য</h2>
+        <ul class="space-y-3">
+          <li>মাসিক সাবস্ক্রিপশন: <strong>Starter ৳৫০০/মাস</strong> (দিনে ৫০টি কথোপকথন পর্যন্ত), <strong>Professional ৳১,৫০০/মাস</strong> (দিনে ২০০টি পর্যন্ত), <strong>Enterprise — কাস্টম</strong>। চলতি দাম ও প্ল্যানের বিস্তারিত আমাদের প্রাইসিং অংশে; আপনি কোন প্ল্যান নিচ্ছেন এবং তাতে কোন চ্যানেল থাকবে, সেটি অনবোর্ডিং-এর সময় <strong>লিখিতভাবে</strong> নিশ্চিত করা হয়।</li>
+          <li>ফি <strong>মাসিক অগ্রিম</strong> নেওয়া হয়। পেমেন্ট মেথড ও ইনভয়েস অনবোর্ডিং-এর সময় শেয়ার করা হয়।</li>
+          <li>মূল্য পরিবর্তন হলে আমরা <strong>৩০ দিন আগে</strong> জানাই; নতুন দাম আপনার পরের বিলিং সাইকেল থেকে কার্যকর হয়, এবং আপনি চাইলে তার আগেই বাতিল করতে পারেন।</li>
+          <li>ফেয়ার ইউজ: কথোপকথনের সীমা প্ল্যান অনুযায়ী। আপনার ভলিউম বাড়লে চুপচাপ বন্ধ না করে আমরা উপযুক্ত প্ল্যানে যাওয়ার কথা বলব।</li>
+        </ul>
+      </section>
+
+      <section id="cancel" class="mt-9">
+        <h2>৬. বাতিল ও রিফান্ড</h2>
+        <ul class="space-y-3">
+          <li>সাবস্ক্রিপশন মাসিক। আপনি যেকোনো সময় লিখিতভাবে (চ্যাট বা WhatsApp-এ) জানিয়ে বাতিল করতে পারেন; আমরা লিখিতভাবে কনফার্ম করি, এবং পরের সাইকেল থেকে বিলিং বন্ধ হয়। কোনো লুকানো খরচ বা লক-ইন ফি নেই।</li>
+          <li><strong>রিফান্ড</strong> অনুরোধ মানুষ দেখে — বিলিং রেকর্ড ও অনবোর্ডিং-এ লিখিতভাবে নিশ্চিত করা বিলিং শর্ত অনুযায়ী। আমরা স্বয়ংক্রিয় রিফান্ড প্রসেস করি না, এবং এখানে কোনো নির্দিষ্ট শতাংশ প্রতিশ্রুতি দেওয়া হচ্ছে না — জিজ্ঞেস করলে মানুষ সিদ্ধান্ত নিয়ে জানাবে।</li>
+        </ul>
+      </section>
+
+      <section id="uptime" class="mt-9">
+        <h2>৭. আপটাইম ও তৃতীয় পক্ষ</h2>
+        <ul class="space-y-3">
+          <li>আমরা <strong>২৪/৭</strong> সার্ভিস চালু রাখার চেষ্টা করি এবং এটি আমাদের নিজস্ব সেলফ-হোস্টেড ইনফ্রাতে চলে, তবে নির্দিষ্ট আপটাইম শতাংশের গ্যারান্টি দিই না। পরিকল্পিত মেইনটেন্যান্স ছোট রাখা হয় এবং সম্ভব হলে আগে জানানো হয়।</li>
+          <li>সার্ভিসটি <strong>Meta Platforms</strong> এবং আমাদের <strong>AI প্রোভাইডার</strong>-এর উপর নির্ভরশীল। তাদের দিকের আউটেজ, নীতি বা API পরিবর্তন, রেট লিমিট, মেসেজ-প্রাইসিং পরিবর্তন বা অ্যাকাউন্ট সীমাবদ্ধতা আমাদের হাতের বাইরে — সেগুলোর জন্য আমরা দায়ী নই। Meta-র কারণে আপনার চ্যানেল সংযোগে পরিবর্তন দরকার হলে আমরা মিলে সমাধান করব।</li>
+          <li>কোনো প্ল্যাটফর্ম আমাদের যে সুবিধার উপর নির্ভর করি সেটি বন্ধ করলে চ্যানেল কাভারেজ বদলাতে পারে।</li>
+        </ul>
+      </section>
+
+      <section id="data" class="mt-9">
+        <h2>৮. আপনার তথ্য ও কনটেন্ট</h2>
+        <ul class="space-y-3">
+          <li>আপনার ব্যবসার তথ্য ও কাস্টমারদের কথোপকথন <strong>আপনারই</strong> থাকে। সার্ভিস চালাতে এবং আমরা যেভাবে <a href="privacy.html">প্রাইভেসি পলিসি</a>-তে বর্ণনা করেছি সেভাবে আমরা তা প্রসেস করি — উত্তর তৈরির জন্য মেসেজের লেখা AI প্রোভাইডারের কাছে যায়, লগ আমাদের নিজস্ব সেলফ-হোস্টেড ডেটাবেসে থাকে, এবং আমরা আপনার তথ্য কারো কাছে বিক্রি বা ভাড়া দিই না, বিজ্ঞাপনে ব্যবহার করি না।</li>
+          <li>আপনার কাস্টমারদের মেসেজ আমাদের সাথে শেয়ার করার বৈধ ভিত্তি থাকা আপনার দায়িত্ব।</li>
+          <li>অনুরোধ করলে আমাদের কাছে থাকা তথ্যের কপি দিই এবং মুছে ফেলতে পারি; সাবস্ক্রিপশন শেষ হলে অনুরোধ অনুযায়ী তথ্য মুছে ফেলা বা ফেরত দেওয়া হয়, তবে আইনগতভাবে রাখতে হয় এমন রেকর্ড এর ব্যতিক্রম।</li>
+        </ul>
+      </section>
+
+      <section id="ip" class="mt-9">
+        <h2>৯. বৌদ্ধিক সম্পত্তি</h2>
+        <ul class="space-y-3">
+          <li>সার্ভিস, আমাদের ওয়ার্কফ্লো, টুলিং ও ব্র্যান্ডিং আমাদের। সাবস্ক্রিপশন চালু থাকাকালীন আপনি এর ব্যবহারের একটি অ-একচেটিয়া, হস্তান্তর-অযোগ্য অধিকার পান।</li>
+          <li>আপনার নিজের কনটেন্ট (ব্যবসার তথ্য, ব্র্যান্ড অ্যাসেট, কাস্টমার ডেটা) আপনারই।</li>
+          <li>সার্ভিস রিসেল বা সাবলাইসেন্স করবেন না, রিভার্স-ইঞ্জিনিয়ার করার চেষ্টা করবেন না, বা প্রতিযোগী পণ্য বানাতে আমাদের প্রম্পট/নলেজ-বেস কাঠামো কপি করবেন না।</li>
+        </ul>
+      </section>
+
+      <section id="abuse" class="mt-9">
+        <h2>১০. নিষিদ্ধ ব্যবহার ও সাসপেনশন</h2>
+        <ul class="space-y-3">
+          <li>এই শর্তাবলী ভাঙলে, অবৈধ বা প্রতারণামূলক বিক্রয়ে ব্যবহার করলে, স্প্যাম করলে, বা এমন কিছু করলে যাতে Meta আমাদের প্ল্যাটফর্ম-অ্যাক্সেস সীমিত করে দিতে পারে — আমরা সার্ভিস সাসপেন্ড বা বন্ধ করতে পারি। (এমন সীমাবদ্ধতা শুধু আপনাকে নয়, <em>সব</em> গ্রাহককে একসাথে বন্ধ করে দেয়।)</li>
+          <li>শর্ত ভাঙার কারণে সাসপেনশন সাথে সাথে কার্যকর হয় এবং চলতি মাসের আংশিক রিফান্ডের অধিকার তৈরি করে না। কারণ আমরা জানাব, এবং ঠিক করার মতো কিছু থাকলে ঠিক করার সুযোগ দেব।</li>
+        </ul>
+      </section>
+
+      <section id="liability" class="mt-9">
+        <h2>১১. দায়সীমা</h2>
+        <ul class="space-y-3">
+          <li>আইন যতটা অনুমতি দেয়: পরোক্ষ বা ফলাফলস্বরূপ ক্ষতি, হারানো লাভ বা বিক্রি, বা সুনামের ক্ষতির জন্য আমরা দায়ী নই; এবং যেকোনো দাবিতে আমাদের মোট দায় <strong>যে মাসে সমস্যাটি হয়েছে, সেই মাসে আপনি যে ফি দিয়েছেন</strong> তার মধ্যে সীমাবদ্ধ।</li>
+          <li>আপনার পণ্য/সার্ভিস নিয়ে আপনার কাস্টমারদের দাবির জন্য, বা মানুষের রিভিউ ছাড়া AI-র ড্রাফট উত্তর দেখে আপনি যে সিদ্ধান্ত নেন তার জন্য আমরা দায়ী নই।</li>
+          <li>এই শর্তাবলীতে এমন কিছু নেই যা আইনত সীমিত করা যায় না, বা প্রযোজ্য ভোক্তা-সুরক্ষা আইনে আপনার অধিকার খর্ব করে।</li>
+        </ul>
+      </section>
+
+      <section id="changes" class="mt-9">
+        <h2>১২. সার্ভিস বা শর্তাবলীর পরিবর্তন</h2>
+        <ul class="space-y-3">
+          <li>আমরা এই শর্তাবলী আপডেট করতে পারি; পেজের শুরুতে কার্যকর তারিখ বদলে যায়, এবং <strong>গুরুত্বপূর্ণ</strong> পরিবর্তন ওয়েবসাইটে এবং/অথবা আপনার ব্যবহৃত চ্যানেলে জানানো হয়। কার্যকর তারিখের পরেও ব্যবহার চালিয়ে গেলে আপনি তা মেনে নিচ্ছেন; না চাইলে পরিবর্তন কার্যকর হওয়ার আগেই বাতিল করুন।</li>
+          <li>আপনি যে চ্যানেল বা ফিচারের উপর নির্ভর করেন সেটি বন্ধ করলে আমরা জানাব এবং সম্ভব হলে বিকল্প নিয়ে আলোচনা করব।</li>
+        </ul>
+      </section>
+
+      <section id="end" class="mt-9">
+        <h2>১৩. চুক্তির সমাপ্তি</h2>
+        <ul class="space-y-3">
+          <li>যেকোনো পক্ষ চলতি মাসিক সাইকেলের শেষে চুক্তি শেষ করতে পারে (আপনি লিখিতভাবে জানিয়ে; আমরা আপনার নিবন্ধিত কন্টাক্টে নোটিশ দিয়ে)।</li>
+          <li>সমাপ্তিতে আমরা বট বন্ধ করি, চ্যানেল আপনার হাতে ফিরিয়ে দিই, এবং ধারা ৮ অনুযায়ী আপনার তথ্য হ্যান্ডেল করি। চলতি সাইকেলের বাকি ফি পরিশোধযোগ্য।</li>
+          <li>যেসব ধারা স্বভাবতই টিকে থাকে (তথ্য হ্যান্ডলিং, বৌদ্ধিক সম্পত্তি, দায়সীমা, প্রযোজ্য আইন) সেগুলো সমাপ্তির পরও বলবৎ থাকে।</li>
+        </ul>
+      </section>
+
+      <section id="law" class="mt-9">
+        <h2>১৪. প্রযোজ্য আইন ও যোগাযোগ</h2>
+        <p>
+          এই শর্তাবলী <strong>বাংলাদেশের আইন</strong> দ্বারা পরিচালিত, এবং <strong>ঢাকার</strong> আদালতের এখতিয়ার প্রযোজ্য।
+        </p>
+        <p class="mt-3">
+          প্রশ্ন, নোটিশ বা বাতিলের অনুরোধ: WhatsApp <a href="https://wa.me/8801886723675">01886723675</a>
+          অথবা Messenger <a href="https://m.me/gtmautomation">m.me/gtmautomation</a>। উত্তর দেয় মানুষ।
+        </p>
+        <p class="mt-3 text-sm text-slate-400">
+          কার্যকর তারিখ: <strong>২৩ সেপ্টেম্বর ২০২৬</strong> · সর্বশেষ চলমান সিস্টেমের সাথে যাচাই: ২৩ সেপ্টেম্বর ২০২৬।
+        </p>
+      </section>
+
+      <section id="english" class="mt-10 border-t border-white/10 pt-8">
+        <h2>English version (summary of the above; the Bangla text prevails)</h2>
+        <ul class="space-y-2">
+          <li><strong>Who we are / scope:</strong> these Terms govern the AI customer-care service of GTM Automation. Subscribing, or continuing to use the Service after we notify a change, means you accept them. Contact: WhatsApp 01886723675 or Messenger m.me/gtmautomation.</li>
+          <li><strong>The Service:</strong> AI-drafted automatic replies on the channels connected for you (live: Facebook Page Messenger, Instagram DM; WhatsApp Business +880 1886 723675 is being onboarded and is answered by our human team until live); the bot answers only from the business information you supply; complex cases, complaints, refunds and payment questions are escalated to a human; website lead capture; the last ~10 messages per chat are kept as context. We do not sell physical goods, host your infrastructure, or make purchases/payments on your behalf.</li>
+          <li><strong>Your responsibilities:</strong> give us accurate and current business information; you are responsible for the commercial commitments your bot makes to your customers; sell only what you may lawfully sell and follow Meta's Platform Terms and Commerce Policies; no spam, phishing, harassment or unsolicited bulk messaging; keep your accounts secure; never send card numbers, bank details, PINs, OTPs or passwords; handle the escalations your team receives.</li>
+          <li><strong>AI limitations:</strong> the Service is an AI assistant and can be wrong, incomplete or misread a message; its replies are information, not a binding offer or contract; do not rely on it for legal, medical, tax or financial advice or where an error risks safety or significant money. Anyone can reach a human by writing "মানুষ"/"human".</li>
+          <li><strong>Plans and billing:</strong> Starter ৳500/month (up to 50 conversations/day), Professional ৳1,500/month (up to 200/day), Enterprise custom; your plan and its channels are confirmed in writing at onboarding; fees are billed monthly in advance; price changes are notified 30 days ahead and apply from your next cycle.</li>
+          <li><strong>Cancellation and refunds:</strong> monthly subscription, cancel any time in writing, billing stops from the next cycle, no hidden charges or lock-in fees. Refunds are reviewed by a human against billing records and the billing terms confirmed in writing at onboarding — no automatic refunds and no fixed refund percentage is promised here.</li>
+          <li><strong>Availability and third parties:</strong> we aim for 24/7 but guarantee no specific uptime; planned maintenance is kept short. The Service depends on Meta Platforms and our AI provider — their outages, policy or API changes, rate limits, message-pricing changes or account restrictions are outside our control and we are not liable for them.</li>
+          <li><strong>Your data:</strong> your business information and your customers' conversations remain yours; we process them to run the Service as described in our <a href="privacy.html">Privacy Policy</a>. We never sell or rent your data or use it for advertising. You are responsible for having a lawful basis to share your customers' messages with us.</li>
+          <li><strong>Intellectual property:</strong> we own the Service, workflows, tooling and branding; you get a non-exclusive, non-transferable right to use it while your subscription is active; you own your own content. No reselling, sublicensing or reverse engineering.</li>
+          <li><strong>Acceptable use:</strong> we may suspend or end the Service for breach, unlawful or deceptive selling, spam, or anything that risks Meta restricting our platform access; suspension for breach is immediate and does not create a pro-rata refund right.</li>
+          <li><strong>Limitation of liability:</strong> to the extent permitted by law, we are not liable for indirect or consequential loss, lost profits or goodwill, and our total aggregate liability is limited to the fees you paid for the month in which the issue arose. Nothing limits liability that cannot lawfully be limited, or your rights under applicable consumer-protection law.</li>
+          <li><strong>Changes, termination:</strong> we may update the Terms and announce material changes; continued use means acceptance. Either side may end the agreement at the end of the current monthly cycle; on termination we stop the bot, hand your channels back and handle your data as above; fees already due remain payable; data handling, IP, liability and governing-law clauses survive.</li>
+          <li><strong>Governing law:</strong> the laws of Bangladesh, with jurisdiction of the courts of Dhaka.</li>
+        </ul>
+        <p class="mt-3 text-sm text-slate-400">Effective date: <strong>2026-09-23</strong> · Last verified against the running system: 2026-09-23.</p>
+      </section>
+
+      <p class="mt-10 border-t border-white/10 pt-6 text-sm text-slate-400">
+        আরও দেখুন: <a href="faq.html">সাধারণ জিজ্ঞাসা (FAQ)</a> · <a href="privacy.html">প্রাইভেসি পলিসি</a>
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-col items-center gap-3 text-center">
+      <button type="button" onclick="window.print()" class="no-print rounded-xl border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">প্রিন্ট / PDF সেভ করুন</button>
+      <a href="index.html" class="text-sm text-slate-400 transition hover:text-neon-blue">← হোমে ফিরে যান</a>
+    </div>
+  </main>
+
+  <!-- ================= ফুটার ================= -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:px-6">
+      <p class="text-sm text-slate-500">© 2026 GTM Automation Bangladesh</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400" aria-label="ফুটার লিংক">
+        <a href="index.html" class="transition hover:text-neon-blue">হোম</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="faq.html" class="transition hover:text-neon-blue">FAQ</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="privacy.html" class="transition hover:text-neon-blue">Privacy Policy</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="terms.html" class="transition hover:text-neon-blue" aria-current="page">Terms of Service</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="transition hover:text-neon-blue">Contact Us</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+
+  <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="messenger-fab" aria-label="Messenger-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.92 1.46 5.52 3.74 7.22V22l3.42-1.88c.9.25 1.86.38 2.84.38 5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1.06 12.44-2.55-2.72-4.97 2.72 5.47-5.81 2.61 2.72 4.9-2.72-5.46 5.81z"/></svg>
+    Messenger-এ কথা বলুন
+  </a>
+  <a href="https://wa.me/8801886723675" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.42-9.4 2.52 0 4.88.98 6.66 2.76a9.34 9.34 0 0 1 2.75 6.65c0 5.19-4.22 9.41-9.42 9.41zM20.5 3.49A11.78 11.78 0 0 0 12.04 0C5.49 0 .16 5.33.16 11.88c0 2.09.55 4.14 1.59 5.94L.06 24l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.43-8.41z"/></svg>
+    WhatsApp-এ কথা বলুন
+  </a>
+</body>
+</html>
