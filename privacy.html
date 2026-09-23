@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>প্রাইভেসি পলিসি (গোপনীয়তা নীতি) — GTM Automation Bangladesh</title>
+  <meta name="description" content="GTM Automation কী তথ্য নেয়, কেন নেয়, কে দেখতে পায়, কতদিন রাখে এবং কীভাবে মুছে ফেলানো যায় — বাংলা ও ইংরেজিতে।" />
+  <link rel="canonical" href="https://gtmauto.github.io/gtmautomation/privacy.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="প্রাইভেসি পলিসি — GTM Automation" />
+  <meta property="og:description" content="কী তথ্য নেওয়া হয়, কে দেখে, কতদিন রাখা হয় এবং কীভাবে মুছে ফেলা যায়।" />
+  <meta property="og:url" content="https://gtmauto.github.io/gtmautomation/privacy.html" />
+  <meta name="theme-color" content="#05070f" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            night: { 950: '#05070f', 900: '#0a0f1e', 800: '#101830', 700: '#1a2440' },
+            neon:  { blue: '#38bdf8', indigo: '#6366f1', purple: '#a855f7' }
+          },
+          fontFamily: { bangla: ['"Noto Sans Bengali"', '"Roboto Slab"', 'sans-serif'] },
+          boxShadow: {
+            'neon-blue':  '0 0 24px rgba(56,189,248,.45), 0 0 60px rgba(56,189,248,.18)',
+            'glass':      '0 8px 32px rgba(2,6,23,.55)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Roboto+Slab:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans Bengali', 'Roboto Slab', sans-serif;
+      background-color: #05070f;
+      background-image:
+        linear-gradient(180deg, rgba(5,7,15,.93) 0%, rgba(5,7,15,.88) 45%, rgba(5,7,15,.94) 100%),
+        url('bot-bg.svg');
+      background-attachment: fixed;
+      background-repeat: no-repeat, repeat;
+      background-size: auto, 480px 480px;
+    }
+    .glass {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 32px rgba(2,6,23,.55);
+    }
+    .neon-text {
+      background: linear-gradient(92deg, #38bdf8 0%, #818cf8 50%, #a855f7 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 18px rgba(99,102,241,.35));
+    }
+    #navbar { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    #navbar.scrolled { background: rgba(5,7,15,.85); backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(2,6,23,.6); border-color: rgba(255,255,255,.08); }
+
+    .doc p, .doc li { color: #cbd5e1; line-height: 1.95; }
+    .doc h2 { color: #fff; font-weight: 800; font-size: 1.2rem; line-height: 1.7; margin-bottom: .6rem; }
+    .doc h3 { color: #e2e8f0; font-weight: 700; font-size: 1.02rem; }
+    .doc a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
+    .doc strong { color: #fff; font-weight: 700; }
+    .doc ul { list-style: none; padding-left: 0; }
+    .doc li { position: relative; padding-left: 1.1rem; }
+    .doc li::before { content: "•"; position: absolute; left: .2rem; color: #38bdf8; }
+    .doc section { scroll-margin-top: 96px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    th, td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid rgba(255,255,255,.1); vertical-align: top; }
+    th { color: #fff; font-weight: 700; }
+    td { color: #cbd5e1; }
+
+    .toc a { color: #94a3b8; }
+    .toc a:hover { color: #38bdf8; }
+
+    .messenger-fab, .whatsapp-fab {
+      position: fixed; right: max(1rem, env(safe-area-inset-right)); z-index: 60;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.15rem; border-radius: 9999px;
+      font-weight: 700; font-size: .95rem; line-height: 1;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .messenger-fab { bottom: max(1rem, env(safe-area-inset-bottom)); background: #0084ff; color: #fff; box-shadow: 0 6px 24px rgba(0,132,255,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.1rem); background: #25D366; color: #fff; box-shadow: 0 6px 24px rgba(37,211,102,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .messenger-fab:hover, .messenger-fab:focus-visible { background: #0074e8; transform: translateY(-2px) scale(1.03); }
+    .whatsapp-fab:hover, .whatsapp-fab:focus-visible { background: #1fb857; transform: translateY(-2px) scale(1.03); }
+    @media (max-width: 400px) {
+      .messenger-fab, .whatsapp-fab { padding: .7rem .95rem; font-size: .85rem; }
+      .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.8rem); }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      #navbar, .messenger-fab, .whatsapp-fab, .no-print { display: none !important; }
+      .glass { border: 1px solid #ddd !important; box-shadow: none !important; background: #fff !important; }
+      .doc p, .doc li, .doc h2, .doc h3, .doc strong, td, th { color: #111 !important; }
+      .doc a { color: #0645ad !important; }
+      th, td { border-color: #ddd !important; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    :target { scroll-margin-top: 96px; }
+  </style>
+</head>
+
+<body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
+
+  <!-- ================= নেভিগেশন ================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 border-b border-transparent">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6" aria-label="প্রধান মেনু">
+      <a href="index.html" class="flex items-center gap-2">
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-neon-blue to-neon-purple shadow-neon-blue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-8 8H6l-3 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg>
+        </span>
+        <span class="text-lg font-bold text-white">GTM <span class="neon-text">Automation</span></span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+        <a href="index.html#cost" class="transition hover:text-white">খরচ</a>
+        <a href="index.html#features" class="transition hover:text-white">ফিচার</a>
+        <a href="index.html#calculator" class="transition hover:text-white">ক্যালকুলেটর</a>
+        <a href="index.html#pricing" class="transition hover:text-white">প্রাইসিং</a>
+        <a href="faq.html" class="transition hover:text-white">FAQ</a>
+        <a href="index.html#lead-form" class="rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">ফ্রি ডেমো</a>
+      </div>
+
+      <button id="menu-btn" class="grid h-10 w-10 place-items-center rounded-lg glass md:hidden" aria-label="মেনু খুলুন" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-night-950/95 px-4 py-4 md:hidden">
+      <a href="index.html#cost" class="block py-2 text-slate-300">খরচ</a>
+      <a href="index.html#features" class="block py-2 text-slate-300">ফিচার</a>
+      <a href="index.html#calculator" class="block py-2 text-slate-300">ক্যালকুলেটর</a>
+      <a href="index.html#pricing" class="block py-2 text-slate-300">প্রাইসিং</a>
+      <a href="faq.html" class="block py-2 text-slate-300">FAQ</a>
+      <a href="privacy.html" class="block py-2 font-semibold text-white">প্রাইভেসি পলিসি</a>
+      <a href="index.html#lead-form" class="mt-2 block rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple py-2 text-center font-semibold text-white">ফ্রি ডেমো দেখুন</a>
+    </div>
+  </header>
+
+  <!-- ================= শিরোনাম ================= -->
+  <section class="relative overflow-hidden pt-28 pb-8 sm:pt-36 sm:pb-10">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,.10),transparent_60%)]"></div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6">
+      <nav class="mb-4 text-sm text-slate-400" aria-label="ব্রেডক্রাম্ব">
+        <a href="index.html" class="transition hover:text-neon-blue">হোম</a>
+        <span class="px-2 text-slate-600" aria-hidden="true">/</span>
+        <span class="text-slate-300">প্রাইভেসি পলিসি</span>
+      </nav>
+
+      <h1 class="text-3xl font-extrabold leading-snug text-white sm:text-4xl">
+        প্রাইভেসি <span class="neon-text">পলিসি</span>
+      </h1>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+        আমরা কী তথ্য নিই, কেন নিই, কে দেখতে পারে, কতদিন রাখি এবং কীভাবে মুছে ফেলানো যায় —
+        সবকিছু সোজা ভাষায় লেখা। নিচে ইংরেজি সংস্করণও আছে।
+      </p>
+      <div class="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+        <span class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5">কার্যকর: ২৩ সেপ্টেম্বর ২০২৬</span>
+        <span class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5">সর্বশেষ যাচাই: চলমান সিস্টেমের সাথে মিলিয়ে</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= সূচিপত্র ================= -->
+  <div class="mx-auto max-w-4xl px-4 pb-4 sm:px-6">
+    <nav class="toc glass rounded-2xl p-5" aria-label="সূচিপত্র">
+      <p class="mb-3 text-sm font-semibold text-white">সূচিপত্র</p>
+      <ul class="grid gap-2 text-sm sm:grid-cols-2">
+        <li><a href="#who">আমরা কারা</a></li>
+        <li><a href="#collect">১. আমরা কী তথ্য নিই</a></li>
+        <li><a href="#process">২. মেসেজ কীভাবে প্রসেস হয়</a></li>
+        <li><a href="#cookies">৩. ওয়েবসাইটে কুকি</a></li>
+        <li><a href="#retention">৪. কতদিন রাখি</a></li>
+        <li><a href="#choices">৫. আপনার অধিকার</a></li>
+        <li><a href="#storage">৬. তথ্য কোথায় থাকে</a></li>
+        <li><a href="#children">৭. শিশুদের বিষয়ে</a></li>
+        <li><a href="#changes">৮. পরিবর্তন</a></li>
+        <li><a href="#english">English version</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ================= মূল ডকুমেন্ট ================= -->
+  <main class="mx-auto max-w-4xl px-4 pb-24 sm:px-6">
+    <div class="doc glass rounded-2xl p-6 sm:p-9">
+
+      <section id="who">
+        <h2>আমরা কারা</h2>
+        <p>
+          <strong>GTM Automation</strong> (নিচে “আমরা”) বাংলাদেশের অনলাইন সেলারদের জন্য AI কাস্টমার-কেয়ার সার্ভিস দেয়।
+          আমরা পরিচালনা করি Facebook পেজ <strong>GTM Automation</strong> (<a href="https://m.me/gtmautomation">m.me/gtmautomation</a>),
+          Instagram অ্যাকাউন্ট <strong>@gtmautomationbd</strong>, এবং WhatsApp নম্বর
+          <strong>+880 1886 723675</strong>। ওয়েবসাইট: <a href="https://gtmauto.github.io/gtmautomation/">gtmauto.github.io/gtmautomation</a>
+        </p>
+        <p class="mt-3">
+          <strong>প্রাইভেসি সংক্রান্ত যেকোনো অনুরোধের জন্য যোগাযোগ:</strong>
+          WhatsApp <a href="https://wa.me/8801886723675">01886723675</a> অথবা Messenger
+          <a href="https://m.me/gtmautomation">m.me/gtmautomation</a>। উত্তর দেয় আমাদের মানব-টিম।
+        </p>
+      </section>
+
+      <section id="collect" class="mt-9">
+        <h2>১. আমরা কী তথ্য নিই</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>সোর্স</th><th>তথ্য</th><th>কেন</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ওয়েবসাইটের ফর্ম</td>
+                <td>নাম, ইমেইল <strong>অথবা</strong> WhatsApp নম্বর, দৈনিক মেসেজের পরিমাণ, জমা দেওয়ার সময়, কোন পেজ থেকে এসেছেন</td>
+                <td>আপনি যে সার্ভিস নিয়ে জিজ্ঞেস করেছেন, সেটার জন্য যোগাযোগ করা</td>
+              </tr>
+              <tr>
+                <td>আমাদের পেজ / Instagram / WhatsApp-এ পাঠানো চ্যাট</td>
+                <td>আপনি পাঠানো লেখা, ওই চ্যানেলের আপনার আইডি, মেসেজ আইডি, সময়</td>
+                <td>উত্তর দেওয়া এবং কথোপকথনের প্রেক্ষাপট ধরে রাখা</td>
+              </tr>
+              <tr>
+                <td>সার্ভিস লগ</td>
+                <td>চ্যানেল, কথোপকথন আইডি, মেসেজ আইডি, মানুষ লাগল কিনা, সময়</td>
+                <td>সার্ভিস চালু রাখা, গুণমান ও অপব্যবহার ঠেকানো</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">
+          <strong>কার্ড নম্বর, ব্যাংক তথ্য, পিন, OTP বা পাসওয়ার্ড আমরা কখনোই চাই না।</strong>
+          এগুলো পাঠাবেন না — বট চাইবে না, আমাদের টিমও চাইবে না। পেমেন্টের ব্যবস্থা অনবোর্ডিং-এর সময় মানুষ দিয়ে করা হয়।
+        </p>
+      </section>
+
+      <section id="process" class="mt-9">
+        <h2>২. আপনার মেসেজ কীভাবে প্রসেস হয়</h2>
+        <ul class="space-y-3">
+          <li><strong>Meta Platforms</strong> (Facebook / Instagram / WhatsApp) আপনার মেসেজ আমাদের কাছে পৌঁছে দেয়; ওই পৌঁছানোর ক্ষেত্রে Meta-র নিজস্ব প্রাইভেসি নিয়ম প্রযোজ্য।</li>
+          <li><strong>আমাদের AI প্রোভাইডার</strong> (OpenRouter, একটি OpenAI মডেল দিয়ে) উত্তর তৈরি করার জন্য মেসেজের লেখা ও সাম্প্রতিক কথোপকথনের অংশ পায়। এটি শুধু আমাদের ব্যবসায়িক নলেজ বেস থেকে উত্তর দিতে কনফিগার করা।</li>
+          <li><strong>স্বয়ংক্রিয় সিদ্ধান্ত:</strong> AI উত্তর দিতে না পারলে, বা মেসেজটি অভিযোগ / রিফান্ড / পেমেন্ট সংক্রান্ত হলে কথোপকথন <strong>মানুষের কাছে এস্কালেট</strong> হয় এবং টিমের কেউ একই চ্যাটে উত্তর দেন। এখানে কোনো AI সিদ্ধান্ত আপনার আইনি বা আর্থিক অবস্থান নিজে থেকে বদলায় না।</li>
+          <li><strong>আপনার তথ্য কারো কাছে বিক্রি বা ভাড়া দেওয়া হয় না</strong>, এবং বিজ্ঞাপনের জন্য ব্যবহার করা হয় না।</li>
+        </ul>
+      </section>
+
+      <section id="cookies" class="mt-9">
+        <h2>৩. ওয়েবসাইটে কুকি</h2>
+        <p>
+          আমাদের ল্যান্ডিং পেজ <strong>কোনো কুকি সেট করে না</strong>, <strong>কোনো অ্যানালিটিক্স বা বিজ্ঞাপন পিক্সেল চালায় না</strong>,
+          আর আপনার ব্রাউজারে কিছু জমা রাখে না। ফর্মটি শুধু আপনি যা লেখেন, সেটাই আমাদের নিজস্ব webhook-এ পাঠায়।
+        </p>
+      </section>
+
+      <section id="retention" class="mt-9">
+        <h2>৪. কতদিন রাখি</h2>
+        <ul class="space-y-3">
+          <li><strong>কথোপকথনের প্রেক্ষাপট:</strong> প্রতি চ্যাটের <strong>সর্বশেষ ~১০টি মেসেজ</strong>, যাতে বট কথার ধারাবাহিকতা বুঝতে পারে।</li>
+          <li><strong>সার্ভিস লগ:</strong> প্রতি চ্যানেলে সাম্প্রতিক এন্ট্রিগুলোর একটি ঘূর্ণায়মান (rolling) তালিকা।</li>
+          <li><strong>ওয়েবসাইট ফর্মের লিড:</strong> আপনার ব্যবসা নিয়ে কাজ চলার সময় ধরে রাখা হয়, এবং অনুরোধ করলে মুছে ফেলা হয়।</li>
+        </ul>
+      </section>
+
+      <section id="choices" class="mt-9">
+        <h2>৫. আপনার অধিকার</h2>
+        <p>
+          WhatsApp <a href="https://wa.me/8801886723675">01886723675</a> বা Messenger
+          <a href="https://m.me/gtmautomation">m.me/gtmautomation</a>-এ লিখে আপনি চাইতে পারেন —
+        </p>
+        <ul class="mt-3 space-y-2">
+          <li>আপনার সম্পর্কে আমাদের কাছে কী তথ্য আছে, তার একটি কপি</li>
+          <li>ভুল তথ্য সংশোধন</li>
+          <li>তথ্য মুছে ফেলা (delete)</li>
+        </ul>
+        <p class="mt-3">
+          যে কন্টাক্ট থেকে অনুরোধ আসে, সেটি দিয়েই আমরা যাচাই করি এবং যুক্তিসঙ্গত সময়ের মধ্যে ব্যবস্থা নিই।
+          বটের সাথে কথা বলতে না চাইলে শুধু জানিয়ে দিন — আমরা আপনাকে মানুষের কাছে হস্তান্তর করব এবং আপনার চ্যাটে অটো-রিপ্লাই বন্ধ করে দিতে পারি।
+        </p>
+      </section>
+
+      <section id="storage" class="mt-9">
+        <h2>৬. তথ্য কোথায় থাকে</h2>
+        <p>
+          কথোপকথনের তথ্য থাকে আমাদের <strong>নিজস্ব সেলফ-হোস্টেড n8n সার্ভারে</strong> (আমাদের নিজের মেশিন/ইনস্ট্যান্সে SQLite ডেটাবেস) —
+          কোনো থার্ড-পার্টি CRM-এ নয়। শুধু সার্ভিস চালানো টিমের অনুমোদিত অ্যাক্সেস থাকে।
+          চ্যানেলের টোকেনের মতো গোপন তথ্য কথোপকথনের কনটেন্ট থেকে আলাদা রাখা হয়।
+        </p>
+      </section>
+
+      <section id="children" class="mt-9">
+        <h2>৭. শিশুদের বিষয়ে</h2>
+        <p>সার্ভিসটি ব্যবসার জন্য; আমরা জেনে-শুনে শিশুদের কাছ থেকে ব্যক্তিগত তথ্য সংগ্রহ করি না।</p>
+      </section>
+
+      <section id="changes" class="mt-9">
+        <h2>৮. পরিবর্তন</h2>
+        <p>
+          তথ্য কীভাবে ব্যবহার করি সেটা বদলালে — যেমন WhatsApp Business চালু হলে, বা সার্ভিস অন্য হোস্টিং প্রোভাইডারে গেলে —
+          আমরা এই ডকুমেন্ট ও তারিখ হালনাগাদ করব, আর বটের উত্তরও হালনাগাদ সংস্করণ অনুযায়ী চলবে।
+        </p>
+        <p class="mt-3">সর্বশেষ চলমান সিস্টেমের সাথে যাচাই: <strong>২৩ সেপ্টেম্বর ২০২৬</strong>।</p>
+      </section>
+
+      <section id="english" class="mt-10 border-t border-white/10 pt-8">
+        <h2>English version (summary of the above)</h2>
+        <p>
+          <strong>Who we are.</strong> GTM Automation provides an AI customer-care service for online sellers in Bangladesh.
+          We operate the Facebook Page <em>GTM Automation</em> (m.me/gtmautomation), Instagram <em>@gtmautomationbd</em>, and WhatsApp <em>+880 1886 723675</em>.
+          Privacy requests: WhatsApp <a href="https://wa.me/8801886723675">01886723675</a> or Messenger <a href="https://m.me/gtmautomation">m.me/gtmautomation</a> — a human replies.
+        </p>
+        <ul class="mt-3 space-y-2">
+          <li><strong>What we collect:</strong> website-form name, email or WhatsApp number, message-volume range, submission time and referring page; chat text you send to our Page / Instagram / WhatsApp plus your channel account id, message id and timestamps; and minimal service logs (channel, conversation id, message id, whether a human was needed, time). <strong>We never ask for card numbers, bank details, PINs, OTPs or passwords.</strong></li>
+          <li><strong>How it is processed:</strong> Meta Platforms delivers your message; our AI provider (OpenRouter with an OpenAI model) receives the message text and recent turns to draft a reply, and is configured to answer only from our business knowledge base. Complaints, refunds and payment issues are escalated to a human. We do not sell or rent your data and do not use it for advertising.</li>
+          <li><strong>Website cookies:</strong> none. No analytics, no advertising pixels, nothing stored in your browser.</li>
+          <li><strong>Retention:</strong> the last ~10 messages per conversation, a rolling service log, and website leads kept while we evaluate or serve your business; deleted on request.</li>
+          <li><strong>Your choices:</strong> request a copy, correction or deletion via the contacts above; we verify against the contact you used. You can also ask to stop talking to the bot and be handed to a human.</li>
+          <li><strong>Where it is stored:</strong> on our own self-hosted n8n server (SQLite on our own machine/instance), not in a third-party CRM; access limited to the team running the service.</li>
+          <li><strong>Children:</strong> the service targets businesses; we do not knowingly collect children's personal data.</li>
+          <li><strong>Changes:</strong> if our handling changes (for example when WhatsApp Business goes live or hosting moves), we update this document and its date, and the bots' answers follow the updated version.</li>
+        </ul>
+        <p class="mt-3">Last verified against the running system: <strong>2026-09-23</strong>.</p>
+      </section>
+
+      <p class="mt-10 border-t border-white/10 pt-6 text-sm text-slate-400">
+        সেবা সংক্রান্ত সাধারণ প্রশ্নের উত্তর দেখুন <a href="faq.html">FAQ</a> পেজে।
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-col items-center gap-3 text-center">
+      <button type="button" onclick="window.print()" class="no-print rounded-xl border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">প্রিন্ট / PDF সেভ করুন</button>
+      <a href="index.html" class="text-sm text-slate-400 transition hover:text-neon-blue">← হোমে ফিরে যান</a>
+    </div>
+  </main>
+
+  <!-- ================= ফুটার ================= -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:px-6">
+      <p class="text-sm text-slate-500">© 2026 GTM Automation Bangladesh</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400" aria-label="ফুটার লিংক">
+        <a href="index.html" class="transition hover:text-neon-blue">হোম</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="faq.html" class="transition hover:text-neon-blue">FAQ</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="privacy.html" class="transition hover:text-neon-blue" aria-current="page">Privacy Policy</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="transition hover:text-neon-blue">Contact Us</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+
+  <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="messenger-fab" aria-label="Messenger-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.92 1.46 5.52 3.74 7.22V22l3.42-1.88c.9.25 1.86.38 2.84.38 5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1.06 12.44-2.55-2.72-4.97 2.72 5.47-5.81 2.61 2.72 4.9-2.72-5.46 5.81z"/></svg>
+    Messenger-এ কথা বলুন
+  </a>
+  <a href="https://wa.me/8801886723675" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.42-9.4 2.52 0 4.88.98 6.66 2.76a9.34 9.34 0 0 1 2.75 6.65c0 5.19-4.22 9.41-9.42 9.41zM20.5 3.49A11.78 11.78 0 0 0 12.04 0C5.49 0 .16 5.33.16 11.88c0 2.09.55 4.14 1.59 5.94L.06 24l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.43-8.41z"/></svg>
+    WhatsApp-এ কথা বলুন
+  </a>
+</body>
+</html>
