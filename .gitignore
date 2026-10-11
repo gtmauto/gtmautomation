@@ -1,0 +1,14 @@
+# secrets
+.env
+.env.*
+*.pem
+*.key
+# dependencies
+node_modules/
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.log

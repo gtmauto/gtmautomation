@@ -937,10 +937,9 @@
     /* ---------- ফর্ম ভ্যালিডেশন + ওয়েবহুক ---------- */
     // ──────────────────────────────────────────────────────────────
     // WEBHOOK_URL — এখানে আপনার n8n Webhook node-এর URL বসান
-    // ফরম্যাট: http://127.0.0.1:5678/webhook/<webhookId>
-    // উদাহরণ: http://127.0.0.1:5678/webhook/gtm-landing-webhook
+    // লাইভ সাইটে একই ডোমেইনের (gtmautomation.net) রিলেটিভ পাথ ব্যবহার হয়
     // ──────────────────────────────────────────────────────────────
-    const WEBHOOK_URL = 'https://backstab-staunch-implicate.ngrok-free.dev/webhook/gtm-landing-webhook';
+    const WEBHOOK_URL = '/webhook/gtm-landing-webhook';
 
     const form = document.getElementById('early-access-form');
     const status = document.getElementById('form-status');
