@@ -1,0 +1,32 @@
+# প্রতি ৫ মিনিটে GitHub-এর নিজের কম্পিউটার থেকে সাইট/বট চেক করে। তোমার laptop লাগে না।
+# কিছু down হলে Telegram-এ মেসেজ যায়। (কোনো secret এই ফাইলে নেই)
+name: uptime
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check endpoints and alert
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          fails=""
+          check() { # name url expected_code
+            code=$(curl -s -o /dev/null -m 20 -w "%{http_code}" "$2" || true)
+            [ "$code" = "$3" ] || fails="$fails\n• $1 → $code (চাইছিলাম $3)"
+          }
+          check "Website"        "https://gtmautomation.net/"                 200
+          check "n8n healthz"    "https://gtmautomation.net/healthz"          200
+          # Webhook GET-এ n8n 404 দেয় = server বেঁচে আছে
+          check "Telegram hook"  "https://gtmautomation.net/webhook/telegram" 404
+          if [ -n "$fails" ]; then
+            msg=$(printf "🔴 GTM DOWN ALERT%b" "$fails")
+            curl -s -m 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+              --data-urlencode "chat_id=${TG_CHAT}" --data-urlencode "text=${msg}" >/dev/null
+            echo "$msg"; exit 1
+          fi
+          echo "all ok"
