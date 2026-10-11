@@ -34,6 +34,8 @@ jobs:
           check "Instagram hook" "https://gtmautomation.net/webhook/instagram" 403
           # WhatsApp: n8n note বলে GET-এ ভুল verify token হলে 403
           check "WhatsApp hook"  "https://gtmautomation.net/webhook/whatsapp" 403
+          # Messenger: path "messenger" (n8n Webhook node), GET ভুল token = 403 ধরা হয়েছে
+          check "Messenger hook" "https://gtmautomation.net/webhook/messenger" 403
           if [ -n "$fails" ]; then
             msg=$(printf "🔴 GTM DOWN ALERT%b" "$fails")
             curl -s -m 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
