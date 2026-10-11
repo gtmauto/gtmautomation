@@ -4,7 +4,12 @@ name: uptime
 on:
   schedule:
     - cron: "*/5 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test_alert:
+        description: "Telegram alert test (ইচ্ছে করে একটা fail বানাবে)"
+        type: boolean
+        default: false
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -13,8 +18,10 @@ jobs:
         env:
           TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TEST_ALERT: ${{ inputs.test_alert }}
         run: |
           fails=""
+          [ "$TEST_ALERT" = "true" ] && fails="\n• TEST: এটা ইচ্ছে করে বানানো alert, সাইট ঠিক আছে"
           check() { # name url expected_code
             code=$(curl -s -o /dev/null -m 20 -w "%{http_code}" "$2" || true)
             [ "$code" = "$3" ] || fails="$fails\n• $1 → $code (চাইছিলাম $3)"
