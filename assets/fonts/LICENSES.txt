@@ -1,0 +1,14 @@
+Webfont licences — self-hosted copies of Google Fonts files
+
+Source: https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Roboto+Slab:wght@500;700&display=swap
+Files: see .freebuff/fonts.lock.json (url + sha256 for every file, so freshness is provable)
+
+* Noto Sans Bengali — SIL Open Font License 1.1
+  published by: Google Fonts
+  licence: https://fonts.google.com/noto/specimen/Noto+Sans+Bengali/license
+* Roboto Slab — Apache License 2.0
+  published by: Google Fonts
+  licence: https://fonts.google.com/specimen/Roboto+Slab/license
+
+Both licences permit redistribution and web embedding, including self-hosting; the files are
+unmodified copies. Nothing here is subsetted, renamed or otherwise altered.

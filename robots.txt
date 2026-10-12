@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /n8n/
+Disallow: /webhook/
+Disallow: /webhook-test/
+Disallow: /healthz
+Disallow: /px.gif
+Sitemap: https://gtmautomation.net/sitemap.xml

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <meta property="og:image" content="https://gtmautomation.net/assets/og-1200x630.png?v=20261012" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="GTM Automation — ২৪/৭ AI অটো-রিপ্লাই" />
+  <meta property="og:site_name" content="GTM Automation Bangladesh" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://gtmautomation.net/assets/og-1200x630.png?v=20261012" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>চ্যাটে অর্ডার নেওয়া AI বট — F-commerce | GTM Automation</title>
+  <meta name="description" content="চ্যাটেই নাম, মোবাইল, ঠিকানা, পণ্য ও পরিমাণ নিয়ে অর্ডার কনফার্ম; সেলারের Telegram-এ অ্যালার্ট; ৭২ ঘণ্টায় একই নম্বরের অর্ডার রিভিউ; ছবি দেখে দাম। সব প্ল্যানে।" />
+  <link rel="canonical" href="https://gtmautomation.net/order-bot.html" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="চ্যাটে অর্ডার নেওয়া AI বট — F-commerce | GTM Automation" />
+  <meta property="og:description" content="চ্যাটেই নাম, মোবাইল, ঠিকানা, পণ্য ও পরিমাণ নিয়ে অর্ডার কনফার্ম; সেলারের Telegram-এ অ্যালার্ট; ৭২ ঘণ্টায় একই নম্বরের অর্ডার রিভিউ; ছবি দেখে দাম। সব প্ল্যানে।" />
+  <meta property="og:url" content="https://gtmautomation.net/order-bot.html" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="fb:app_id" content="1580832699983506" />
+  <meta name="twitter:title" content="চ্যাটে অর্ডার নেওয়া AI বট — F-commerce | GTM Automation" />
+  <meta name="twitter:description" content="চ্যাটেই নাম, মোবাইল, ঠিকানা, পণ্য ও পরিমাণ নিয়ে অর্ডার কনফার্ম; সেলারের Telegram-এ অ্যালার্ট; ৭২ ঘণ্টায় একই নম্বরের অর্ডার রিভিউ; ছবি দেখে দাম। সব প্ল্যানে।" />
+  <meta name="theme-color" content="#05070f" />
+
+  <!-- Bengali webfonts, self-hosted (same files and rules as the other pages). -->
+  <link rel="stylesheet" href="assets/fonts/kalpurush.css" />
+  <link rel="preload" href="assets/fonts/noto-sans-bengali-bengali-w400-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/noto-sans-bengali-latin-w400-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Kalpurush', 'Noto Sans Bengali', 'Roboto Slab', sans-serif;
+      background-color: #05070f;
+      background-image:
+        linear-gradient(180deg, rgba(5,7,15,.93) 0%, rgba(5,7,15,.88) 45%, rgba(5,7,15,.94) 100%),
+        url('bot-bg.svg');
+      background-attachment: fixed;
+      background-repeat: no-repeat, repeat;
+      background-size: auto, 480px 480px;
+    }
+    .glass {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 32px rgba(2,6,23,.55);
+    }
+    .neon-text {
+      background: linear-gradient(92deg, #38bdf8 0%, #818cf8 50%, #a855f7 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 18px rgba(99,102,241,.35));
+    }
+    #navbar { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    #navbar.scrolled { background: rgba(5,7,15,.85); backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(2,6,23,.6); border-color: rgba(255,255,255,.08); }
+
+    /* ডকুমেন্ট টাইপোগ্রাফি */
+    .doc p, .doc li { color: #cbd5e1; line-height: 1.95; }
+    .doc h2 { color: #fff; font-weight: 800; font-size: 1.35rem; line-height: 1.6; margin-top: .25rem; }
+    .doc h3 { color: #e2e8f0; font-weight: 700; font-size: 1.05rem; line-height: 1.7; }
+    .doc a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
+    .doc strong { color: #fff; font-weight: 700; }
+    .doc ul { list-style: none; padding-left: 0; }
+
+    details.qa { border-bottom: 1px solid rgba(255,255,255,.08); }
+    details.qa[open] { background: rgba(255,255,255,.03); }
+    details.qa > summary { cursor: pointer; list-style: none; padding: 1.05rem .25rem; }
+    details.qa > summary::-webkit-details-marker { display: none; }
+    details.qa > summary .chev { transition: transform .25s ease; }
+    details.qa[open] > summary .chev { transform: rotate(180deg); }
+
+    /* ধাপের নম্বর ও উদাহরণ চ্যাট */
+    .step { counter-increment: step; }
+    .step-no { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: linear-gradient(135deg, #38bdf8, #818cf8); color: #fff; font-weight: 800; flex: 0 0 auto; }
+    .chat-ex { font-size: .9rem; }
+    .chat-ex .c, .chat-ex .b { max-width: 88%; padding: .5rem .8rem; border-radius: 1rem; line-height: 1.7; }
+    .chat-ex .c { background: rgba(255,255,255,.09); color: #e2e8f0; border-bottom-left-radius: .25rem; }
+    .chat-ex .b { margin-left: auto; background: linear-gradient(110deg, rgba(56,189,248,.22), rgba(168,85,247,.22)); border: 1px solid rgba(56,189,248,.3); color: #fff; border-bottom-right-radius: .25rem; }
+    .alert-ex { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82rem; line-height: 1.8; white-space: pre-wrap; color: #e2e8f0; }
+    .tbl { min-width: 560px; border-collapse: separate; border-spacing: 0; }
+    .tbl th, .tbl td { text-align: left; vertical-align: top; padding: .55rem .7rem; border-bottom: 1px solid rgba(255,255,255,.08); font-size: .86rem; line-height: 1.7; }
+    .tbl th { color: #fff; font-weight: 800; background: rgba(255,255,255,.04); }
+    .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+    .ok { color: #6ee7b7; }
+    .no { color: #fca5a5; }
+
+    /* ফ্লোটিং বাটন (ল্যান্ডিং পেজের মতোই) */
+    .messenger-fab, .whatsapp-fab, .instagram-fab {
+      position: fixed; right: max(1rem, env(safe-area-inset-right)); z-index: 60;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem; border-radius: 9999px;
+      font-weight: 700; font-size: .95rem; line-height: 1;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .messenger-fab { bottom: max(1rem, env(safe-area-inset-bottom)); background: #0084ff; color: #fff; box-shadow: 0 6px 24px rgba(0,132,255,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.1rem); background: #25D366; color: #fff; box-shadow: 0 6px 24px rgba(37,211,102,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .messenger-fab:hover, .messenger-fab:focus-visible { background: #0074e8; transform: translateY(-2px) scale(1.03); }
+    .whatsapp-fab:hover, .whatsapp-fab:focus-visible { background: #1fb857; transform: translateY(-2px) scale(1.03); }
+    @media (max-width: 400px) {
+      .messenger-fab, .whatsapp-fab, .instagram-fab { padding: .7rem; font-size: .85rem; }
+      .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.8rem); }
+    }
+    .instagram-fab {
+      position: fixed; right: max(1rem, env(safe-area-inset-right)); z-index: 60;
+      bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 12.3rem);
+      background: #C13584; color: #fff;
+      box-shadow: 0 6px 24px rgba(193,53,132,.45), 0 0 0 1px rgba(255,255,255,.15) inset;
+    }
+    .instagram-fab:hover, .instagram-fab:focus-visible { background: #a82b70; transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 32px rgba(193,53,132,.6); }
+    @media (max-width: 400px) { .instagram-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 11.4rem); } }
+    @media (max-width: 639px) { .telegram-fab, .instagram-fab { display: none; } }
+
+    /* প্রিন্ট / PDF */
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      #navbar, .messenger-fab, .whatsapp-fab, .instagram-fab, .no-print { display: none !important; }
+      .glass { border: 1px solid #ddd !important; box-shadow: none !important; background: #fff !important; }
+      .doc p, .doc li, .doc h2, .doc h3, .doc strong, .tbl td, .tbl th, .alert-ex { color: #111 !important; background: #fff !important; }
+      .doc a { color: #0645ad !important; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    :target { scroll-margin-top: 96px; }
+    html, body { overflow-x: hidden; overflow-x: clip; }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://gtmautomation.net/order-bot.html",
+        "url": "https://gtmautomation.net/order-bot.html",
+        "name": "চ্যাটে অর্ডার নেওয়া AI বট — F-commerce সেলারদের জন্য",
+        "inLanguage": "bn-BD",
+        "datePublished": "2026-10-09",
+        "dateModified": "2026-10-09",
+        "isPartOf": { "@id": "https://gtmautomation.net/#website" },
+        "about": { "@id": "https://gtmautomation.net/#service" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "বট কি চ্যাটে পেমেন্ট নেয়?",
+            "acceptedAnswer": { "@type": "Answer", "text": "না। bKash/Nagad/কার্ড গেটওয়ে বা চেকআউট লিংক চ্যাটে নেই। পেমেন্ট আপনি নিজের নিয়মে নেন — ক্যাশ অন ডেলিভারি বা আপনার নিজের নম্বরে। বট কখনো PIN, OTP বা কার্ড নম্বর চায় না।" }
+          },
+          {
+            "@type": "Question",
+            "name": "ভুয়া অর্ডার কীভাবে ধরা হয়?",
+            "acceptedAnswer": { "@type": "Answer", "text": "একই মোবাইল নম্বর থেকে ৭২ ঘণ্টার মধ্যে দ্বিতীয় অর্ডার এলে, বা নম্বর বাংলাদেশি ১১ ডিজিটের না হলে, অর্ডারটি 'রিভিউ' স্ট্যাটাসে যায় এবং Telegram অ্যালার্টে কারণ লেখা থাকে। সিদ্ধান্ত আপনি কল দিয়ে নেন; বট নিজে কোনো অর্ডার বাতিল করে না। এটি একটি নিয়ম, সব ভুয়া অর্ডার আটকানোর নিশ্চয়তা নয়।" }
+          },
+          {
+            "@type": "Question",
+            "name": "অর্ডার নেওয়ার জন্য আমাকে কী দিতে হবে?",
+            "acceptedAnswer": { "@type": "Answer", "text": "একটি প্রোডাক্ট লিস্ট (CSV/Excel বা WhatsApp-এ লেখা): পণ্যের নাম, দাম, অপশন (সাইজ/রং), ডেলিভারি চার্জ (ঢাকার ভেতরে/বাইরে)। সাথে রিটার্ন নিয়ম, ডেলিভারির সময় ও পেমেন্ট নিয়ম, আর অ্যালার্ট পাওয়ার জন্য আপনার Telegram অ্যাকাউন্ট।" }
+          },
+          {
+            "@type": "Question",
+            "name": "কোন প্ল্যানে চ্যাটে অর্ডার নেওয়া আছে?",
+            "acceptedAnswer": { "@type": "Answer", "text": "সব প্ল্যানে — Starter (৳৫০০/মাস) থেকেই। ছবি দেখে উত্তর ও মানুষের কাছে হ্যান্ডওভারও সব প্ল্যানে। Starter-এ ৭ দিন ফ্রি ট্রায়াল, কার্ড লাগে না; সেটআপ ফি নেই।" }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Tailwind is compiled ONCE at build time (`.freebuff/build-tailwind-css.mjs`). Only classes that
+       already exist in assets/tailwind.css are used on this page; anything else is inline CSS above. -->
+  <link rel="stylesheet" href="assets/tailwind.css" />
+  <link rel="stylesheet" href="assets/immersive.css?v=cbd1a0e5" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'" />
+</head>
+
+<body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
+
+  <!-- ================= নেভিগেশন ================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 border-b border-transparent">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6" aria-label="প্রধান মেনু">
+      <a href="/" class="flex items-center gap-2" aria-label="GTM Automation — হোম">
+        <span class="grid h-9 w-9 place-items-center overflow-hidden rounded-xl bg-white shadow-neon-blue"><img src="assets/logo-mark.svg" alt="GTM Automation লোগো" width="36" height="36" class="h-9 w-9" /></span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+        <a href="/#features" class="transition hover:text-white">ফিচার</a>
+        <a href="order-bot.html" class="font-semibold text-white" aria-current="page">চ্যাটে অর্ডার</a>
+        <a href="pricing.html" class="transition hover:text-white">মূল্য তালিকা</a>
+        <a href="compare.html" class="transition hover:text-white">তুলনা</a>
+        <a href="faq.html" class="transition hover:text-white">FAQ</a>
+        <a href="connect.html" class="rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple px-4 py-2 font-semibold text-white transition hover:opacity-90" data-nav-connect="1">Page কানেক্ট করুন</a>
+        <a href="/#lead-form" class="rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">৭ দিন ফ্রি ট্রায়াল</a>
+      </div>
+
+      <button id="menu-btn" class="grid h-10 w-10 place-items-center rounded-lg glass md:hidden" aria-label="মেনু খুলুন" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-night-950/95 px-4 py-4 md:hidden">
+      <a href="/#features" class="block py-2 text-slate-300">ফিচার</a>
+      <a href="order-bot.html" class="block py-2 font-semibold text-white">চ্যাটে অর্ডার</a>
+      <a href="pricing.html" class="block py-2 text-slate-300">মূল্য তালিকা</a>
+      <a href="compare.html" class="block py-2 text-slate-300">তুলনা</a>
+      <a href="faq.html" class="block py-2 text-slate-300">FAQ</a>
+      <a href="privacy.html" class="block py-2 text-slate-300">প্রাইভেসি পলিসি</a>
+      <a href="connect.html" class="mt-2 block rounded-lg border border-neon-blue/30 py-2 text-center font-semibold text-white" data-nav-connect="1">Page কানেক্ট করুন</a>
+      <a href="/#lead-form" class="mt-2 block rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple py-2 text-center font-semibold text-white">৭ দিন ফ্রি ট্রায়াল শুরু করুন</a>
+    </div>
+  </header>
+
+  <!-- ================= শিরোনাম ================= -->
+  <section class="relative overflow-hidden pt-28 pb-8 sm:pt-36 sm:pb-10">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,.10),transparent_60%)]"></div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6">
+      <nav class="mb-4 text-sm text-slate-400" aria-label="ব্রেডক্রাম্ব">
+        <a href="/" class="transition hover:text-neon-blue">হোম</a>
+        <span class="px-2 text-slate-600" aria-hidden="true">/</span>
+        <span class="text-slate-300">চ্যাটে অর্ডার নেওয়া</span>
+      </nav>
+
+      <h1 class="text-3xl font-extrabold leading-snug text-white sm:text-4xl">
+        চ্যাটেই অর্ডার নেয় — <span class="neon-text">নাম, নম্বর, ঠিকানা, পণ্য, কনফার্ম</span>
+      </h1>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+        F-commerce সেলারদের জন্য: কাস্টমার "নিব" বললে বট নিজেই অর্ডারের সব তথ্য জেনে নিয়ে কনফার্ম করে, আপনার অর্ডার লিস্টে তোলে আর সাথে সাথে আপনার Telegram-এ অ্যালার্ট পাঠায়।
+        <strong class="text-slate-300">আপনি শুধু কল দিয়ে কনফার্ম করেন আর কুরিয়ার বুক করেন।</strong> পেমেন্ট চ্যাটে নেওয়া হয় না।
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+        <span class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,.9)]" aria-hidden="true"></span>
+          নতুন — সব প্ল্যানে অন্তর্ভুক্ত
+        </span>
+        <span class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5">Messenger · Instagram · WhatsApp · Telegram</span>
+        <span class="glass inline-flex items-center gap-2 rounded-full px-3 py-1.5">সর্বশেষ হালনাগাদ: ৯ অক্টোবর ২০২৬</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= বিস্তারিত ================= -->
+  <main class="mx-auto max-w-4xl px-4 pb-24 sm:px-6">
+    <div class="doc glass rounded-2xl p-6 sm:p-8">
+
+      <!-- ১ -->
+      <section id="flow" class="scroll-mt-24">
+        <h2 class="mb-2">১. চ্যাটে অর্ডার কীভাবে হয়</h2>
+        <p class="mb-4">ছয়টি ধাপ। প্রথম পাঁচটি বট করে, শেষটি আপনি — কারণ টাকার সিদ্ধান্ত মানুষের হাতেই থাকা উচিত।</p>
+
+        <ol class="space-y-3.5" id="order-flow">
+          <li class="step flex items-start gap-4"><span class="step-no">১</span><div><strong>কাস্টমার প্রশ্ন করে।</strong> "এই শাড়িটার দাম কত? ঢাকার বাইরে ডেলিভারি কত?" — বট আপনার প্রোডাক্ট লিস্ট থেকে দাম, অপশন আর ডেলিভারি চার্জ বলে। লিস্টে না থাকলে বানিয়ে বলে না, আপনাকে জিজ্ঞেস করতে বলে।</div></li>
+          <li class="step flex items-start gap-4"><span class="step-no">২</span><div><strong>"নিব" বললে তথ্য নেয়।</strong> একে একে জিজ্ঞেস করে: নাম, মোবাইল নম্বর, ঠিকানা, কোন পণ্য (সাইজ/রং), পরিমাণ। কাস্টমার একসাথে সব লিখে দিলে আবার জিজ্ঞেস করে না।</div></li>
+          <li class="step flex items-start gap-4"><span class="step-no">৩</span><div><strong>মোবাইল নম্বর যাচাই।</strong> বাংলাদেশি ১১ ডিজিট (01XXXXXXXXX) না হলে আবার চায়। বাংলা সংখ্যায় লিখলেও বোঝে। তবু ভুল থাকলে অর্ডারটি রিভিউতে যায়।</div></li>
+          <li class="step flex items-start gap-4"><span class="step-no">৪</span><div><strong>সারসংক্ষেপ দেখিয়ে কনফার্ম চায়।</strong> পণ্য × পরিমাণ, দাম, ডেলিভারি চার্জ, মোট টাকা, ঠিকানা। কাস্টমার "হ্যাঁ" বললে তবেই অর্ডার জমা হয়।</div></li>
+          <li class="step flex items-start gap-4"><span class="step-no">৫</span><div><strong>অর্ডার লিস্টে জমা + Telegram অ্যালার্ট।</strong> স্ট্যাটাস "নতুন" বা "রিভিউ" (নিচে ৩ নম্বর অংশ দেখুন)। অ্যালার্ট সাথে সাথে আপনার Telegram-এ।</div></li>
+          <li class="step flex items-start gap-4"><span class="step-no">৬</span><div><strong>আপনি কল দিয়ে কনফার্ম করেন, কুরিয়ার বুক করেন।</strong> এই ধাপটা মানুষের। বট কখনো নিজে থেকে কুরিয়ার বুক করে না বা টাকা চায় না।</div></li>
+        </ol>
+
+        <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6">
+          <p class="mb-3 text-xs text-slate-500">উদাহরণ (সাজানো কথোপকথন — আপনার বট আপনার নিজের পণ্য আর দাম বলবে):</p>
+          <div class="chat-ex flex flex-col gap-2" aria-label="উদাহরণ চ্যাট">
+            <div class="c">জামদানি শাড়িটা নীল রঙে আছে? দাম কত?</div>
+            <div class="b">জি, জামদানি শাড়ি (নীল) আছে — দাম ৳১,৭৮০। ঢাকার ভেতরে ডেলিভারি ৳৭০, বাইরে ৳১৩০। নিবেন?</div>
+            <div class="c">হ্যাঁ নিব, ১টা। মিরপুর-১০, ঢাকা।</div>
+            <div class="b">ধন্যবাদ! আপনার নাম আর মোবাইল নম্বরটা দিন।</div>
+            <div class="c">রুমানা আক্তার, 01XXXXXXXXX</div>
+            <div class="b">অর্ডার: জামদানি শাড়ি (নীল) × ১ = ৳১,৭৮০ + ডেলিভারি ৳৭০ = মোট ৳১,৮৫০ · ঠিকানা: মিরপুর-১০, ঢাকা · ক্যাশ অন ডেলিভারি। ঠিক আছে? "হ্যাঁ" লিখুন।</div>
+            <div class="c">হ্যাঁ</div>
+            <div class="b">অর্ডার নেওয়া হয়েছে ✅ কনফার্ম করতে আমাদের টিম একটু পরে কল দেবে। কোনো PIN বা OTP কাউকে দেবেন না।</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ২ -->
+      <section id="telegram" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">২. Telegram-এ আপনি কী পান</h2>
+        <p class="mb-4">প্রতিটি অর্ডারের জন্য একটি মেসেজ — কোন চ্যানেল থেকে এল, কাস্টমার কে, কী নিল, কত টাকা, আর কোনো সতর্কতা থাকলে সেটা। নিচেরটা উদাহরণ:</p>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4">
+            <p class="mb-2 text-xs font-semibold text-emerald-300">সাধারণ অর্ডার</p>
+            <pre class="alert-ex">🛒 নতুন অর্ডার — Messenger
+নাম: রুমানা আক্তার
+মোবাইল: 01XXXXXXXXX
+ঠিকানা: মিরপুর-১০, ঢাকা
+পণ্য: জামদানি শাড়ি (নীল) × ১
+মোট: ৳১,৮৫০ (ডেলিভারি ৳৭০ সহ)
+পেমেন্ট: ক্যাশ অন ডেলিভারি
+স্ট্যাটাস: নতুন</pre>
+          </div>
+          <div class="rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4">
+            <p class="mb-2 text-xs font-semibold text-amber-200">রিভিউ দরকার</p>
+            <pre class="alert-ex">⚠️ অর্ডার — রিভিউ দরকার — WhatsApp
+নাম: (কাস্টমারের দেওয়া নাম)
+মোবাইল: 01XXXXXXXXX
+কারণ: এই নম্বর থেকে ৭২ ঘণ্টায় ২য় অর্ডার
+পণ্য: হুডি (কালো, L) × ২
+মোট: ৳২,০৩০
+স্ট্যাটাস: রিভিউ — কল দিয়ে নিশ্চিত হোন</pre>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-slate-400">অর্ডারগুলো একটি অর্ডার লিস্টে জমা থাকে (চ্যানেল, স্ট্যাটাস, সময়সহ)। চ্যাটে "মানুষ" লিখলে বা জটিল প্রশ্ন এলে আলাদা হ্যান্ডওভার অ্যালার্টও একই Telegram-এ আসে।</p>
+      </section>
+
+      <!-- ৩ -->
+      <section id="review" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">৩. ভুয়া অর্ডার: রিভিউ নিয়ম</h2>
+        <p class="mb-4">F-commerce-এর বড় মাথাব্যথা ভুয়া অর্ডার। বট কোনো অর্ডার নিজে বাতিল করে না — কিন্তু সন্দেহজনক অর্ডারকে আলাদা করে দেখায়, যাতে আপনি কল না দিয়ে কুরিয়ার না পাঠান।</p>
+        <ul class="space-y-2">
+          <li>• <strong>একই মোবাইল নম্বর, ৭২ ঘণ্টার মধ্যে দ্বিতীয় অর্ডার</strong> → স্ট্যাটাস "রিভিউ"; কনফার্ম মেসেজের আগেই চিহ্নিত হয়; অ্যালার্টে কারণ লেখা থাকে।</li>
+          <li>• <strong>নম্বর ঠিক না</strong> (বাংলাদেশি ১১ ডিজিট নয়) → "রিভিউ"।</li>
+          <li>• <strong>একই অর্ডার দুবার এলে</strong> (নেটওয়ার্ক বা ডাবল-ট্যাপে) → ডুপ্লিকেট তৈরি হয় না।</li>
+          <li>• নম্বরের ফরম্যাট যেভাবেই লিখুক — <strong>01…, +8801…, 8801…, বাংলা সংখ্যা, ড্যাশ</strong> — একই নম্বর হিসেবে ধরা হয়।</li>
+          <li>• <strong>রিভিউ মানে বাতিল নয়।</strong> সিদ্ধান্ত আপনার: কল দিয়ে নিশ্চিত হয়ে "কনফার্ম" বা "বাতিল" করুন।</li>
+          <li class="text-slate-400">• সৎ সীমা: এটি একটি নিয়ম, সব ভুয়া অর্ডার আটকানোর নিশ্চয়তা নয়। নতুন নম্বর থেকে ভুয়া অর্ডার এলে কল-কনফার্মই ভরসা।</li>
+        </ul>
+      </section>
+
+      <!-- ৪ -->
+      <section id="photo" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">৪. ছবি পাঠিয়ে "এটার দাম কত?"</h2>
+        <p class="mb-4">অনেক কাস্টমার পণ্যের নাম জানে না — স্ক্রিনশট বা ছবি পাঠায়। বট ছবিটা দেখে বোঝে, আপনার প্রোডাক্ট লিস্টের সাথে মেলায়, তারপর উত্তর দেয়।</p>
+        <ul class="space-y-2">
+          <li>• <span class="ok">মিললে:</span> পণ্যের নাম, দাম, অপশন (সাইজ/রং) আর ডেলিভারি চার্জ বলে — তারপর "নিবেন?"</li>
+          <li>• <span class="no">না মিললে বা সন্দেহ থাকলে:</span> দাম বানায় না। "কোন পণ্যটা চাচ্ছেন, নামটা লিখবেন?" — বা আপনাকে জানায়।</li>
+          <li>• ছবি অস্পষ্ট হলে বা দুটি পণ্য প্রায় একই রকম দেখতে হলে ভুল হতে পারে — তাই বড় অর্ডারে কনফার্ম কলে আপনি নিজে মিলিয়ে নিন।</li>
+          <li>• ছবি শুধু উত্তর তৈরির জন্য প্রসেস হয়; কাস্টমারের ছবি বিক্রি বা শেয়ার করা হয় না (<a href="privacy.html">প্রাইভেসি পলিসি</a>)।</li>
+        </ul>
+      </section>
+
+      <!-- ৫ -->
+      <section id="need" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">৫. আপনার কাছ থেকে যা লাগে</h2>
+        <p class="mb-4">কোনো কোডিং না। একটি প্রোডাক্ট লিস্ট — Excel/CSV, বা WhatsApp-এ লিখে পাঠালেও হয়; ফরম্যাট আমরা ঠিক করে নিই। নতুন পণ্য বা দাম বদলালে আবার পাঠান, নলেজ বেস আপডেট হয়।</p>
+
+        <div class="tbl-wrap rounded-xl border border-white/10">
+          <table class="tbl w-full" id="product-csv">
+            <caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">প্রোডাক্ট লিস্টের কলাম ও উদাহরণ</caption>
+            <thead>
+              <tr>
+                <th scope="col">পণ্যের নাম</th>
+                <th scope="col">দাম (৳)</th>
+                <th scope="col">অপশন</th>
+                <th scope="col">ডেলিভারি চার্জ</th>
+                <th scope="col">নোট (ঐচ্ছিক)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>জামদানি শাড়ি</td><td>১,৭৮০</td><td>নীল, লাল, সবুজ</td><td>ঢাকায় ৭০ / বাইরে ১৩০</td><td>অগ্রিম ছাড়া COD</td></tr>
+              <tr><td>হুডি</td><td>৯৮০</td><td>M, L, XL · কালো, ধূসর</td><td>ঢাকায় ৭০ / বাইরে ১৩০</td><td>XL স্টক কম</td></tr>
+              <tr><td>লেডিস ব্যাগ</td><td>৬৫০</td><td>—</td><td>ঢাকায় ৬০ / বাইরে ১২০</td><td>ছবি দিলে ভালো</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="mt-4 space-y-2">
+          <li>• <strong>পণ্যের ছবি</strong> (ঐচ্ছিক) — "ছবি দেখে উত্তর" ভালো কাজ করে।</li>
+          <li>• <strong>নিয়ম</strong>: রিটার্ন/এক্সচেঞ্জ, ডেলিভারির সময়, পেমেন্ট (COD/অগ্রিম), কোন এলাকায় ডেলিভারি দেন।</li>
+          <li>• <strong>আপনার Telegram অ্যাকাউন্ট</strong> — অর্ডার ও হ্যান্ডওভার অ্যালার্ট ওখানেই যাবে।</li>
+          <li>• <strong>Page/নম্বর কানেক্ট</strong>: আমরা ২৪ ঘণ্টার মধ্যে কানেক্ট করে দিই; <a href="connect.html">নিজে-কানেক্ট</a> অপশন Facebook-এর অনুমোদনের পর চালু হবে। পাসওয়ার্ড লাগে না।</li>
+        </ul>
+      </section>
+
+      <!-- ৬ -->
+      <section id="limits" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">৬. সৎ সীমাবদ্ধতা</h2>
+        <ul class="space-y-2">
+          <li>• <strong>চ্যাটে পেমেন্ট নেওয়া হয় না।</strong> bKash/Nagad/কার্ড গেটওয়ে বা চেকআউট লিংক নেই। পেমেন্ট আপনার নিয়মে — ক্যাশ অন ডেলিভারি বা আপনার নিজের নম্বরে। বট কখনো PIN, OTP বা কার্ড নম্বর চায় না।</li>
+          <li>• <strong>কুরিয়ার বুকিং/ট্র্যাকিং ইন্টিগ্রেশন এখনো নেই।</strong> আপনি বুক করেন।</li>
+          <li>• <strong>স্টক হিসাব রাখে না।</strong> স্টক শেষ হলে জানান, বট তখন "স্টক নেই" বলবে।</li>
+          <li>• <strong>অর্ডার বা বিক্রি বাড়ার কোনো নিশ্চয়তা নেই।</strong> ফল আপনার পণ্য, দাম, ট্রাফিক আর কল-কনফার্মের ওপর।</li>
+          <li>• <strong>AI ভুল করতে পারে।</strong> তাই প্রতিটি অর্ডার অ্যালার্ট হয়ে আপনার কাছে যায় আর শেষ কথা আপনার কলে।</li>
+          <li>• <strong>নতুন ফিচার।</strong> এখন চালু হচ্ছে — ৭ দিনের ফ্রি ট্রায়ালে নিজের পেজে পরীক্ষা করে তবেই সিদ্ধান্ত নিন।</li>
+        </ul>
+      </section>
+
+      <!-- ৭ -->
+      <section id="pricing" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">৭. দাম ও শুরু</h2>
+        <ul class="space-y-2">
+          <li>• চ্যাটে অর্ডার নেওয়া, ছবি দেখে উত্তর আর মানুষের কাছে হ্যান্ডওভার — <strong>সব প্ল্যানে</strong>: Starter ৳৫০০/মাস (দিনে ৫০ কথোপকথন), Professional ৳১,৫০০/মাস (দিনে ২০০), Enterprise কাস্টম। <a href="pricing.html">পুরো মূল্য তালিকা</a>।</li>
+          <li>• <strong>৭ দিন ফ্রি ট্রায়াল</strong> (Starter) — কার্ড লাগে না, Page/নম্বর কানেক্ট হওয়ার পর থেকে গোনা হয়।</li>
+          <li>• <strong>সেটআপ ফি নেই</strong> — কোনো প্ল্যানে না।</li>
+          <li>• পেমেন্ট <strong>bKash, Nagad বা ব্যাংক ট্রান্সফারে</strong> — ইনভয়েসে নম্বর দেওয়া থাকে।</li>
+          <li>• অন্যদের সাথে তুলনা দেখতে চান? <a href="compare.html">তারিখসহ তুলনা-টেবিল</a>।</li>
+        </ul>
+      </section>
+
+      <!-- মিনি FAQ -->
+      <section id="faq" class="mt-10 scroll-mt-24">
+        <h2 class="mb-2">৮. ছোট প্রশ্নোত্তর</h2>
+
+        <details class="qa" open>
+          <summary class="flex items-start justify-between gap-4">
+            <h3>বট কি চ্যাটে পেমেন্ট নেয়?</h3>
+            <span class="chev mt-1 shrink-0 text-neon-blue" aria-hidden="true">▾</span>
+          </summary>
+          <p class="pb-5">না। bKash/Nagad/কার্ড গেটওয়ে বা চেকআউট লিংক চ্যাটে নেই। পেমেন্ট আপনি নিজের নিয়মে নেন — ক্যাশ অন ডেলিভারি বা আপনার নিজের নম্বরে। বট কখনো PIN, OTP বা কার্ড নম্বর চায় না।</p>
+        </details>
+
+        <details class="qa">
+          <summary class="flex items-start justify-between gap-4">
+            <h3>ভুয়া অর্ডার কীভাবে ধরা হয়?</h3>
+            <span class="chev mt-1 shrink-0 text-neon-blue" aria-hidden="true">▾</span>
+          </summary>
+          <p class="pb-5">একই মোবাইল নম্বর থেকে ৭২ ঘণ্টার মধ্যে দ্বিতীয় অর্ডার এলে, বা নম্বর বাংলাদেশি ১১ ডিজিটের না হলে, অর্ডারটি "রিভিউ" স্ট্যাটাসে যায় এবং Telegram অ্যালার্টে কারণ লেখা থাকে। সিদ্ধান্ত আপনি কল দিয়ে নেন; বট নিজে কোনো অর্ডার বাতিল করে না। এটি একটি নিয়ম, সব ভুয়া অর্ডার আটকানোর নিশ্চয়তা নয়।</p>
+        </details>
+
+        <details class="qa">
+          <summary class="flex items-start justify-between gap-4">
+            <h3>অর্ডার নেওয়ার জন্য আমাকে কী দিতে হবে?</h3>
+            <span class="chev mt-1 shrink-0 text-neon-blue" aria-hidden="true">▾</span>
+          </summary>
+          <p class="pb-5">একটি প্রোডাক্ট লিস্ট (CSV/Excel বা WhatsApp-এ লেখা): পণ্যের নাম, দাম, অপশন (সাইজ/রং), ডেলিভারি চার্জ (ঢাকার ভেতরে/বাইরে)। সাথে রিটার্ন নিয়ম, ডেলিভারির সময় ও পেমেন্ট নিয়ম, আর অ্যালার্ট পাওয়ার জন্য আপনার Telegram অ্যাকাউন্ট।</p>
+        </details>
+
+        <details class="qa">
+          <summary class="flex items-start justify-between gap-4">
+            <h3>কোন প্ল্যানে চ্যাটে অর্ডার নেওয়া আছে?</h3>
+            <span class="chev mt-1 shrink-0 text-neon-blue" aria-hidden="true">▾</span>
+          </summary>
+          <p class="pb-5">সব প্ল্যানে — Starter (৳৫০০/মাস) থেকেই। ছবি দেখে উত্তর ও মানুষের কাছে হ্যান্ডওভারও সব প্ল্যানে। Starter-এ ৭ দিন ফ্রি ট্রায়াল, কার্ড লাগে না; সেটআপ ফি নেই।</p>
+        </details>
+      </section>
+
+      <p class="mt-10 border-t border-white/10 pt-6 text-sm text-slate-400">
+        এই পেজের উদাহরণগুলো সাজানো; নাম, নম্বর ও দাম কাল্পনিক। আপনার বট আপনার দেওয়া পণ্য, দাম আর নিয়ম থেকেই কথা বলবে — <a href="faq.html">সাধারণ জিজ্ঞাসা</a> ও <a href="terms.html">শর্তাবলী</a> দেখুন।
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-col items-center gap-3 text-center">
+      <a href="/#lead-form" class="rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple px-6 py-3 font-semibold text-white shadow-neon-blue transition hover:opacity-90">৭ দিন ফ্রি ট্রায়াল শুরু করুন</a>
+      <a href="/#live-demo" class="text-sm text-slate-400 transition hover:text-neon-blue">আগে বটটা নিজে পরীক্ষা করুন →</a>
+      <a href="/" class="text-sm text-slate-400 transition hover:text-neon-blue">← হোমে ফিরে যান</a>
+    </div>
+  </main>
+
+  <!-- ================= ফুটার ================= -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:px-6">
+      <p class="text-sm text-slate-500">© 2026 GTM Automation Bangladesh</p>
+      <p class="text-xs text-slate-500" data-business-identity="true">GTM Automation (জিটিএম অটোমেশন) — ব্যক্তি মালিকানাধীন (স্বত্বাধিকারী: NAJMIN AKTAR), আইটি সার্ভিস · বাদাঘাট রোড, সোনাতলা-৩১০০, জালালাবাদ, সিলেট সদর, সিলেট, বাংলাদেশ (৮নং কান্দিগাঁও ইউনিয়ন) · WhatsApp Bot +880 1886 723675 · Human +880 1701 124361 · <a class="underline hover:text-neon-blue" href="mailto:contact@gtmautomation.net">contact@gtmautomation.net</a> · Trade License No. K.U.P/1085/26 (2026–27, valid till 30 June 2027)</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400" aria-label="ফুটার লিংক">
+        <a href="/" class="transition hover:text-neon-blue">হোম</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="pricing.html" class="transition hover:text-neon-blue">Pricing</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="compare.html" class="transition hover:text-neon-blue">তুলনা</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="order-bot.html" class="transition hover:text-neon-blue" aria-current="page">চ্যাটে অর্ডার</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="faq.html" class="transition hover:text-neon-blue">FAQ</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="privacy.html" class="transition hover:text-neon-blue">Privacy Policy</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="terms.html" class="transition hover:text-neon-blue">Terms of Service</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="https://t.me/GTM_Autobot" target="_blank" rel="noopener" class="transition hover:text-neon-blue">Telegram</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="transition hover:text-neon-blue">Contact Us</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    /* স্টিকি নেভ */
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* মোবাইল মেনু */
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+
+  <!-- ফ্লোটিং বাটন -->
+  <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="messenger-fab" aria-label="Messenger-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.92 1.46 5.52 3.74 7.22V22l3.42-1.88c.9.25 1.86.38 2.84.38 5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1.06 12.44-2.55-2.72-4.97 2.72 5.47-5.81 2.61 2.72 4.9-2.72-5.46 5.81z"/></svg>
+  </a>
+  <a href="https://wa.me/8801886723675" target="_blank" rel="noopener" class="whatsapp-fab" aria-label="WhatsApp-এ কথা বলুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.55 2 2.1 6.45 2.1 11.94c0 1.76.46 3.47 1.33 4.98L2 22l5.22-1.37a9.9 9.9 0 0 0 4.82 1.23c5.49 0 9.94-4.45 9.94-9.94S17.53 2 12.04 2zm0 18.19c-1.5 0-2.97-.4-4.25-1.16l-.3-.18-3.1.81.83-3.02-.2-.31a8.21 8.21 0 0 1-1.26-4.39c0-4.55 3.7-8.25 8.26-8.25 4.55 0 8.25 3.7 8.25 8.25 0 4.56-3.7 8.25-8.23 8.25z"/></svg>
+  </a>
+
+  <!-- Visit counting: FIRST-PARTY and cookie-free (see index.html). -->
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams();
+        q.set('p', location.pathname);
+        q.set('r', document.referrer ? document.referrer.replace(/^https?:\/\//, '').split('/')[0] : 'direct');
+        q.set('w', String(Math.round(window.innerWidth / 100) * 100));
+        q.set('l', navigator.language || '');
+        var sid = sessionStorage.getItem('gtm_sid');
+        if (!sid) { sid = Math.random().toString(36).slice(2, 10); sessionStorage.setItem('gtm_sid', sid); }
+        q.set('s', sid);
+        q.set('t', Date.now().toString(36)); /* cache-buster: /px.gif must never be reused from cache */
+        new Image().src = '/px.gif?' + q.toString();
+      } catch (e) { /* counting must never break the page */ }
+    })();
+  </script>
+  <noscript><img src="/px.gif?p=/order-bot.html&amp;js=0" alt="" width="1" height="1" /></noscript>
+
+  <!-- Instagram DM shortcut to @gtmautomationbd. -->
+  <a href="https://ig.me/m/gtmautomationbd" target="_blank" rel="noopener noreferrer" class="instagram-fab" aria-label="Instagram-এ মেসেজ করুন (নতুন ট্যাবে খুলবে)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zm4.2 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm4.9-2.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/></svg>
+  </a>
+  <script src="assets/immersive.js?v=6f4545bd" defer></script>
+</body>
+</html>

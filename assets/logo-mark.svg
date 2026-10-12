@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <title>GTM Automation — chat bubble mark</title>
+  <defs>
+    <linearGradient id="gtmBubble" gradientUnits="userSpaceOnUse" x1="234" y1="0" x2="786" y2="0">
+      <stop offset="0" stop-color="#22CFF2"/>
+      <stop offset="0.48" stop-color="#2F84FA"/>
+      <stop offset="1" stop-color="#7E4EF6"/>
+    </linearGradient>
+  </defs>
+  <path d="M 354 234 H 666 Q 786 234 786 354 V 566 Q 786 686 666 686 H 392 L 340 792 L 300 686 H 354 Q 234 686 234 566 V 354 Q 234 234 354 234 Z"
+        fill="none" stroke="url(#gtmBubble)" stroke-width="72"
+        stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="756" cy="256" r="86" fill="#FFFFFF"/>
+  <circle cx="756" cy="256" r="72" fill="#06B483"/>
+  <ellipse cx="730" cy="230" rx="18" ry="13" fill="#FFFFFF" opacity="0.85" transform="rotate(-18 730 230)"/>
+</svg>

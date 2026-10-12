@@ -1,0 +1,13 @@
+# backups made by the deploy/patch tools
+*.bak
+*.bak-*
+*.bak_*
+*.orig
+*.pre-*
+# local only
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
+.env
+.env.*

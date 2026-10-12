@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'">
+<title>AI বটের ফলাফল | GTM Automation</title>
+<meta name="description" content="এই ব্যবসার বাংলা AI বট গত ৩০ দিনে কত মেসেজের উত্তর দিয়েছে, রাতে কতগুলো, কত অর্ডার নিয়েছে — বটের লাইভ লগ থেকে।">
+<meta name="robots" content="noindex">
+<meta property="fb:app_id" content="1580832699983506">
+<meta property="og:url" content="https://gtmautomation.net/r/sample/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="আমাদের AI বটের ৩০ দিনের ফলাফল">
+<meta property="og:description" content="বাংলায় উত্তর, রাতেও — বটের লাইভ লগ থেকে নেওয়া সংখ্যা। GTM Automation দিয়ে চালিত।">
+<meta property="og:image" content="https://gtmautomation.net/assets/og-1200x630.png?v=20261012">
+<link rel="icon" href="../../assets/favicon-32.png">
+<link rel="stylesheet" href="../../assets/fonts/kalpurush.css">
+<style>
+  :root { --bg:#070b17; --card:#0f1629; --line:#1f2a44; --ink:#e8eefc; --mute:#93a3c4; --a1:#22d3ee; --a2:#a78bfa; --ok:#34d399; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:radial-gradient(1200px 600px at 10% -10%, #12204a 0%, var(--bg) 55%) fixed; color:var(--ink); font-family:'Kalpurush','Noto Sans Bengali','Hind Siliguri',system-ui,sans-serif; line-height:1.55; }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 48px; }
+  .brand { display:flex; align-items:center; gap:10px; color:var(--mute); font-size:14px; }
+  .brand img { width:28px; height:28px; }
+  h1 { font-size:28px; line-height:1.25; margin:18px 0 6px; }
+  .sub { color:var(--mute); margin:0 0 18px; }
+  .sample { background:#3b2a05; border:1px solid #a16207; color:#fde68a; border-radius:12px; padding:10px 14px; margin:12px 0; font-weight:700; }
+  .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  @media (min-width:640px) { .grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  .tile { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; }
+  .tile .n { font-size:34px; font-weight:800; background:linear-gradient(90deg,var(--a1),var(--a2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .tile .l { color:var(--mute); font-size:14px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin-top:12px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .chip { border:1px solid var(--line); border-radius:999px; padding:4px 10px; font-size:13px; color:var(--mute); }
+  svg { width:100%; height:120px; display:block; }
+  .src { color:var(--mute); font-size:12px; margin-top:10px; }
+  .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+  .btn { appearance:none; border:1px solid var(--line); background:#121b33; color:var(--ink); border-radius:12px; padding:10px 14px; font:inherit; cursor:pointer; text-decoration:none; }
+  .btn.primary { background:linear-gradient(90deg,#0891b2,#7c3aed); border:0; font-weight:700; }
+  .cta { margin-top:22px; text-align:center; background:linear-gradient(135deg,#0b2447,#2a1460); border:1px solid #2c3e6b; border-radius:18px; padding:20px 16px; }
+  .cta a { display:inline-block; margin-top:10px; }
+  .empty { color:var(--mute); }
+  canvas { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><img src="../../assets/logo-mark.svg" alt="" width="28" height="28"> GTM Automation · বাংলা AI বট</div>
+  <div id="sample" class="sample" hidden>নমুনা পাতা — এখানের সংখ্যাগুলো আসল নয়, শুধু দেখানোর জন্য। আসল পাতায় বটের লাইভ লগ থেকে সংখ্যা আসে।</div>
+  <h1 id="title">ফলাফল লোড হচ্ছে…</h1>
+  <p class="sub" id="period">—</p>
+  <section class="grid" id="tiles" aria-live="polite"></section>
+  <section class="card">
+    <div class="l">প্রতিদিন কতগুলো মেসেজের উত্তর দিয়েছে</div>
+    <svg id="chart" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="দৈনিক উত্তরের চার্ট"></svg>
+    <div class="chips" id="channels"></div>
+    <div class="src" id="source">—</div>
+  </section>
+  <div class="actions">
+    <a class="btn primary" id="fb" href="#" target="_blank" rel="noopener">Facebook-এ শেয়ার</a>
+    <a class="btn" id="wa" href="#" target="_blank" rel="noopener">WhatsApp-এ পাঠান</a>
+    <button class="btn" id="copy" type="button">লিংক কপি</button>
+    <button class="btn" id="dl" type="button">ছবি ডাউনলোড</button>
+  </div>
+  <div class="cta">
+    <div style="font-size:18px;font-weight:700">আপনার পেজেও এমন বাংলা AI বট চান?</div>
+    <div class="sub" style="margin:6px 0 0">Messenger, WhatsApp, Instagram, Telegram · মাসে ৳৫০০ থেকে · ৭ দিন ফ্রি ট্রায়াল</div>
+    <a class="btn primary" id="cta" href="https://gtmautomation.net/?utm_source=share&amp;utm_medium=client_page">GTM Automation দেখুন</a>
+  </div>
+  <canvas id="card" width="1080" height="1080"></canvas>
+</main>
+<script>
+(function () {
+  var D = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  function bn(v) { return String(v).replace(/\d/g, function (d) { return D[+d]; }); }
+  var MONTHS = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+  function bnDate(iso) { var p = String(iso).split('-'); return bn(+p[2]) + ' ' + MONTHS[(+p[1]) - 1]; }
+  var CH = { messenger: 'Messenger', instagram: 'Instagram', whatsapp: 'WhatsApp', telegram: 'Telegram', site: 'ওয়েবসাইট' };
+  var pageUrl = location.href.split('#')[0].split('?')[0];
+  function el(id) { return document.getElementById(id); }
+  function tile(n, label) { var d = document.createElement('div'); d.className = 'tile'; d.innerHTML = '<div class="n"></div><div class="l"></div>'; d.firstChild.textContent = n; d.lastChild.textContent = label; return d; }
+  fetch('data.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    var t = d.totals || {}; var name = String(d.name || 'এই ব্যবসা');
+    if (d.sample === true) el('sample').hidden = false;
+    document.title = name + ' — AI বটের ফলাফল | GTM Automation';
+    el('title').textContent = name + '-এর AI বট: গত ' + bn((d.period && d.period.days) || 30) + ' দিনে';
+    el('period').textContent = d.period ? bnDate(d.period.from) + ' – ' + bnDate(d.period.to) : '';
+    var tiles = el('tiles');
+    if (!t.replies) { tiles.innerHTML = '<p class="empty">এখনো পর্যাপ্ত ডেটা জমেনি — কয়েক দিন পর আবার দেখুন।</p>'; }
+    else {
+      tiles.appendChild(tile(bn(t.replies), 'মেসেজের উত্তর দিয়েছে'));
+      if (t.after_hours) tiles.appendChild(tile(bn(t.after_hours), 'উত্তর রাতে (১০টা–৮টা)'));
+      if (t.orders) tiles.appendChild(tile(bn(t.orders), 'অর্ডার নিয়েছে চ্যাটেই'));
+      if (t.leads) tiles.appendChild(tile(bn(t.leads), 'নতুন কাস্টমার-যোগাযোগ'));
+      if (t.reply_seconds_typical) tiles.appendChild(tile(bn(t.reply_seconds_typical) + ' সেকেন্ড', 'সাধারণত উত্তর আসে'));
+      if ((t.photos || 0) + (t.voice || 0)) tiles.appendChild(tile(bn((t.photos || 0) + (t.voice || 0)), 'ছবি ও ভয়েস মেসেজ বুঝেছে'));
+    }
+    var days = (d.days || []).slice(-30); var max = Math.max.apply(null, days.map(function (x) { return x.replies; }).concat([1]));
+    var w = 300 / Math.max(days.length, 1); var svg = '';
+    days.forEach(function (x, i) { var h = Math.round((x.replies / max) * 110); svg += '<rect x="' + (i * w + 1).toFixed(1) + '" y="' + (118 - h) + '" width="' + Math.max(w - 2, 1).toFixed(1) + '" height="' + h + '" rx="2" fill="url(#g)"><title>' + bnDate(x.day) + ': ' + bn(x.replies) + '</title></rect>'; });
+    el('chart').innerHTML = '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>' + svg;
+    (d.channels || []).forEach(function (c) { var s = document.createElement('span'); s.className = 'chip'; s.textContent = CH[c] || c; el('channels').appendChild(s); });
+    el('source').textContent = d.sample === true ? 'নমুনা ডেটা — আসল নয়। আসল পাতায় বটের লাইভ লগ থেকে সংখ্যা আসে, প্রতি ঘণ্টায় আপডেট হয়।' : 'সূত্র: বটের লাইভ লগ (টেস্ট মেসেজ বাদ) · শেষ আপডেট ' + (d.updated_at ? bnDate(d.updated_at.slice(0, 10)) : '—') + ' · প্রতি ঘণ্টায় আপডেট হয়';
+    var slug = String(d.slug || '').replace(/[^a-z0-9-]/g, '');
+    el('cta').href = 'https://gtmautomation.net/?utm_source=share&utm_medium=client_page&utm_campaign=' + encodeURIComponent(slug || 'share');
+    var text = name + '-এর AI বট গত ৩০ দিনে ' + bn(t.replies || 0) + 'টি মেসেজের উত্তর দিয়েছে' + (t.after_hours ? ', যার ' + bn(t.after_hours) + 'টি রাতে' : '') + '। ';
+    el('fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(pageUrl);
+    el('wa').href = 'https://wa.me/?text=' + encodeURIComponent(text + pageUrl);
+    el('copy').onclick = function () { (navigator.clipboard ? navigator.clipboard.writeText(pageUrl) : Promise.reject()).then(function () { el('copy').textContent = 'কপি হয়েছে ✓'; }, function () { prompt('লিংক কপি করুন:', pageUrl); }); };
+    el('dl').onclick = function () { drawCard(d, name).then(function (url) { var a = document.createElement('a'); a.href = url; a.download = (slug || 'gtm') + '-results.png'; document.body.appendChild(a); a.click(); a.remove(); }); };
+  }).catch(function () { el('title').textContent = 'ফলাফল এখন দেখানো যাচ্ছে না'; el('period').textContent = 'একটু পরে আবার চেষ্টা করুন।'; });
+
+  function drawCard(d, name) {
+    var c = el('card'), x = c.getContext('2d'), t = d.totals || {};
+    var ready = (document.fonts && document.fonts.load) ? document.fonts.load('64px Kalpurush').catch(function () {}) : Promise.resolve();
+    return ready.then(function () {
+      var g = x.createLinearGradient(0, 0, 1080, 1080); g.addColorStop(0, '#0b1b3f'); g.addColorStop(1, '#2a1460');
+      x.fillStyle = g; x.fillRect(0, 0, 1080, 1080);
+      x.fillStyle = '#93a3c4'; x.font = '40px Kalpurush, sans-serif'; x.fillText('গত ৩০ দিনে আমাদের AI বট', 80, 150);
+      x.fillStyle = '#e8eefc'; x.font = 'bold 64px Kalpurush, sans-serif'; x.fillText(name.slice(0, 26), 80, 240);
+      var rows = [[bn(t.replies || 0), 'মেসেজের উত্তর'], [bn(t.after_hours || 0), 'উত্তর রাতে'], [bn(t.orders || 0), 'অর্ডার চ্যাটেই']];
+      if (t.reply_seconds_typical) rows.push([bn(t.reply_seconds_typical) + ' সে.', 'সাধারণ উত্তর-সময়']);
+      rows.forEach(function (r, i) { var y = 400 + i * 150; x.fillStyle = '#22d3ee'; x.font = 'bold 96px Kalpurush, sans-serif'; x.fillText(r[0], 80, y); x.fillStyle = '#e8eefc'; x.font = '44px Kalpurush, sans-serif'; x.fillText(r[1], 520, y - 20); });
+      x.fillStyle = '#93a3c4'; x.font = '34px Kalpurush, sans-serif'; x.fillText('বটের লাইভ লগ থেকে · gtmautomation.net', 80, 1010);
+      if (d.sample === true) { x.fillStyle = '#fde68a'; x.font = 'bold 40px Kalpurush, sans-serif'; x.fillText('নমুনা — আসল সংখ্যা নয়', 80, 80); }
+      return c.toDataURL('image/png');
+    });
+  }
+})();
+</script>
+</body>
+</html>

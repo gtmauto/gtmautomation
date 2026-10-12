@@ -1,0 +1,51 @@
+/* immersive.css — styles for assets/immersive.js ("Inbox Constellation", 2026-10-10).
+   Standalone (not Tailwind): every class here is created by immersive.js or is a progressive enhancement. */
+
+/* the WebGL layer sits behind the section content and never captures clicks */
+.imm-host { position: relative; isolation: isolate; touch-action: pan-y pinch-zoom; }
+.imm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+  transition: opacity .25s linear; }
+.imm-canvas-ambient { opacity: .55; }
+/* paint order: the canvas is the host's FIRST child, so all later (positioned) content paints above it */
+/* keep glass panels in the 3D hero readable over the particle field */
+.imm-host .glass { background-color: rgba(9, 14, 30, .45); }
+
+/* channel hotspots: real links that ride their 3D portals (wide screens with a mouse only) */
+.imm-hots { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.imm-hot { position: absolute; left: 0; top: 0; pointer-events: auto; display: inline-flex; align-items: center; gap: .45rem;
+  padding: .32rem .7rem .32rem .45rem; border-radius: 999px; font-size: .78rem; font-weight: 600; color: #e8eefc; text-decoration: none;
+  background: rgba(10, 16, 34, .62); border: 1px solid rgba(255, 255, 255, .22); border: 1px solid color-mix(in srgb, var(--imm-c, #38bdf8) 55%, transparent);
+  box-shadow: 0 0 18px -4px var(--imm-c, #38bdf8); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: box-shadow .2s ease, background .2s ease; will-change: transform; }
+.imm-hot:hover, .imm-hot:focus-visible { background: rgba(10, 16, 34, .85); box-shadow: 0 0 28px -2px var(--imm-c, #38bdf8); }
+.imm-hot:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.imm-hot { padding: .3rem; gap: 0; }
+.imm-hot-left { flex-direction: row-reverse; }
+.imm-hot-label { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width .25s ease, opacity .2s ease, margin .25s ease; }
+.imm-hot:hover .imm-hot-label, .imm-hot:focus-visible .imm-hot-label { max-width: 9rem; opacity: 1; margin: 0 .45rem; }
+.imm-hot-dot { width: .7rem; height: .7rem; flex: 0 0 auto; border-radius: 999px; background: var(--imm-c, #38bdf8); box-shadow: 0 0 10px var(--imm-c, #38bdf8); }
+@media (max-width: 1023.98px), (pointer: coarse) { .imm-hots { display: none; } }
+
+/* pause control (always reachable by keyboard) */
+.imm-pause { position: absolute; left: .75rem; bottom: .75rem; z-index: 3; font: inherit; font-size: .72rem; color: #cbd5e1;
+  background: rgba(10, 16, 34, .55); border: 1px solid rgba(255, 255, 255, .14); border-radius: 999px; padding: .3rem .7rem; cursor: pointer; }
+.imm-pause:hover { color: #fff; border-color: rgba(255, 255, 255, .35); }
+.imm-pause:focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }
+
+/* depth-aware card tilt (immersive.js adds .imm-tilt; desktop pointers only) */
+.imm-tilt { transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease; transform-style: preserve-3d; will-change: transform; }
+.imm-tilt:hover { box-shadow: 0 18px 50px -20px rgba(56, 189, 248, .45), 0 0 0 1px rgba(255, 255, 255, .06) inset; }
+
+/* scroll reveal gains a little depth (only when motion is allowed: <html class="imm-on">) */
+.imm-on .reveal { transform: perspective(900px) translateY(26px) rotateX(7deg); transform-origin: 50% 100%; }
+.imm-on .reveal.is-visible { transform: none; }
+
+/* interactive micro-feedback on primary buttons */
+.imm-on a[class*="from-neon-blue"]:active, .imm-on button[class*="from-neon-blue"]:active { transform: scale(.97); }
+
+@media (prefers-reduced-motion: reduce) {
+  .imm-canvas { transition: none; }
+  .imm-tilt { transition: none; transform: none !important; }
+}
