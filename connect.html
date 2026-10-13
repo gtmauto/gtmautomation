@@ -225,8 +225,15 @@
       var MESSAGES = {
         ok: ['emerald', 'Page কানেক্ট হয়েছে ✅ আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব। / Your Page is connected.'],
         denied: ['amber', 'আপনি অনুমতি দেননি। আবার চেষ্টা করতে নিচের বাটনে চাপুন। / Permission was not granted.'],
-        no_pages: ['amber', 'কোনো Page বাছাই করা হয়নি। আবার চেষ্টা করে অন্তত একটা Page বেছে নিন। / No Page was selected.'],
+        // connect-hardening-1: one line per server reason (build-fb-page-connect.mjs → Build Failure Alert / Validate Callback)
+        no_pages: ['amber', 'কোনো Page বাছাই করা হয়নি — আবার Connect চাপুন এবং Page-এ টিক দিন (যে অ্যাকাউন্টে Page-এর Full control আছে সেটি দিয়ে)। / No Page was selected — press Connect again and tick your Page.'],
         state: ['amber', 'সেশন মেয়াদ শেষ। আবার চেষ্টা করুন। / Session expired, please try again.'],
+        no_code: ['amber', 'Facebook থেকে লগইন কোড আসেনি। নিচের বাটন থেকে আবার শুরু করুন। / No login code arrived — start again with the button below.'],
+        fb_error: ['amber', 'Facebook একটি সমস্যা দেখিয়েছে। আবার চেষ্টা করুন। / Facebook reported a problem — please try again.'],
+        exchange: ['amber', 'Facebook-এর লগইন যাচাই হয়নি (মেয়াদ শেষ বা আগেই ব্যবহার হয়েছে)। আবার Connect চাপুন। / Facebook login could not be verified — press Connect again.'],
+        long_lived: ['amber', 'Facebook থেকে স্থায়ী অনুমতি নেওয়া যায়নি। কিছুক্ষণ পর আবার চেষ্টা করুন। / Could not get lasting access from Facebook — try again shortly.'],
+        pages: ['amber', 'Facebook থেকে আপনার Page-এর তালিকা আনা যায়নি। আবার চেষ্টা করুন। / Could not read your Pages from Facebook — please try again.'],
+        db: ['amber', 'Facebook-এর অংশ ঠিক হয়েছে, কিন্তু আমাদের সার্ভারে সেভ হয়নি। আমরা খবর পেয়েছি, ঠিক করে জানাব। / Facebook worked but we could not save it — we have been alerted.'],
         other: ['amber', 'কিছু একটা ঠিকমতো হয়নি। আবার চেষ্টা করুন, না হলে Messenger-এ আমাদের জানান। / Something went wrong. Please try again or message us.']
       };
       try {
