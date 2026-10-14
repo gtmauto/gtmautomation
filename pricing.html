@@ -161,7 +161,30 @@
        keep overriding it exactly as the CDN's injected sheet did. -->
   <link rel="stylesheet" href="assets/tailwind.css" />
   <link rel="stylesheet" href="assets/immersive.css?v=cbd1a0e5" />
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://www.facebook.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com; font-src 'self'; connect-src 'self' https://www.facebook.com https://connect.facebook.net; frame-src https://www.facebook.com" />
+  <!-- Meta Pixel (dataset 2912285685817296) — installed 2026-10-14, ACTIVE FROM 2026-10-29 00:00 Asia/Dhaka:
+       privacy.html §8 promises 15 days' notice before an important change (announced 2026-10-14, privacy.html#cookies).
+       Events: PageView (every page), ViewContent (ready-answers), Contact (wa.me / m.me / ig.me / t.me taps),
+       Lead (index.html trial form). Automatic advanced matching OFF; no form field is ever sent.
+       ?pixeltest=1 loads it early for the owner's own test visit. -->
+  <script>
+    (function () {
+      var START = Date.parse('2026-10-29T00:00:00+06:00');
+      if (Date.now() < START && !/[?&]pixeltest=1(&|$)/.test(location.search)) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('set', 'autoConfig', false, '2912285685817296'); /* no automatic button-click / page-metadata events */
+      fbq('init', '2912285685817296');
+      fbq('track', 'PageView');
+      if (/ready-answers/.test(location.pathname)) fbq('track', 'ViewContent', { content_name: 'ready-answers' });
+      document.addEventListener('click', function (ev) {
+        var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        var h = a.getAttribute('href') || '';
+        var ch = /wa\.me\//.test(h) ? 'whatsapp' : /(^|\/\/)m\.me\//.test(h) ? 'messenger' : /ig\.me\//.test(h) ? 'instagram' : /t\.me\//.test(h) ? 'telegram' : '';
+        if (ch) fbq('track', 'Contact', { content_name: ch });
+      }, true);
+    })();
+  </script>
 </head>
 
 <body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
@@ -574,7 +597,7 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.42-9.4 2.52 0 4.88.98 6.66 2.76a9.34 9.34 0 0 1 2.75 6.65c0 5.19-4.22 9.41-9.42 9.41zM20.5 3.49A11.78 11.78 0 0 0 12.04 0C5.49 0 .16 5.33.16 11.88c0 2.09.55 4.14 1.59 5.94L.06 24l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.43-8.41z"/></svg>
   </a>
 
-  <!-- Visit counting: FIRST-PARTY and cookie-free. No third party, no ad/analytics vendor,
+  <!-- Visit counting: FIRST-PARTY and cookie-free. The counter itself has no third party (the Meta Pixel block in <head>, active from 2026-10-29, is separate — privacy.html#cookies);
        nothing in localStorage; only the path, referring host, viewport width and a random
        per-tab id are appended to OUR OWN nginx access log (/var/log/nginx/access.log).
        Report: node .freebuff/landing-analytics-report.mjs -->

@@ -141,7 +141,30 @@
        already exist in assets/tailwind.css are used on this page; anything else is inline CSS above. -->
   <link rel="stylesheet" href="assets/tailwind.css" />
   <link rel="stylesheet" href="assets/immersive.css?v=cbd1a0e5" />
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://www.facebook.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com; font-src 'self'; connect-src 'self' https://www.facebook.com https://connect.facebook.net; frame-src https://www.facebook.com" />
+  <!-- Meta Pixel (dataset 2912285685817296) — installed 2026-10-14, ACTIVE FROM 2026-10-29 00:00 Asia/Dhaka:
+       privacy.html §8 promises 15 days' notice before an important change (announced 2026-10-14, privacy.html#cookies).
+       Events: PageView (every page), ViewContent (ready-answers), Contact (wa.me / m.me / ig.me / t.me taps),
+       Lead (index.html trial form). Automatic advanced matching OFF; no form field is ever sent.
+       ?pixeltest=1 loads it early for the owner's own test visit. -->
+  <script>
+    (function () {
+      var START = Date.parse('2026-10-29T00:00:00+06:00');
+      if (Date.now() < START && !/[?&]pixeltest=1(&|$)/.test(location.search)) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('set', 'autoConfig', false, '2912285685817296'); /* no automatic button-click / page-metadata events */
+      fbq('init', '2912285685817296');
+      fbq('track', 'PageView');
+      if (/ready-answers/.test(location.pathname)) fbq('track', 'ViewContent', { content_name: 'ready-answers' });
+      document.addEventListener('click', function (ev) {
+        var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        var h = a.getAttribute('href') || '';
+        var ch = /wa\.me\//.test(h) ? 'whatsapp' : /(^|\/\/)m\.me\//.test(h) ? 'messenger' : /ig\.me\//.test(h) ? 'instagram' : /t\.me\//.test(h) ? 'telegram' : '';
+        if (ch) fbq('track', 'Contact', { content_name: ch });
+      }, true);
+    })();
+  </script>
 </head>
 
 <body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
