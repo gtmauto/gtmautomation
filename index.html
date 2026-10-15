@@ -1068,6 +1068,22 @@
       return wrap;
     }
 
+    /* লুপ রিসেট হলে কার্ডের উচ্চতা যেন না কমে (মোবাইলে পেজ লাফিয়ে উপরে উঠত) — পুরো কথোপকথনের জায়গা আগেই রেখে দিই */
+    function reserveChatHeight() {
+      const keep = Array.from(chatDemo.childNodes);
+      chatDemo.style.minHeight = '0px';
+      chatDemo.style.visibility = 'hidden';
+      chatDemo.replaceChildren(...BUBBLES.map(b => bubbleEl(b, false)));
+      const h = Math.ceil(chatDemo.getBoundingClientRect().height);
+      chatDemo.replaceChildren(...keep);
+      chatDemo.style.visibility = '';
+      if (h > 0) chatDemo.style.minHeight = h + 'px';
+    }
+    reserveChatHeight();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(reserveChatHeight);
+    let chatW = window.innerWidth;
+    window.addEventListener('resize', () => { if (window.innerWidth !== chatW) { chatW = window.innerWidth; reserveChatHeight(); } }, { passive: true });
+
     let ci = 0;
     async function playChatLoop() {
       chatDemo.innerHTML = '';
