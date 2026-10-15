@@ -132,7 +132,13 @@
     }
     .instagram-fab:hover, .instagram-fab:focus-visible { background: #a82b70; transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 32px rgba(193,53,132,.6); }
     @media (max-width: 400px) { .instagram-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 11.4rem); } }
-    @media (max-width: 639px) { .telegram-fab, .instagram-fab { display: none; } }
+    @media (max-width: 639px) {
+      /* 2026-10-15: phone-এও চারটা বাটনই দেখায় (আগে Telegram আর Instagram লুকানো ছিল) — একটু ছোট, ঘন করে সাজানো */
+      .messenger-fab, .whatsapp-fab, .telegram-fab, .instagram-fab { padding: .7rem; }
+      .whatsapp-fab  { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.5rem); }
+      .telegram-fab  { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 7rem); }
+      .instagram-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 10.5rem); }
+    }
 </style>
 
   <script type="application/ld+json">
