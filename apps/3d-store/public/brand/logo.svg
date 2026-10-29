@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Ghor Bazar">
+  <rect width="64" height="64" rx="16" fill="#0E7C7B"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 30 32 12l22 18"/>
+    <path d="M18 28v22h28V28"/>
+    <path d="M26 50V38h12v12"/>
+  </g>
+  <circle cx="32" cy="22" r="2.6" fill="#FFFFFF"/>
+</svg>

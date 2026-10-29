@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80" role="img" aria-label="Ghor Bazar">
+  <rect x="8" y="8" width="64" height="64" rx="16" fill="#0E7C7B"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(8 8)">
+    <path d="M10 30 32 12l22 18"/>
+    <path d="M18 28v22h28V28"/>
+    <path d="M26 50V38h12v12"/>
+  </g>
+  <text x="88" y="50" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="700" fill="#1F1D1A" letter-spacing="0.5">Ghor <tspan fill="#0E7C7B">Bazar</tspan></text>
+  <text x="90" y="70" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#6B655D" letter-spacing="2">3D STORE</text>
+</svg>

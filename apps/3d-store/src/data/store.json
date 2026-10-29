@@ -1,0 +1,44 @@
+{
+  "store": {
+    "id": "ghor-bazar",
+    "name": "Ghor Bazar",
+    "tagline": "ঘরে বসে কিনুন, ক্যাশ অন ডেলিভারি",
+    "primaryColor": "#0E7C7B",
+    "logo": "/brand/logo.svg",
+    "messengerPage": "REPLACE_ME",
+    "whatsappNumber": "REPLACE_ME"
+  },
+  "sections": [
+    { "id": "panjabi", "label": "পাঞ্জাবি", "display": "rack", "wall": "north" },
+    { "id": "saree", "label": "শাড়ি", "display": "shelf", "wall": "east" },
+    { "id": "shoes", "label": "জুতা", "display": "pegboard", "wall": "west" }
+  ],
+  "posters": [
+    { "text": "ঘরে বসে কিনুন", "sub": "Messenger-এ লিখুন, বাকিটা আমরা", "wall": "north", "offset": -0.78 },
+    { "text": "ক্যাশ অন ডেলিভারি", "sub": "পণ্য হাতে পেয়ে টাকা দিন", "wall": "north", "offset": 0.78 },
+    { "text": "সারা দেশে ডেলিভারি", "sub": "ঢাকায় ১–২ দিন, বাইরে ২–৪ দিন", "wall": "east", "offset": -0.8 },
+    { "text": "সাইজ না মিললে বদল", "sub": "৩ দিনের মধ্যে জানান", "wall": "west", "offset": 0.8 }
+  ],
+  "products": [
+    { "sku": "PJ-001", "section": "panjabi", "name": "সাদা কটন পাঞ্জাবি", "price": 1450, "sizes": ["M", "L", "XL"], "stock": 7, "image": "/products/pj-001.png", "badge": "নতুন", "viewsToday": 12 },
+    { "sku": "PJ-002", "section": "panjabi", "name": "নেভি এমব্রয়ডারি পাঞ্জাবি", "price": 1850, "sizes": ["M", "L", "XL", "XXL"], "stock": 3, "image": "/products/pj-002.png", "badge": "জনপ্রিয়", "viewsToday": 25 },
+    { "sku": "PJ-003", "section": "panjabi", "name": "মেরুন সিল্ক পাঞ্জাবি", "price": 2250, "sizes": ["L", "XL"], "stock": 5, "image": "/products/pj-003.png", "viewsToday": 9 },
+    { "sku": "PJ-004", "section": "panjabi", "name": "অলিভ লিনেন পাঞ্জাবি", "price": 1650, "sizes": ["M", "L", "XL"], "stock": 10, "image": "/products/pj-004.png", "badge": "অফার" },
+    { "sku": "PJ-005", "section": "panjabi", "name": "কালো প্রিন্টেড পাঞ্জাবি", "price": 1350, "sizes": ["S", "M", "L", "XL"], "stock": 2, "image": "/products/pj-005.png", "viewsToday": 31 },
+    { "sku": "PJ-006", "section": "panjabi", "name": "আকাশি চেক পাঞ্জাবি", "price": 1550, "sizes": ["M", "L"], "stock": 8, "image": "/products/pj-006.png" },
+
+    { "sku": "SR-001", "section": "saree", "name": "লাল জামদানি শাড়ি", "price": 3200, "sizes": ["ফ্রি সাইজ"], "stock": 4, "image": "/products/sr-001.png", "badge": "জনপ্রিয়", "viewsToday": 40 },
+    { "sku": "SR-002", "section": "saree", "name": "টাঙ্গাইল তাঁতের শাড়ি", "price": 1800, "sizes": ["ফ্রি সাইজ"], "stock": 6, "image": "/products/sr-002.png" },
+    { "sku": "SR-003", "section": "saree", "name": "হাফ সিল্ক শাড়ি", "price": 2400, "sizes": ["ফ্রি সাইজ"], "stock": 3, "image": "/products/sr-003.png", "badge": "নতুন" },
+    { "sku": "SR-004", "section": "saree", "name": "সুতি প্রিন্ট শাড়ি", "price": 950, "sizes": ["ফ্রি সাইজ"], "stock": 12, "image": "/products/sr-004.png", "badge": "অফার", "viewsToday": 18 },
+    { "sku": "SR-005", "section": "saree", "name": "কাতান শাড়ি", "price": 4500, "sizes": ["ফ্রি সাইজ"], "stock": 2, "image": "/products/sr-005.png", "viewsToday": 22 },
+    { "sku": "SR-006", "section": "saree", "name": "মসলিন শাড়ি", "price": 5200, "sizes": ["ফ্রি সাইজ"], "stock": 1, "image": "/products/sr-006.png", "badge": "প্রিমিয়াম" },
+
+    { "sku": "SH-001", "section": "shoes", "name": "ব্রাউন লেদার স্যান্ডেল", "price": 1250, "sizes": ["39", "40", "41", "42", "43"], "stock": 9, "image": "/products/sh-001.png" },
+    { "sku": "SH-002", "section": "shoes", "name": "কালো ফরমাল শু", "price": 2100, "sizes": ["40", "41", "42", "43", "44"], "stock": 4, "image": "/products/sh-002.png", "badge": "জনপ্রিয়", "viewsToday": 15 },
+    { "sku": "SH-003", "section": "shoes", "name": "সাদা স্নিকার", "price": 1900, "sizes": ["38", "39", "40", "41", "42", "43"], "stock": 6, "image": "/products/sh-003.png", "badge": "নতুন", "viewsToday": 28 },
+    { "sku": "SH-004", "section": "shoes", "name": "নাগরা জুতা", "price": 1100, "sizes": ["39", "40", "41", "42"], "stock": 3, "image": "/products/sh-004.png" },
+    { "sku": "SH-005", "section": "shoes", "name": "লেডিস ফ্ল্যাট স্যান্ডেল", "price": 850, "sizes": ["36", "37", "38", "39", "40"], "stock": 11, "image": "/products/sh-005.png", "badge": "অফার" },
+    { "sku": "SH-006", "section": "shoes", "name": "স্পোর্টস রানিং শু", "price": 2400, "sizes": ["40", "41", "42", "43", "44"], "stock": 5, "image": "/products/sh-006.png" }
+  ]
+}
