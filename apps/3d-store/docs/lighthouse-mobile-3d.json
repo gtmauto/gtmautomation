@@ -1,0 +1,17 @@
+{
+  "url": "http://localhost:4173/?view=3d",
+  "fetchTime": "2026-10-29T18:25:13.736Z",
+  "scores": {
+    "performance": 0.8,
+    "accessibility": 1,
+    "best-practices": 1
+  },
+  "metrics": {
+    "first-contentful-paint": 778.04515,
+    "largest-contentful-paint": 778.04515,
+    "total-blocking-time": 856.4999999999998,
+    "cumulative-layout-shift": 0.0005353024150960067,
+    "speed-index": 2597.72060636889,
+    "interactive": 3184.0402999999997
+  }
+}

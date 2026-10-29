@@ -15,7 +15,7 @@ export function createPills(nav: HTMLElement, data: StoreData, onSelect: (id: st
     b.type = 'button';
     b.className = 'pill';
     b.textContent = it.label;
-    b.setAttribute('aria-label', it.id === 'store' ? 'পুরো দোকান দেখুন' : `${it.label} section-এ যান`);
+    b.setAttribute('aria-label', it.id === 'store' ? 'পুরো শপ দেখুন' : `${it.label} section-এ যান`);
     b.addEventListener('click', () => onSelect(it.id));
     nav.appendChild(b);
     buttons.set(it.id, b);

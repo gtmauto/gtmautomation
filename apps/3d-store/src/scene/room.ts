@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type { StoreData, Wall } from '../types';
-import { floorTexture, posterTexture, signTexture } from './textures';
+import { floorTexture, posterTexture, signTexture, stdMat, textMaterial } from './textures';
 
 export const ROOM = { w: 12, d: 12, h: 4 } as const;
 
@@ -41,12 +41,14 @@ export function faceRoom(obj: THREE.Object3D, f: WallFrame): void {
 }
 
 export const MATERIALS = {
-  wood: new THREE.MeshStandardMaterial({ color: '#C9A776', roughness: 0.78, metalness: 0 }),
-  woodDark: new THREE.MeshStandardMaterial({ color: '#A8865B', roughness: 0.8, metalness: 0 }),
-  metal: new THREE.MeshStandardMaterial({ color: '#9AA0A6', roughness: 0.35, metalness: 0.7 }),
+  wood: stdMat({ color: '#C9A776', roughness: 0.78, metalness: 0 }),
+  woodDark: stdMat({ color: '#A8865B', roughness: 0.8, metalness: 0 }),
+  metal: stdMat({ color: '#9AA0A6', roughness: 0.35, metalness: 0.7 }),
 };
 
-export function buildRoom(scene: THREE.Scene, data: StoreData): void {
+/** `later` receives work that may run a frame or two after the first paint (poster textures). */
+export async function buildRoom(scene: THREE.Scene, data: StoreData, later: (job: () => void) => void): Promise<void> {
+  const yieldToMain = () => new Promise<void>((res) => setTimeout(res, 0));
   const accent = data.store.primaryColor;
   const { w, d, h } = ROOM;
 
@@ -60,26 +62,26 @@ export function buildRoom(scene: THREE.Scene, data: StoreData): void {
   scene.add(new THREE.AmbientLight('#FFFFFF', 0.35));
 
   // Floor
-  const floorMat = new THREE.MeshStandardMaterial({ map: floorTexture(), roughness: 0.85, metalness: 0 });
+  const floorMat = stdMat({ map: floorTexture(), roughness: 0.85, metalness: 0 });
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(w, d), floorMat);
   floor.rotation.x = -Math.PI / 2;
   scene.add(floor);
 
   // Rug under the centre
   const rug = new THREE.Mesh(
-    new THREE.CircleGeometry(2.1, 40),
-    new THREE.MeshStandardMaterial({ color: accent, roughness: 1, transparent: true, opacity: 0.16 }),
+    new THREE.CircleGeometry(1.7, 40),
+    stdMat({ color: new THREE.Color('#D9C4A3').lerp(new THREE.Color(accent), 0.18), roughness: 1 }),
   );
   rug.rotation.x = -Math.PI / 2;
   rug.position.y = 0.004;
   scene.add(rug);
 
   // Ceiling + two light strips
-  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshStandardMaterial({ color: '#FAF7F2', roughness: 1 }));
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(w, d), stdMat({ color: '#FAF7F2', roughness: 1 }));
   ceil.rotation.x = Math.PI / 2;
   ceil.position.y = h;
   scene.add(ceil);
-  const stripMat = new THREE.MeshStandardMaterial({ color: '#FFFFFF', emissive: '#FFF4E0', emissiveIntensity: 0.9 });
+  const stripMat = stdMat({ color: '#FFFFFF', emissive: '#FFF4E0', emissiveIntensity: 0.9 });
   for (const z of [-2.5, 2.5]) {
     const strip = new THREE.Mesh(new THREE.BoxGeometry(6, 0.05, 0.3), stripMat);
     strip.position.set(0, h - 0.03, z);
@@ -87,8 +89,8 @@ export function buildRoom(scene: THREE.Scene, data: StoreData): void {
   }
 
   // Walls
-  const wallMat = new THREE.MeshStandardMaterial({ color: '#F4EFE8', roughness: 0.95 });
-  const wallMatSide = new THREE.MeshStandardMaterial({ color: '#EFE8DE', roughness: 0.95 });
+  const wallMat = stdMat({ color: '#F4EFE8', roughness: 0.95 });
+  const wallMatSide = stdMat({ color: '#EFE8DE', roughness: 0.95 });
   const mkWall = (wall: Wall, mat: THREE.Material) => {
     const f = wallFrame(wall);
     const m = new THREE.Mesh(new THREE.PlaneGeometry(f.length, h), mat);
@@ -106,31 +108,36 @@ export function buildRoom(scene: THREE.Scene, data: StoreData): void {
   mkWall('east', wallMatSide);
   mkWall('west', wallMatSide);
 
+  await yieldToMain();
+
   // Brand sign on the hero (north) wall
   const north = wallFrame('north');
   const sign = new THREE.Mesh(
     new THREE.PlaneGeometry(3.6, 1.125),
-    new THREE.MeshStandardMaterial({ map: signTexture(data.store.name, data.store.tagline, accent), roughness: 0.6 }),
+    textMaterial(() => signTexture(data.store.name, data.store.tagline, accent), { roughness: 0.6 }),
   );
-  sign.position.copy(wallPoint(north, 0, 3.2, 0.03));
+  sign.position.copy(wallPoint(north, 0, 3.4, 0.03));
   faceRoom(sign, north);
   scene.add(sign);
 
-  // Posters
+  await yieldToMain();
+
+  // Posters: the text is drawn one poster per frame after the first paint (Bangla shaping is the costly part)
   for (const p of data.posters) {
     const f = wallFrame(p.wall);
-    const poster = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.2, 1.6),
-      new THREE.MeshStandardMaterial({ map: posterTexture(p.text, p.sub, accent), roughness: 0.8 }),
-    );
+    const poster = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.6), stdMat({ color: '#FFFDF8', roughness: 0.8 }));
     poster.position.copy(wallPoint(f, p.offset * (f.length / 2 - 1.0), 2.05, 0.02));
     faceRoom(poster, f);
     scene.add(poster);
+    later(() => {
+      poster.material.dispose();
+      poster.material = textMaterial(() => posterTexture(p.text, p.sub, accent), { roughness: 0.8 });
+    });
   }
 
   // A plant-like accent in the two far corners (cheap, adds life)
-  const potMat = new THREE.MeshStandardMaterial({ color: '#B5633C', roughness: 0.9 });
-  const leafMat = new THREE.MeshStandardMaterial({ color: '#3F7A4A', roughness: 0.9 });
+  const potMat = stdMat({ color: '#B5633C', roughness: 0.9 });
+  const leafMat = stdMat({ color: '#3F7A4A', roughness: 0.9 });
   for (const x of [-w / 2 + 0.6, w / 2 - 0.6]) {
     const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.17, 0.4, 14), potMat);
     pot.position.set(x, 0.2, -d / 2 + 0.6);

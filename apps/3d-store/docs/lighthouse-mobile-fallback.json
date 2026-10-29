@@ -1,0 +1,17 @@
+{
+  "url": "http://localhost:4173/",
+  "fetchTime": "2026-10-29T18:25:24.741Z",
+  "scores": {
+    "performance": 0.75,
+    "accessibility": 1,
+    "best-practices": 1
+  },
+  "metrics": {
+    "first-contentful-paint": 793.6101,
+    "largest-contentful-paint": 2117.2201999999997,
+    "total-blocking-time": 1209.5,
+    "cumulative-layout-shift": 0.018966504104349795,
+    "speed-index": 1679.5744912163864,
+    "interactive": 2245.6101
+  }
+}

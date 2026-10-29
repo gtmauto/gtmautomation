@@ -45,16 +45,16 @@ export class CameraRig {
     this.apply();
   }
 
-  preset(name: 'entry' | 'store' | Wall): CamPreset {
+  preset(name: 'entry' | 'store' | Wall, portrait = window.innerHeight > window.innerWidth): CamPreset {
     const hd = ROOM.d / 2;
     switch (name) {
       case 'entry':
         return { pos: new THREE.Vector3(0, 2.1, hd - 0.4), target: new THREE.Vector3(0, 1.7, -hd), fov: 50 };
       case 'store':
-        return { pos: new THREE.Vector3(0, 1.75, 3.6), target: new THREE.Vector3(0, 1.55, -hd), fov: 64 };
+        return { pos: new THREE.Vector3(0, 1.9, portrait ? 5.4 : 5.0), target: new THREE.Vector3(0, 1.7, -hd), fov: portrait ? 72 : 66 };
       default: {
         const f = wallFrame(name);
-        return { pos: wallPoint(f, 0, 1.65, 4.6), target: wallPoint(f, 0, 1.8, 0), fov: 52 };
+        return { pos: wallPoint(f, 0, 1.7, portrait ? 6.2 : 5.8), target: wallPoint(f, 0, 2.0, 0), fov: portrait ? 60 : 50 };
       }
     }
   }

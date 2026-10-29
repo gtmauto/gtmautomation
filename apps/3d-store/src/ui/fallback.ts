@@ -22,6 +22,7 @@ export function renderFallback(o: FallbackOptions): void {
     n.textContent = o.note;
     root.appendChild(n);
   }
+  let eager = 0;
   for (const sec of data.sections) {
     const h = document.createElement('h2');
     h.className = 'fb-h';
@@ -30,7 +31,7 @@ export function renderFallback(o: FallbackOptions): void {
     root.appendChild(h);
     const grid = document.createElement('div');
     grid.className = 'fb-grid';
-    for (const p of data.products.filter((x) => x.section === sec.id)) grid.appendChild(card(p));
+    for (const p of data.products.filter((x) => x.section === sec.id)) grid.appendChild(card(p, eager++ < 4));
     root.appendChild(grid);
   }
   const foot = document.createElement('p');
@@ -38,14 +39,14 @@ export function renderFallback(o: FallbackOptions): void {
   foot.textContent = data.store.tagline;
   root.appendChild(foot);
 
-  function card(p: Product): HTMLElement {
+  function card(p: Product, eagerImg: boolean): HTMLElement {
     const el = document.createElement('article');
     el.className = 'fb-card';
     const stock =
       p.stock <= 0 ? `<span class="stock out">${bn.outOfStock}</span>` : p.stock <= 3 ? `<span class="stock low">${bn.lowStock(bnNumber(p.stock))}</span>` : '';
     el.innerHTML = `
       <button type="button" class="fb-img" aria-label="${p.name}, ${bnPrice(p.price)}">
-        <img src="${p.image}" alt="" width="256" height="256" loading="lazy" decoding="async" />
+        <img src="${p.image}" alt="" width="256" height="256" loading="${eagerImg ? 'eager' : 'lazy'}" ${eagerImg ? 'fetchpriority="high"' : 'decoding="async"'} />
         ${p.badge ? `<span class="badge accent float">${p.badge}</span>` : ''}
       </button>
       <div class="fb-body">

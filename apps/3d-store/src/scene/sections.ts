@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import type { Product, Section, StoreData } from '../types';
 import { MATERIALS, faceRoom, wallFrame, wallPoint, type WallFrame } from './room';
-import { labelTexture, pegboardTexture, shadowTexture } from './textures';
+import { labelTexture, pegboardTexture, shadowTexture, stdMat, textMaterial } from './textures';
 
 export interface ProductNode {
   sku: string;
@@ -22,22 +22,21 @@ interface Slot {
 }
 
 const PLACEHOLDER = new THREE.Color('#EDE6DB');
+const blankTexture = (() => {
+  const t = new THREE.DataTexture(new Uint8Array([0, 0, 0, 0]), 1, 1);
+  t.colorSpace = THREE.SRGBColorSpace; // same shader program as the real (sRGB) product textures
+  t.needsUpdate = true;
+  return t;
+})();
 
 function productPlane(
   p: Product,
   f: WallFrame,
   slot: Slot,
   loader: THREE.TextureLoader,
-  onTexture: () => void,
+  onTexture: (apply: () => void) => void,
 ): ProductNode {
-  const mat = new THREE.MeshStandardMaterial({
-    color: PLACEHOLDER,
-    roughness: 0.9,
-    metalness: 0,
-    transparent: true,
-    alphaTest: 0.08,
-    side: THREE.FrontSide,
-  });
+  const mat = stdMat({ color: PLACEHOLDER, map: blankTexture, roughness: 0.9, metalness: 0, opacity: 0, side: THREE.FrontSide });
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(slot.w, slot.h), mat);
   mesh.position.copy(wallPoint(f, slot.along, slot.y, slot.out));
   faceRoom(mesh, f);
@@ -46,10 +45,12 @@ function productPlane(
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.anisotropy = 2;
     tex.generateMipmaps = true;
-    mat.map = tex;
-    mat.color.set('#FFFFFF');
-    mat.needsUpdate = true;
-    onTexture();
+    onTexture(() => {
+      mat.map = tex;
+      mat.opacity = 1;
+      mat.color.set('#FFFFFF');
+      mat.needsUpdate = true;
+    });
   });
   return { sku: p.sku, section: p.section, mesh, position: mesh.position.clone(), normal: f.normal.clone() };
 }
@@ -57,7 +58,7 @@ function productPlane(
 function addShadow(scene: THREE.Scene, f: WallFrame, along: number, out: number, w: number, d: number, tex: THREE.Texture) {
   const m = new THREE.Mesh(
     new THREE.PlaneGeometry(w, d),
-    new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, opacity: 0.9 }),
+    stdMat({ map: tex, depthWrite: false, opacity: 0.9, alphaTest: 0.02 }),
   );
   m.rotation.x = -Math.PI / 2;
   m.position.copy(wallPoint(f, along, 0.006, out));
@@ -67,7 +68,7 @@ function addShadow(scene: THREE.Scene, f: WallFrame, along: number, out: number,
 function addLabel(scene: THREE.Scene, f: WallFrame, text: string, accent: string, y: number) {
   const m = new THREE.Mesh(
     new THREE.PlaneGeometry(1.6, 0.4),
-    new THREE.MeshStandardMaterial({ map: labelTexture(text, accent), transparent: true, roughness: 0.7 }),
+    textMaterial(() => labelTexture(text, accent), { roughness: 0.7 }),
   );
   m.position.copy(wallPoint(f, 0, y, 0.03));
   faceRoom(m, f);
@@ -75,7 +76,7 @@ function addLabel(scene: THREE.Scene, f: WallFrame, text: string, accent: string
 }
 
 /** Hanging garments on a metal bar between two wooden posts. */
-function buildRack(scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, label: string, onTexture: () => void): ProductNode[] {
+function buildRack(scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, label: string, onTexture: (apply: () => void) => void): ProductNode[] {
   const out = 0.55;
   const barY = 2.35;
   const span = 5.2;
@@ -95,7 +96,7 @@ function buildRack(scene: THREE.Scene, f: WallFrame, products: Product[], loader
     scene.add(foot);
   }
   addShadow(scene, f, 0, out, span + 0.8, 1.2, shadow);
-  addLabel(scene, f, label, accent, 2.72);
+  addLabel(scene, f, label, accent, 2.8);
   const n = products.length;
   const step = (span - 0.8) / Math.max(1, n - 1);
   return products.map((p, i) =>
@@ -104,7 +105,7 @@ function buildRack(scene: THREE.Scene, f: WallFrame, products: Product[], loader
 }
 
 /** Two wooden shelves, items standing on them. */
-function buildShelf(scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, label: string, onTexture: () => void): ProductNode[] {
+function buildShelf(scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, label: string, onTexture: (apply: () => void) => void): ProductNode[] {
   const width = 4.0;
   const depth = 0.42;
   const rows = [2.0, 1.15];
@@ -140,13 +141,13 @@ function buildShelf(scene: THREE.Scene, f: WallFrame, products: Product[], loade
 }
 
 /** Items pinned on a pegboard in a grid. */
-function buildPegboard(scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, label: string, onTexture: () => void): ProductNode[] {
+function buildPegboard(scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, label: string, onTexture: (apply: () => void) => void): ProductNode[] {
   const bw = 4.2;
   const bh = 2.5;
   const cy = 1.7;
   const board = new THREE.Mesh(
     new THREE.BoxGeometry(bw, bh, 0.05),
-    new THREE.MeshStandardMaterial({ map: pegboardTexture(), roughness: 0.9 }),
+    stdMat({ map: pegboardTexture(), roughness: 0.9 }),
   );
   board.position.copy(wallPoint(f, 0, cy, 0.025));
   faceRoom(board, f);
@@ -167,7 +168,7 @@ function buildPegboard(scene: THREE.Scene, f: WallFrame, products: Product[], lo
   });
 }
 
-export function buildSections(scene: THREE.Scene, data: StoreData, loader: THREE.TextureLoader, onTexture: () => void): ProductNode[] {
+export async function buildSections(scene: THREE.Scene, data: StoreData, loader: THREE.TextureLoader, onTexture: (apply: () => void) => void): Promise<ProductNode[]> {
   const shadow = shadowTexture();
   const accent = data.store.primaryColor;
   const nodes: ProductNode[] = [];
@@ -179,11 +180,12 @@ export function buildSections(scene: THREE.Scene, data: StoreData, loader: THREE
       scene.add(n.mesh);
       nodes.push(n);
     }
+    await new Promise((r) => setTimeout(r, 0));
   }
   return nodes;
 }
 
-function buildByType(sec: Section, scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, onTexture: () => void): ProductNode[] {
+function buildByType(sec: Section, scene: THREE.Scene, f: WallFrame, products: Product[], loader: THREE.TextureLoader, shadow: THREE.Texture, accent: string, onTexture: (apply: () => void) => void): ProductNode[] {
   switch (sec.display) {
     case 'rack':
       return buildRack(scene, f, products, loader, shadow, accent, sec.label, onTexture);

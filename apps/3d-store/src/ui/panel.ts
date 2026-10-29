@@ -1,6 +1,6 @@
 import type { Product, StoreData } from '../types';
 import { bn, bnNumber, bnPrice } from '../i18n/bn';
-import { messengerUrl, productOrderText, whatsappUrl } from '../links';
+import { messengerUrl, productOrderText, productRef, whatsappUrl } from '../links';
 import { track } from '../analytics';
 import type { Cart } from './cart';
 
@@ -130,7 +130,7 @@ export function createPanel(o: PanelOptions): Panel {
     ctas.append(m, w, c);
 
     const refreshLinks = () => {
-      m.href = messengerUrl(data.store, selectedSize ? `${p.sku}-${selectedSize}` : p.sku);
+      m.href = messengerUrl(data.store, productRef(p.sku, selectedSize));
       w.href = whatsappUrl(data.store, productOrderText(p, selectedSize));
     };
     refreshLinks();

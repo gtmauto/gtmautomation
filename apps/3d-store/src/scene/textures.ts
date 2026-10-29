@@ -11,6 +11,48 @@ function makeCanvas(w: number, h: number): [HTMLCanvasElement, CanvasRenderingCo
   return [c, ctx];
 }
 
+/**
+ * Every surface in the room uses ONE shader program (MeshStandardMaterial + map + alphaTest + transparent):
+ * linking a standard program blocks the main thread for 100-600 ms on phones, so one program instead of six.
+ * Untextured surfaces get a shared 1x1 white map.
+ */
+export const WHITE = (() => {
+  const t = new THREE.DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.needsUpdate = true;
+  return t;
+})();
+export function stdMat(params: THREE.MeshStandardMaterialParameters = {}): THREE.MeshStandardMaterial {
+  return new THREE.MeshStandardMaterial({ map: WHITE, transparent: true, alphaTest: 0.05, ...params });
+}
+
+const WEB_FONT = '700 48px "Noto Sans Bengali"';
+export function banglaFontReady(): boolean {
+  try {
+    return document.fonts.check(WEB_FONT);
+  } catch {
+    return true;
+  }
+}
+
+/** Text textures drawn before the Bangla web font arrived are redrawn later (one per frame, see store3d). */
+const redraws: Array<() => void> = [];
+export function textMaterial(draw: () => THREE.CanvasTexture, opts: THREE.MeshStandardMaterialParameters = {}): THREE.MeshStandardMaterial {
+  const mat = stdMat({ ...opts, map: draw() });
+  if (!banglaFontReady())
+    redraws.push(() => {
+      const old = mat.map;
+      mat.map = draw();
+      mat.needsUpdate = true;
+      old?.dispose();
+    });
+  return mat;
+}
+/** Returns the pending redraw jobs (empty when everything was drawn with the web font already). */
+export function refreshTextTextures(): Array<() => void> {
+  return redraws.splice(0, redraws.length);
+}
+
 function toTexture(c: HTMLCanvasElement, srgb = true): THREE.CanvasTexture {
   const t = new THREE.CanvasTexture(c);
   if (srgb) t.colorSpace = THREE.SRGBColorSpace;
@@ -84,7 +126,8 @@ export function shadowTexture(): THREE.CanvasTexture {
 
 /** Brand sign above the hero wall. */
 export function signTexture(name: string, tagline: string, accent: string): THREE.CanvasTexture {
-  const [c, ctx] = makeCanvas(1024, 320);
+  const [c, ctx] = makeCanvas(768, 240);
+  ctx.scale(0.75, 0.75);
   ctx.fillStyle = accent;
   ctx.beginPath();
   ctx.roundRect(0, 0, 1024, 320, 36);
@@ -106,7 +149,8 @@ export function signTexture(name: string, tagline: string, accent: string): THRE
 
 /** Wall poster: big Bangla line + sub line in the brand palette. */
 export function posterTexture(text: string, sub: string | undefined, accent: string): THREE.CanvasTexture {
-  const [c, ctx] = makeCanvas(512, 683);
+  const [c, ctx] = makeCanvas(384, 512);
+  ctx.scale(0.75, 0.75);
   ctx.fillStyle = '#FFFDF8';
   ctx.fillRect(0, 0, 512, 683);
   ctx.strokeStyle = accent;
@@ -158,7 +202,8 @@ export function pegboardTexture(): THREE.CanvasTexture {
 
 /** Section name label placed above each fixture. */
 export function labelTexture(text: string, accent: string): THREE.CanvasTexture {
-  const [c, ctx] = makeCanvas(512, 128);
+  const [c, ctx] = makeCanvas(384, 96);
+  ctx.scale(0.75, 0.75);
   ctx.fillStyle = '#FFFDF8';
   ctx.beginPath();
   ctx.roundRect(0, 0, 512, 128, 64);

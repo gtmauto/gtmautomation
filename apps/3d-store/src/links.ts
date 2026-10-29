@@ -37,7 +37,18 @@ export function cartOrderText(items: CartItem[], products: Map<string, Product>)
   return lines.join('\n');
 }
 
+/** Sizes like "M" / "42" fit in an m.me ref; Bangla sizes ("ফ্রি সাইজ") are left out of the ref (they stay in the WhatsApp text). */
+export function refSize(size?: string): string {
+  return size && /^[A-Za-z0-9]{1,8}$/.test(size) ? size : '';
+}
+
+/** <sku> or <sku>-<size>, e.g. PJ-003-XL */
+export function productRef(sku: string, size?: string): string {
+  const s = refSize(size);
+  return s ? `${sku}-${s}` : sku;
+}
+
 /** CART_PJ-001x1_SR-002x2 (m.me ref allows only a small character set) */
 export function cartRef(items: CartItem[]): string {
-  return 'CART_' + items.map((i) => `${i.sku}x${i.qty}${i.size ? '-' + i.size.replace(/[^A-Za-z0-9]/g, '') : ''}`).join('_');
+  return 'CART_' + items.map((i) => `${i.sku}x${i.qty}${refSize(i.size) ? '-' + refSize(i.size) : ''}`).join('_');
 }

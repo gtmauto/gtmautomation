@@ -7,7 +7,6 @@
     <meta name="description" content="{{STORE_NAME}} — {{STORE_TAGLINE}}" />
     <title>{{STORE_NAME}} · 3D Store</title>
     <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="/fonts/noto-sans-bengali-var.woff2" as="font" type="font/woff2" crossorigin />
     <style>
       /* Loading screen is inline so it paints before any JS or CSS file arrives (hook #1). */
       @font-face {
@@ -21,6 +20,7 @@
       html, body { margin: 0; height: 100%; background: #f4efe8; }
       body { font-family: 'Noto Sans Bengali', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #1f1d1a; }
       #loader {
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Bengali', sans-serif;
         position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
         align-items: center; justify-content: center; gap: 14px; background: #f4efe8;
         transition: opacity .45s ease; text-align: center; padding: 0 24px;
@@ -67,18 +67,18 @@
     </header>
 
     <main id="app">
-      <canvas id="scene" tabindex="0" aria-label="দোকানের ভেতরে ঘুরে দেখার জায়গা"></canvas>
+      <canvas id="scene" tabindex="0" aria-label="শপের ভেতরে ঘুরে দেখার জায়গা"></canvas>
 
       <section id="fallback" hidden aria-label="সব product"></section>
 
-      <nav id="pills" aria-label="দোকানের section" hidden></nav>
+      <nav id="pills" aria-label="শপের section" hidden></nav>
 
       <aside id="strip" hidden aria-label="এই section-এর অন্য product"></aside>
 
       <aside id="panel" role="dialog" aria-modal="false" aria-labelledby="panelTitle" hidden></aside>
 
       <div id="coach" hidden role="note">
-        <p>আঙুল দিয়ে ঘুরে দেখুন · product-এ ট্যাপ করুন</p>
+        <p>আঙুল দিয়ে ঘুরে দেখুন<br />product-এ ট্যাপ করুন</p>
         <button type="button" id="coachOk">বুঝেছি</button>
       </div>
 

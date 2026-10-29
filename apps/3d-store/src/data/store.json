@@ -14,10 +14,10 @@
     { "id": "shoes", "label": "জুতা", "display": "pegboard", "wall": "west" }
   ],
   "posters": [
-    { "text": "ঘরে বসে কিনুন", "sub": "Messenger-এ লিখুন, বাকিটা আমরা", "wall": "north", "offset": -0.78 },
-    { "text": "ক্যাশ অন ডেলিভারি", "sub": "পণ্য হাতে পেয়ে টাকা দিন", "wall": "north", "offset": 0.78 },
-    { "text": "সারা দেশে ডেলিভারি", "sub": "ঢাকায় ১–২ দিন, বাইরে ২–৪ দিন", "wall": "east", "offset": -0.8 },
-    { "text": "সাইজ না মিললে বদল", "sub": "৩ দিনের মধ্যে জানান", "wall": "west", "offset": 0.8 }
+    { "text": "ঘরে বসে কিনুন", "sub": "Messenger-এ লিখুন, বাকিটা আমরা", "wall": "north", "offset": -0.7 },
+    { "text": "ক্যাশ অন ডেলিভারি", "sub": "পণ্য হাতে পেয়ে টাকা দিন", "wall": "north", "offset": 0.7 },
+    { "text": "সারা দেশে ডেলিভারি", "sub": "ঢাকায় ১–২ দিন, বাইরে ২–৪ দিন", "wall": "east", "offset": -0.62 },
+    { "text": "সাইজ না মিললে বদল", "sub": "৩ দিনের মধ্যে জানান", "wall": "west", "offset": 0.62 }
   ],
   "products": [
     { "sku": "PJ-001", "section": "panjabi", "name": "সাদা কটন পাঞ্জাবি", "price": 1450, "sizes": ["M", "L", "XL"], "stock": 7, "image": "/products/pj-001.png", "badge": "নতুন", "viewsToday": 12 },

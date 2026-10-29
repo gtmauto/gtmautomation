@@ -28,9 +28,28 @@ function storeHtml(): Plugin {
   };
 }
 
+/**
+ * Inline <head> script, run right after first paint: the same feature detection as main.ts (one throwaway WebGL
+ * context), published on window.__gtmPre for main.ts, and — only when the 3D view will be used — a modulepreload of the
+ * 3D chunks so they download in parallel with the entry (saves a round-trip on 3G). Weak phones never download Three.js.
+ */
+function preload3D(): Plugin {
+  return {
+    name: 'gtm-preload-3d',
+    transformIndexHtml: {
+      order: 'post',
+      handler(_html, ctx) {
+        const chunks = Object.keys(ctx.bundle ?? {}).filter((f) => /^assets\/(three|store3d)-.*\.js$/.test(f));
+        const js = `(function(){function go(){var r=null;try{var q=new URLSearchParams(location.search).get('view');if(q==='2d')r='query';else{var c=document.createElement('canvas');var gl=c.getContext('webgl2')||c.getContext('webgl');if(!gl)r='no_webgl';else{if(q!=='3d'){var i=gl.getExtension('WEBGL_debug_renderer_info');var n=i?String(gl.getParameter(i.UNMASKED_RENDERER_WEBGL)):'';if(/swiftshader|llvmpipe|software/i.test(n))r='software_gl';else if(typeof navigator.deviceMemory==='number'&&navigator.deviceMemory<2)r='low_memory';else if(matchMedia('(prefers-reduced-motion: reduce)').matches)r='reduced_motion';}var x=gl.getExtension('WEBGL_lose_context');if(x)x.loseContext();}}}catch(e){r=null}window.__gtmPre={reason:r};try{window.dispatchEvent(new Event('gtm:pre'))}catch(e){}if(r)return;${JSON.stringify(chunks.map((f) => '/' + f))}.forEach(function(f){var l=document.createElement('link');l.rel='modulepreload';l.href=f;document.head.appendChild(l)})}if(window.requestAnimationFrame)requestAnimationFrame(function(){setTimeout(go,0)});else go()})();`;
+        return [{ tag: 'script', children: js, injectTo: 'head' }];
+      },
+    },
+  };
+}
+
 export default defineConfig({
   base: '/',
-  plugins: [storeHtml()],
+  plugins: [storeHtml(), preload3D()],
   build: {
     target: 'es2020',
     sourcemap: false,

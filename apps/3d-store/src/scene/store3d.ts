@@ -3,11 +3,14 @@ import type { StoreData, Wall } from '../types';
 import { buildRoom } from './room';
 import { buildSections, type ProductNode } from './sections';
 import { CameraRig } from './camera';
+import { refreshTextTextures } from './textures';
 
 export interface Store3DOptions {
   canvas: HTMLCanvasElement;
   data: StoreData;
   reducedMotion: boolean;
+  /** keep the 3D view even on a CPU-rendered (SwiftShader) WebGL — used by ?view=3d and the tests */
+  allowSoftwareGL: boolean;
   onProgress: (fraction: number) => void;
   onProductTap: (sku: string) => void;
   onEmptyTap: () => void;
@@ -19,22 +22,50 @@ export interface Store3D {
   goToSection(sectionId: string | 'store'): Promise<void>;
   focusProduct(sku: string): Promise<void>;
   unfocus(): Promise<void>;
+  /** redraw sign/poster/label textures (called when the Bangla web font finishes loading) */
+  refreshText(): void;
   setActive(active: boolean): void;
   dispose(): void;
 }
+
+const yieldToMain = () => new Promise<void>((r) => setTimeout(r, 0));
 
 const TAP_MAX_PX = 7;
 const TAP_MAX_MS = 600;
 
 export async function createStore3D(opts: Store3DOptions): Promise<Store3D> {
   const { canvas, data, reducedMotion } = opts;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', alpha: false });
+  let renderer: THREE.WebGLRenderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', alpha: false });
+  } catch (e) {
+    throw Object.assign(new Error('WebGL unavailable'), { code: 'no_webgl', cause: e });
+  }
+  if (!opts.allowSoftwareGL) {
+    // WebGL rendered on the CPU (SwiftShader / llvmpipe) is far too slow for a room → 2D view
+    const gl = renderer.getContext();
+    const info = gl.getExtension('WEBGL_debug_renderer_info');
+    const name = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+    if (/swiftshader|llvmpipe|software/i.test(name)) {
+      renderer.dispose();
+      renderer.forceContextLoss();
+      throw Object.assign(new Error('software WebGL'), { code: 'software_gl' });
+    }
+  }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
+  // getProgramInfoLog/LINK_STATUS on first use stalls the main thread until the driver has linked every program
+  // (hundreds of ms on mobile GPUs); keep the check in dev only
+  renderer.debug.checkShaderErrors = import.meta.env.DEV;
+  performance.mark('gtm:renderer');
 
   const scene = new THREE.Scene();
   const rig = new CameraRig(1);
+  let needsRender = true;
+  let active = true;
+  /** GPU work (texture swaps, text redraws) is drained a few items per frame so no frame becomes a long task */
+  const gpuQueue: Array<() => void> = [];
   const sizeToWindow = () => {
     const w = canvas.clientWidth || window.innerWidth;
     const h = canvas.clientHeight || window.innerHeight;
@@ -43,53 +74,92 @@ export async function createStore3D(opts: Store3DOptions): Promise<Store3D> {
     needsRender = true;
   };
 
-  buildRoom(scene, data);
+  await buildRoom(scene, data, (job) => gpuQueue.push(job));
+  performance.mark('gtm:room');
   opts.onProgress(0.55);
+  await yieldToMain();
 
   const total = data.products.length;
   let loaded = 0;
   const loader = new THREE.TextureLoader();
-  const nodes = buildSections(scene, data, loader, () => {
-    loaded++;
-    opts.onProgress(0.55 + 0.4 * (loaded / total));
-    needsRender = true;
+  const nodes = await buildSections(scene, data, loader, (apply) => {
+    gpuQueue.push(() => {
+      apply();
+      loaded++;
+      opts.onProgress(0.55 + 0.4 * (loaded / total));
+      needsRender = true;
+    });
   });
   const bySku = new Map(nodes.map((n) => [n.sku, n]));
   const sectionWall = new Map<string, Wall>(data.sections.map((s) => [s.id, s.wall]));
+  performance.mark('gtm:sections');
 
   // ---- render loop (on demand) -------------------------------------------------------
-  let needsRender = true;
-  let active = true;
   let raf = 0;
+  // adaptive: when a frame costs more than ~14 ms of main-thread time (slow phone / CPU throttling) the
+  // scene is rendered every other frame, so animations stay smooth-ish and no frame becomes a long task
+  let lastCost = 0;
+  let skip = false;
   const loop = (now: number) => {
     raf = requestAnimationFrame(loop);
     if (!active) return;
+    if (lastCost > 14 && !skip) {
+      skip = true;
+      return;
+    }
+    skip = false;
+    const t0 = performance.now();
+    // drain queued GPU work within a small time budget (more per frame when frames are rare, e.g. a throttled tab)
+    while (gpuQueue.length && performance.now() - t0 < 6) gpuQueue.shift()?.();
     const camChanged = rig.update(now);
     if (camChanged || needsRender) {
       renderer.render(scene, rig.camera);
       needsRender = false;
     }
+    lastCost = performance.now() - t0;
   };
   sizeToWindow();
   window.addEventListener('resize', sizeToWindow);
   raf = requestAnimationFrame(loop);
 
+  // Shaders. Assembling + compiling one MeshStandardMaterial program costs ~100 ms on a slow phone, so each
+  // distinct program is compiled in its own task (only one representative mesh visible at a time) and the
+  // driver links in the background (KHR_parallel_shader_compile) while the main thread stays free.
+  await yieldToMain();
+  try {
+    const meshes: THREE.Mesh[] = [];
+    scene.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) meshes.push(o as THREE.Mesh);
+    });
+    const sig = (m: THREE.Mesh) => {
+      const mat = m.material as THREE.MeshStandardMaterial;
+      return `${mat.type}|${mat.map ? 'map' : ''}|${mat.alphaTest > 0 ? 'cut' : ''}|${mat.transparent ? 't' : ''}`;
+    };
+    const reps = new Map<string, THREE.Mesh>();
+    for (const m of meshes) if (!reps.has(sig(m))) reps.set(sig(m), m);
+    // the first compile also pays three.js' one-time shader setup: start with the smallest program (MeshBasicMaterial)
+    const ordered = [...reps.values()].sort((x, y) => Number((y.material as THREE.Material).type === 'MeshBasicMaterial') - Number((x.material as THREE.Material).type === 'MeshBasicMaterial'));
+    for (const rep of ordered) {
+      for (const m of meshes) m.visible = m === rep;
+      await renderer.compileAsync(scene, rig.camera);
+      await yieldToMain();
+    }
+    for (const m of meshes) m.visible = true;
+    performance.mark('gtm:compiled');
+    // fetching a program's uniform locations is ~100 sync GPU calls; one program per task
+    for (const p of renderer.info.programs ?? []) {
+      p.getUniforms();
+      await yieldToMain();
+    }
+  } catch {
+    /* older browsers: the first render compiles synchronously */
+  }
+  await yieldToMain();
   // first paint so the glide starts from a drawn frame
   renderer.render(scene, rig.camera);
+  performance.mark('gtm:first-render');
   opts.onProgress(0.6);
 
-  // wait for textures, but never longer than 1.4 s (slow data: planes fill in during the glide)
-  await new Promise<void>((res) => {
-    const t = setTimeout(res, 1400);
-    const check = () => {
-      if (loaded >= total) {
-        clearTimeout(t);
-        res();
-      } else setTimeout(check, 60);
-    };
-    check();
-  });
-  opts.onProgress(0.97);
 
   // ---- input: drag to look, pinch/wheel to zoom, tap to pick ---------------------------
   const pointers = new Map<number, { x: number; y: number }>();
@@ -195,6 +265,18 @@ export async function createStore3D(opts: Store3DOptions): Promise<Store3D> {
   canvas.addEventListener('keydown', onKey);
   canvas.style.cursor = 'grab';
 
+  // test hook (read-only): screen position of a product + camera position
+  (window as unknown as { __gtm3d?: unknown }).__gtm3d = {
+    screenPos: (sku: string) => {
+      const n = bySku.get(sku);
+      if (!n) return null;
+      const v = n.position.clone().project(rig.camera);
+      return { x: ((v.x + 1) / 2) * canvas.clientWidth, y: ((1 - v.y) / 2) * canvas.clientHeight, visible: v.z < 1 && Math.abs(v.x) <= 1 && Math.abs(v.y) <= 1 };
+    },
+    camPos: () => rig.camera.position.toArray(),
+    camDir: () => rig.camera.getWorldDirection(new THREE.Vector3()).toArray(),
+  };
+
   const dur = (ms: number) => (reducedMotion ? 0 : ms);
   const portrait = () => window.innerHeight > window.innerWidth;
 
@@ -211,6 +293,10 @@ export async function createStore3D(opts: Store3DOptions): Promise<Store3D> {
       return rig.goTo(rig.focusPreset(n.position, n.normal, portrait()), dur(700));
     },
     unfocus: () => Promise.resolve(),
+    refreshText: () => {
+      for (const job of refreshTextTextures()) gpuQueue.push(job);
+      needsRender = true;
+    },
     setActive: (a) => {
       active = a;
       needsRender = a;

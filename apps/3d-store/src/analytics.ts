@@ -7,7 +7,7 @@
  *   product_focus  { sku, section }
  *   cta_click      { sku | skus, section?, channel: 'messenger' | 'whatsapp' }
  *   cart_add       { sku, section }
- *   fallback_used  { reason: 'toggle' | 'no_webgl' | 'low_memory' | 'reduced_motion' | 'query' }
+ *   fallback_used  { reason: 'toggle' | 'no_webgl' | 'software_gl' | 'low_memory' | 'reduced_motion' | 'query' | 'error' }
  */
 export type AnalyticsEvent =
   | { event: 'section_view'; section: string }
