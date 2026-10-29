@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!-- connect-en-1 (2026-10-29): English copy of connect.html, built by .freebuff/build-connect-en.mjs — do not edit by hand -->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <meta property="og:image" content="https://gtmautomation.net/assets/og-1200x630.png?v=20261012" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="GTM Automation — 24/7 AI auto-replies" />
+  <meta property="og:site_name" content="GTM Automation Bangladesh" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://gtmautomation.net/assets/og-1200x630.png?v=20261012" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect your Page — GTM Automation Bangladesh</title>
+  <meta name="description" content="Securely connect your Facebook Page to GTM Automation — with Facebook's own login." />
+  <link rel="canonical" href="https://gtmautomation.net/connect-en.html" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Connect your Page — GTM Automation" />
+  <meta property="og:description" content="Connect your Facebook Page." />
+  <meta name="google-site-verification" content="WTGRfFYCEUhPDYlLfRCaSPIG8LEYhEHgLfGsFn_yzRs" />
+  <meta property="og:url" content="https://gtmautomation.net/connect.html" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="fb:app_id" content="1580832699983506" />
+  <meta name="twitter:title" content="Connect your Page — GTM Automation" />
+  <meta name="twitter:description" content="Connect your Facebook Page." />
+  <meta name="theme-color" content="#05070f" />
+
+
+  <!-- Bengali webfonts, self-hosted: byte-for-byte the files Google Fonts served for this exact
+       request, with the same @font-face rules — only the src: URLs point at our own domain, so the
+       rendering is unchanged. Rebuild with `.freebuff/build-selfhosted-fonts.mjs`. -->
+  <link rel="stylesheet" href="assets/fonts/kalpurush.css" />
+  <link rel="preload" href="assets/fonts/noto-sans-bengali-bengali-w400-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/noto-sans-bengali-latin-w400-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Kalpurush', 'Noto Sans Bengali', 'Roboto Slab', sans-serif;
+      background-color: #05070f;
+      background-image:
+        linear-gradient(180deg, rgba(5,7,15,.93) 0%, rgba(5,7,15,.88) 45%, rgba(5,7,15,.94) 100%),
+        url('bot-bg.svg');
+      background-attachment: fixed;
+      background-repeat: no-repeat, repeat;
+      background-size: auto, 480px 480px;
+    }
+    .glass {
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 32px rgba(2,6,23,.55);
+    }
+    .neon-text {
+      background: linear-gradient(92deg, #38bdf8 0%, #818cf8 50%, #a855f7 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 18px rgba(99,102,241,.35));
+    }
+    #navbar { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+    #navbar.scrolled { background: rgba(5,7,15,.85); backdrop-filter: blur(16px); box-shadow: 0 4px 30px rgba(2,6,23,.6); border-color: rgba(255,255,255,.08); }
+
+    .doc p, .doc li { color: #cbd5e1; line-height: 1.95; }
+    .doc h2 { color: #fff; font-weight: 800; font-size: 1.2rem; line-height: 1.7; margin-bottom: .6rem; }
+    .doc h3 { color: #e2e8f0; font-weight: 700; font-size: 1.02rem; }
+    .doc a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
+    .doc strong { color: #fff; font-weight: 700; }
+    .doc ul { list-style: none; padding-left: 0; }
+    .doc li { position: relative; padding-left: 1.1rem; }
+    .doc li::before { content: "•"; position: absolute; left: .2rem; color: #38bdf8; }
+    .doc section { scroll-margin-top: 96px; }
+
+    .toc a { color: #94a3b8; }
+    .toc a:hover { color: #38bdf8; }
+
+    .messenger-fab, .whatsapp-fab, .instagram-fab {
+      position: fixed; right: max(1rem, env(safe-area-inset-right)); z-index: 60;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem; border-radius: 9999px;
+      font-weight: 700; font-size: .95rem; line-height: 1;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .messenger-fab { bottom: max(1rem, env(safe-area-inset-bottom)); background: #0084ff; color: #fff; box-shadow: 0 6px 24px rgba(0,132,255,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.1rem); background: #25D366; color: #fff; box-shadow: 0 6px 24px rgba(37,211,102,.45), 0 0 0 1px rgba(255,255,255,.15) inset; }
+    .messenger-fab:hover, .messenger-fab:focus-visible { background: #0074e8; transform: translateY(-2px) scale(1.03); }
+    .whatsapp-fab:hover, .whatsapp-fab:focus-visible { background: #1fb857; transform: translateY(-2px) scale(1.03); }
+    @media (max-width: 400px) {
+      .messenger-fab, .whatsapp-fab, .instagram-fab { padding: .7rem; font-size: .85rem; }
+      .whatsapp-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 3.8rem); }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #111 !important; }
+      #navbar, .messenger-fab, .whatsapp-fab, .instagram-fab, .no-print { display: none !important; }
+      .glass { border: 1px solid #ddd !important; box-shadow: none !important; background: #fff !important; }
+      .doc p, .doc li, .doc h2, .doc h3, .doc strong { color: #111 !important; }
+      .doc a { color: #0645ad !important; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    :target { scroll-margin-top: 96px; }
+  
+    /* Horizontal-overflow guard (added 2026-09-25). The decorative .glow-blob divs sit at
+       left/right -6%…-10%; two of them lived in sections whose overflow was visible, which
+       made the document 1509px wide inside a 1440px viewport (a sideways-scrollable page).
+       The owning sections are now clipped AND these two rules are the net. `clip` is used
+       where supported because it does not turn <html> into a scroll container, so the fixed
+       navbar, scroll-smooth and anchor scroll-margin behave exactly as before. */
+    html, body { overflow-x: hidden; overflow-x: clip; }
+
+    /* Horizontal-overflow guard for decorative glow blobs. */
+    html, body { overflow-x: hidden; overflow-x: clip; }
+
+    .instagram-fab {
+      position: fixed; right: max(1rem, env(safe-area-inset-right)); z-index: 60;
+      bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 12.3rem);
+      background: #C13584; color: #fff;
+      box-shadow: 0 6px 24px rgba(193,53,132,.45), 0 0 0 1px rgba(255,255,255,.15) inset;
+    }
+    .instagram-fab:hover, .instagram-fab:focus-visible { background: #a82b70; transform: translateY(-2px) scale(1.03); box-shadow: 0 10px 32px rgba(193,53,132,.6); }
+    @media (max-width: 400px) { .instagram-fab { bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 11.4rem); } }
+    @media (max-width: 639px) { .telegram-fab, .instagram-fab { display: none; } }
+</style>
+
+  <!-- Tailwind is compiled ONCE at build time (`.freebuff/build-tailwind-css.mjs`, pinned to
+       tailwindcss@3.4.17 — the version cdn.tailwindcss.com was serving us). Changing a class means
+       re-running that script; this link must stay AFTER this page's own <style> so the utilities
+       keep overriding it exactly as the CDN's injected sheet did. -->
+  <link rel="stylesheet" href="assets/tailwind.css" />
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'" />
+</head>
+
+<body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
+
+  <!-- ================= Navigation ================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 border-b border-transparent">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6" aria-label="Main menu">
+      <a href="/" class="flex items-center gap-2" aria-label="GTM Automation — Home">
+        <span class="grid h-9 w-9 place-items-center overflow-hidden rounded-xl bg-white shadow-neon-blue"><img src="assets/logo-mark.svg" alt="GTM Automation logo" width="36" height="36" class="h-9 w-9" /></span><span class="text-sm font-extrabold tracking-tight text-white">GTM Automation</span>
+      </a>
+
+      <div class="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+        <a href="/#cost" class="transition hover:text-white">Cost</a>
+        <a href="/#features" class="transition hover:text-white">Features</a>
+        <a href="/#calculator" class="transition hover:text-white">Calculator</a>
+        <a href="/#pricing" class="transition hover:text-white">Pricing</a>
+                <a href="pricing.html" class="transition hover:text-white">Price list</a>
+        <a href="faq.html" class="transition hover:text-white">FAQ</a>
+        <a href="/#lead-form" class="rounded-lg border border-white/25 px-4 py-2 font-semibold text-white transition hover:border-neon-blue hover:text-neon-blue">Free demo</a>
+      </div>
+
+      <button id="menu-btn" class="grid h-10 w-10 place-items-center rounded-lg glass md:hidden" aria-label="Open menu" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-night-950/95 px-4 py-4 md:hidden">
+      <a href="/#cost" class="block py-2 text-slate-300">Cost</a>
+      <a href="/#features" class="block py-2 text-slate-300">Features</a>
+      <a href="/#calculator" class="block py-2 text-slate-300">Calculator</a>
+      <a href="/#pricing" class="block py-2 text-slate-300">Pricing</a>
+            <a href="pricing.html" class="block py-2 text-slate-300">Price list</a>
+      <a href="faq.html" class="block py-2 text-slate-300">FAQ</a>
+      <a href="privacy.html" class="block py-2 text-slate-300">Privacy Policy</a>
+      <a href="terms.html" class="block py-2 text-slate-300">Terms</a>
+      <a href="/#lead-form" class="mt-2 block rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple py-2 text-center font-semibold text-white">See a free demo</a>
+    </div>
+  </header>
+
+  
+  <!-- ================= Connect your Page ================= -->
+  <section class="relative overflow-hidden pt-28 pb-8 sm:pt-36 sm:pb-10">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,.10),transparent_60%)]"></div>
+    <div class="relative mx-auto max-w-xl px-4 sm:px-6">
+      <nav class="mb-4 text-sm text-slate-400" aria-label="Breadcrumb">
+        <a href="/" class="transition hover:text-neon-blue">Home</a>
+        <span class="px-2 text-slate-600" aria-hidden="true">/</span>
+        <span class="text-slate-300">Connect Page</span>
+      </nav>
+      <h1 class="text-3xl font-extrabold leading-snug text-white sm:text-4xl">
+        Connect your Facebook Page
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-slate-400">
+        Connect your Facebook Page (and the Instagram account linked to it) so our AI assistant can reply to your customers' Messenger and Instagram messages.
+      </p>
+
+      <div id="connect-status" class="mt-6 hidden rounded-xl border p-4 text-sm leading-relaxed" role="status" aria-live="polite"></div>
+
+      <div class="glass mt-6 rounded-2xl p-5">
+        <h2 class="text-lg font-bold text-white">What happens</h2>
+        <ol class="mt-3 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-slate-300">
+          <li>Facebook's own login opens when you press the button below. We never see your password.</li>
+          <li>Choose the Page you want to connect, and approve the permissions.</li>
+          <li>After that, when a customer messages your Page, the assistant answers from the product information you give us; hard questions are handed to you, and your team can take over the chat from our dashboard.</li>
+        </ol>
+        <p class="mt-4 text-xs leading-relaxed text-slate-500">
+          We never message anyone who has not written to your Page first, and we send no promotional or bulk messages.
+          You can remove the permissions at any time in Facebook Settings → Business Integrations.
+          Details: <a href="privacy.html" class="underline hover:text-neon-blue">Privacy Policy</a> ·
+          <a href="terms.html" class="underline hover:text-neon-blue">Terms</a>
+        </p>
+      </div>
+
+      <button id="connect-btn" type="button"
+        class="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-neon-blue to-neon-purple px-6 py-3 text-base font-semibold text-white shadow-neon-blue transition hover:opacity-90">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+        Connect Page with Facebook
+      </button>
+      <p class="mt-3 text-center text-xs text-slate-500">You will continue on Facebook</p>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var APP_ID = '1580832699983506';
+      var REDIRECT_URI = 'https://gtmautomation.net/webhook/fb-page-connect';
+      var CONFIG_ID = '1113456701317257';
+      var SCOPES = 'pages_show_list,pages_messaging,pages_manage_metadata,pages_read_engagement,pages_manage_engagement,pages_read_user_content,instagram_basic,instagram_manage_messages,instagram_manage_comments';
+
+      // Result shown after the server redirects back here (no tokens are ever in the URL).
+      var MESSAGES = {
+        ok: ['emerald', 'Your Page is connected.'],
+        denied: ['amber', 'Permission was not granted.'],
+        // connect-hardening-1: one line per server reason (build-fb-page-connect.mjs → Build Failure Alert / Validate Callback)
+        no_pages: ['amber', 'No Page was selected — press Connect again and tick your Page.'],
+        state: ['amber', 'Session expired, please try again.'],
+        no_code: ['amber', 'No login code arrived — start again with the button below.'],
+        fb_error: ['amber', 'Facebook reported a problem — please try again.'],
+        exchange: ['amber', 'Facebook login could not be verified — press Connect again.'],
+        long_lived: ['amber', 'Could not get lasting access from Facebook — try again shortly.'],
+        pages: ['amber', 'Could not read your Pages from Facebook — please try again.'],
+        db: ['amber', 'Facebook worked but we could not save it — we have been alerted.'],
+        other: ['amber', 'Something went wrong. Please try again or message us.']
+      };
+      try {
+        var p = new URLSearchParams(location.search);
+        var st = p.get('status');
+        if (st) {
+          var key = st === 'ok' ? 'ok' : (MESSAGES[p.get('reason')] ? p.get('reason') : 'other');
+          var m = MESSAGES[key];
+          var box = document.getElementById('connect-status');
+          box.textContent = m[1];
+          box.className += m[0] === 'emerald' ? ' border-emerald-400/40 text-emerald-300' : ' border-amber-400/30 text-amber-300';
+          box.classList.remove('hidden');
+          try { sessionStorage.removeItem('gtm_connect_lang'); } catch (e3) { /* optional */ }
+          history.replaceState(null, '', location.pathname);
+        }
+      } catch (e) { /* status display must never break the page */ }
+
+      document.getElementById('connect-btn').addEventListener('click', function () {
+        // CSRF guard: random state in a short-lived cookie that only the callback path receives.
+        var b = new Uint8Array(16);
+        crypto.getRandomValues(b);
+        var state = Array.prototype.map.call(b, function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+        document.cookie = 'gtm_fbc_state=' + state + '; Path=/webhook/fb-page-connect; Max-Age=600; Secure; SameSite=Lax';
+        var q = new URLSearchParams({ client_id: APP_ID, redirect_uri: REDIRECT_URI, state: state, response_type: 'code' });
+        if (CONFIG_ID) q.set('config_id', CONFIG_ID); else q.set('scope', SCOPES);
+        try { sessionStorage.setItem('gtm_connect_lang', 'en'); } catch (e2) { /* optional */ }
+        location.href = 'https://www.facebook.com/v21.0/dialog/oauth?' + q.toString();
+      });
+    })();
+  </script>
+
+<!-- ================= Footer ================= -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 text-center sm:px-6">
+      <p class="text-sm text-slate-500">© 2026 GTM Automation Bangladesh</p>
+      <p class="text-xs text-slate-500" data-business-identity="true">GTM Automation — Sole Proprietorship (Proprietor: NAJMIN AKTAR), IT Services · Badaghat Road, Sonatola-3100, Jalalabad, Sylhet Sadar, Sylhet, Bangladesh (No-8 Kandigaon Union) · WhatsApp Bot +880 1886 723675 · Human +880 1701 124361 · <a class="underline hover:text-neon-blue" href="mailto:contact@gtmautomation.net">contact@gtmautomation.net</a> · Trade License No. K.U.P/1085/26 (2026–27, valid till 30 June 2027)</p>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400" aria-label="Footer links">
+                <a href="pricing.html" class="transition hover:text-neon-blue">Pricing</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="/" class="transition hover:text-neon-blue">Home</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="faq.html" class="transition hover:text-neon-blue">FAQ</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="privacy.html" class="transition hover:text-neon-blue">Privacy Policy</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="terms.html" class="transition hover:text-neon-blue">Terms of Service</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="https://t.me/GTM_Autobot" target="_blank" rel="noopener" class="transition hover:text-neon-blue">Telegram</a>
+        <span class="text-slate-700" aria-hidden="true">|</span>
+        <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="transition hover:text-neon-blue">Contact Us</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+  </script>
+
+  <a href="https://m.me/gtmautomation" target="_blank" rel="noopener" class="messenger-fab" aria-label="Chat on Messenger (opens in a new tab)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.92 1.46 5.52 3.74 7.22V22l3.42-1.88c.9.25 1.86.38 2.84.38 5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1.06 12.44-2.55-2.72-4.97 2.72 5.47-5.81 2.61 2.72 4.9-2.72-5.46 5.81z"/></svg>
+  </a>
+  
+
+  <!-- Visit counting: FIRST-PARTY and cookie-free. No third party, no ad/analytics vendor,
+       nothing in localStorage; only the path, referring host, viewport width and a random
+       per-tab id are appended to OUR OWN nginx access log (/var/log/nginx/access.log).
+       Report: node .freebuff/landing-analytics-report.mjs -->
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams();
+        q.set('p', location.pathname);
+        q.set('r', document.referrer ? document.referrer.replace(/^https?:\/\//, '').split('/')[0] : 'direct');
+        q.set('w', String(Math.round(window.innerWidth / 100) * 100));
+        q.set('l', navigator.language || '');
+        var sid = sessionStorage.getItem('gtm_sid');
+        if (!sid) { sid = Math.random().toString(36).slice(2, 10); sessionStorage.setItem('gtm_sid', sid); }
+        q.set('s', sid);
+        q.set('t', Date.now().toString(36)); /* cache-buster: /px.gif must never be reused from cache */
+        new Image().src = '/px.gif?' + q.toString();
+      } catch (e) { /* counting must never break the page */ }
+    })();
+  </script>
+  <noscript><img src="/px.gif?p=/connect.html&amp;js=0" alt="" width="1" height="1" /></noscript>
+
+  <!-- Instagram DM shortcut to @gtmautomationbd. -->
+  <a href="https://ig.me/m/gtmautomationbd" target="_blank" rel="noopener noreferrer" class="instagram-fab" aria-label="Message us on Instagram (opens in a new tab)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zm4.2 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg>
+  </a>
+</body>
+</html>

@@ -216,6 +216,8 @@
 
   <script>
     (function () {
+      // connect-en-1: a visitor who started on connect-en.html returns here from Facebook → hand over to the English page (this tab only)
+      try { if (location.search.indexOf('status=') > -1 && sessionStorage.getItem('gtm_connect_lang') === 'en') { location.replace('connect-en.html' + location.search); return; } } catch (e0) { /* optional */ }
       var APP_ID = '1580832699983506';
       var REDIRECT_URI = 'https://gtmautomation.net/webhook/fb-page-connect';
       var CONFIG_ID = '1113456701317257';
@@ -258,6 +260,7 @@
         document.cookie = 'gtm_fbc_state=' + state + '; Path=/webhook/fb-page-connect; Max-Age=600; Secure; SameSite=Lax';
         var q = new URLSearchParams({ client_id: APP_ID, redirect_uri: REDIRECT_URI, state: state, response_type: 'code' });
         if (CONFIG_ID) q.set('config_id', CONFIG_ID); else q.set('scope', SCOPES);
+        try { sessionStorage.removeItem('gtm_connect_lang'); } catch (e1) { /* optional */ }
         location.href = 'https://www.facebook.com/v21.0/dialog/oauth?' + q.toString();
       });
     })();
