@@ -294,6 +294,7 @@
       }, true);
     })();
   </script>
+  <script src="assets/utm.js?v=f9816a83" defer></script>
 </head>
 
 <body class="text-slate-200 font-bangla antialiased overflow-x-hidden">
@@ -1371,7 +1372,9 @@
           daily_messages: volume.value,
           estimated_daily_messages: ESTIMATED_DAILY_MESSAGES[volume.value] ?? null,
           source: 'gtm-autolanding-v2-ai-care',
-          submitted_at: new Date().toISOString()
+          submitted_at: new Date().toISOString(),
+          // which post brought this visitor: the first ?utm_… tag of the last 30 days (assets/utm.js), or null
+          utm: (typeof window.gtmUtm === 'function' ? window.gtmUtm() : null)
         };
         if (WEBHOOK_URL) {
           const controller = new AbortController();
