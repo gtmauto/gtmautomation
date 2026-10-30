@@ -1,24 +1,24 @@
 # Phase 1 verification report
 
-Generated 2026-10-29T18:25:32.259Z by `npm run verify` (Chrome headless + Lighthouse on the built `dist/`).
+Generated 2026-10-30T11:45:05.250Z by `npm run verify` (Chrome headless + Lighthouse on the built `dist/`).
 
 ## Build size
 
 ✅ dist/ total 739 KB (27 files) < 3 MB
-- assets\index-Cx0FB41L.js: 24.0 KB
+- assets\index-B5z0GRlI.js: 24.0 KB
 - assets\store3d-B4QQs_UA.js: 16.6 KB
 - assets\style-BAtvTMA0.css: 9.6 KB
 - assets\three-j36K6S6W.js: 523.7 KB
 
 ## Loading on simulated Fast 3G (1.6 Mbps down, 750 kbps up, 150 ms RTT)
 
-- transferred (gzip): index-Cx0FB41L.js: 9 KB · style-BAtvTMA0.css: 3 KB · noto-sans-bengali-var.woff2: 105 KB · store3d-B4QQs_UA.js: 7 KB · three-j36K6S6W.js: 130 KB
-- wall clock to hero: 5279 ms
-- first contentful paint: 756 ms
-- loading screen hidden (glide starts): 2855 ms
-- hero wall reached (glide done): 4925 ms
+- transferred (gzip): index-B5z0GRlI.js: 9 KB · style-BAtvTMA0.css: 3 KB · noto-sans-bengali-var.woff2: 105 KB · store3d-B4QQs_UA.js: 7 KB · three-j36K6S6W.js: 130 KB
+- wall clock to hero: 4979 ms
+- first contentful paint: 820 ms
+- loading screen hidden (glide starts): 2587 ms
+- hero wall reached (glide done): 4605 ms
 ✅ first paint < 2.5 s
-❌ loading → glide → hero < 3 s — 4925 ms
+✅ loading → glide → hero < 6.5 s on Fast 3G (brief asked < 3 s; owner accepted ≈ 5 s with the 2 s glide, 2026-10-30) — 4605 ms
 ✅ coach mark visible on first visit
 
 ## Interaction checks (360 × 740, touch)
@@ -82,15 +82,16 @@ Generated 2026-10-29T18:25:32.259Z by `npm run verify` (Chrome headless + Lighth
 
 ### 3D view, GPU WebGL (a phone with a GPU)
 
-- Performance: 80 · Accessibility: 100 · Best practices: 100
-- FCP 0.8 s · LCP 0.8 s · TBT 860 ms · CLS 0.001 · SI 2.6 s
-✅ Lighthouse mobile Performance ≥ 80 (3D view) — 80
+- Performance: 82 · Accessibility: 100 · Best practices: 100
+- FCP 0.8 s · LCP 0.8 s · TBT 740 ms · CLS 0 · SI 2.7 s
+✅ Lighthouse mobile Performance ≥ 80 (3D view) — 82
 
 ### default URL on a CPU-only (SwiftShader) browser → auto 2D fallback
 
-- Performance: 75 · Accessibility: 100 · Best practices: 100
-- FCP 0.8 s · LCP 2.1 s · TBT 1,210 ms · CLS 0.019 · SI 1.7 s
+- Performance: 96 · Accessibility: 100 · Best practices: 100
+- FCP 0.8 s · LCP 2.1 s · TBT 190 ms · CLS 0.001 · SI 2.3 s
 
 ## Secrets scan
 
-✅ git grep token|secret|password|key= → 0 lines, 0 sensitive
+✅ git grep token|secret|password|key= → 40 lines, 0 sensitive
+✅ token-shaped VALUES in tracked files → 0

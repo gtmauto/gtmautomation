@@ -115,7 +115,9 @@ try {
     log(`- loading screen hidden (glide starts): ${marks.loaderHidden?.toFixed(0)} ms`);
     log(`- hero wall reached (glide done): ${marks.hero?.toFixed(0)} ms`);
     check(marks.firstPaint !== null && marks.firstPaint < 2500, 'first paint < 2.5 s');
-    check(marks.hero !== null && marks.hero < 3000, 'loading → glide → hero < 3 s', `${marks.hero?.toFixed(0)} ms`);
+    // Brief target was < 3 s. Owner decision 2026-10-30: keep the 2 s glide and accept ≈ 5 s on Fast 3G (measured 4.9–5.2 s).
+    // The gate now catches regressions only; the measured value stays in the report.
+    check(marks.hero !== null && marks.hero < 6500, 'loading → glide → hero < 6.5 s on Fast 3G (brief asked < 3 s; owner accepted ≈ 5 s with the 2 s glide, 2026-10-30)', `${marks.hero?.toFixed(0)} ms`);
     await page.waitForTimeout(400);
     await page.screenshot({ path: path.join(shots, '2-hero-wall.png') });
     const coach = await page.isVisible('#coach');
@@ -318,8 +320,18 @@ try {
     grep = e.stdout || '';
   }
   const hits = grep.split('\n').filter(Boolean);
-  const sensitive = hits.filter((h) => !/(README|docs\/|verify\.mjs|keyboard|KeyboardEvent|e\.key|\.key ===|keydown|key: |localStorage|const key|cache)/.test(h));
+  // tools/deploy-pages.mjs names CLOUDFLARE_* env vars and says "token" in its comments; it never holds a value — the value scan below still covers it.
+  const sensitive = hits.filter((h) => !/(README|docs\/|verify\.mjs|tools\/deploy-pages\.mjs|keyboard|KeyboardEvent|e\.key|\.key ===|keydown|key: |localStorage|const key|cache)/.test(h));
   check(sensitive.length === 0, `git grep token|secret|password|key= → ${hits.length} lines, ${sensitive.length} sensitive`, sensitive.join('\n'));
+  // value-shaped secrets anywhere in tracked files (Meta EAA…, OpenAI sk-…, GitHub ghp_/github_pat_, AWS AKIA…, JWT, PEM, Google AIza…, Telegram bot token)
+  let vals = '';
+  try {
+    vals = execSync('git grep -E "(EAA[A-Za-z0-9]{40,}|sk-[A-Za-z0-9_-]{24,}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{20,}\\.eyJ|-----BEGIN [A-Z ]*PRIVATE KEY|AIza[0-9A-Za-z_-]{35}|[0-9]{8,10}:AA[A-Za-z0-9_-]{30,})" -- . ":!package-lock.json"', { cwd: root, encoding: 'utf8' });
+  } catch (e) {
+    vals = e.stdout || '';
+  }
+  const valHits = vals.split('\n').filter(Boolean);
+  check(valHits.length === 0, `token-shaped VALUES in tracked files → ${valHits.length}`, valHits.join('\n'));
 } finally {
   server.close();
 }
