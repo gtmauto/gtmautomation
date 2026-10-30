@@ -2,7 +2,7 @@ import './style.css';
 import storeJson from './data/store.json';
 import type { StoreData } from './types';
 import { bn } from './i18n/bn';
-import { track } from './analytics';
+import { track, initAnalytics } from './analytics';
 import { createCart } from './ui/cart';
 import { createPanel } from './ui/panel';
 import { createPills } from './ui/pills';
@@ -11,6 +11,7 @@ import { createCoach } from './ui/coach';
 import type { Store3D } from './scene/store3d';
 
 const data = storeJson as StoreData;
+initAnalytics(data.store);
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const loader = $('loader');

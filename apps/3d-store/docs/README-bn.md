@@ -217,19 +217,19 @@ Pages project → **Custom domains** → `shop.আপনার-domain.com` য�
 
 ---
 
-## ৬. Analytics event (Phase 3-এর জন্য)
+## ৬. Analytics (কে কী দেখল, কোন button চাপল)
 
-Site কোথাও data পাঠায় না। শুধু browser-এর `window.dataLayer`-এ event push করে, পরে dashboard-এ জোড়া যাবে:
+Store-এর ভেতরে পাঁচটা ঘটনা গোনা হয়: `section_view` (কোন দেয়াল দেখল), `product_focus` (কোন পণ্যে ট্যাপ), `cta_click` (Messenger না WhatsApp button), `cart_add` (ব্যাগে রাখল), `fallback_used` (3D না চলে সাধারণ view)। সব ঘটনা আগের মতো `window.dataLayer`-এ যায়।
 
-| event | কখন | data |
-|---|---|---|
-| `section_view` | pill চাপলে / শুরুতে | `section` |
-| `product_focus` | product-এ ট্যাপ / thumbnail বদল | `sku`, `section` |
-| `cta_click` | Messenger/WhatsApp button | `sku` (বা ব্যাগে `skus`), `channel` |
-| `cart_add` | ব্যাগে রাখুন | `sku`, `section` |
-| `fallback_used` | সাধারণ view খুললে | `reason`: `toggle`, `no_webgl`, `software_gl`, `low_memory`, `reduced_motion`, `query`, `error` |
+**চালু করতে:** `store.json`-এ `"analytics": true` দিন, build + deploy করুন। তখন ঘটনাগুলো ৫ সেকেন্ড পরপর `/api/event`-এ পাঠানো হয় (Cloudflare Pages Function `functions/api/event.js`), যেটা Supabase-এর `store_events` table-এ লেখে। **কোনো ব্যক্তিগত তথ্য না:** কোনো নাম, ফোন, IP, cookie নেই; শুধু ঘটনার নাম, SKU, একটা random tab-id আর ফোন/ট্যাব/কম্পিউটার কোনটা।
 
----
+**আগে একবার করতে হয় (GTM, Claude দিয়ে):** Supabase migration `0027_store_events.sql`, আর Pages project-এ দুটো secret (`SUPABASE_URL`, `SUPABASE_STORE_EVENTS_KEY`) — secret ছাড়া Function 503 দেয়, store-এর কিছু হয় না। Client-প্রতি আলাদা Pages project হলে তারও নিজের secret লাগে।
+
+**দেখার জায়গা (এখন SQL, পরে dashboard-এ box):**
+- `store_events_daily` — দিন অনুযায়ী ঘটনার সংখ্যা আর কতজন (tab) দেখল
+- `store_funnel_7d` — গত ৭ দিনে: দেখল → পণ্যে ট্যাপ → button চাপল, WhatsApp/Messenger ভাগ, ব্যাগ, fallback
+
+৯০ দিনের পুরোনো row নিজে মুছে যায়।
 
 ## ৭. Folder map
 
@@ -250,6 +250,8 @@ apps/3d-store/
   tools/deploy-pages.mjs   ← Cloudflare Pages-এ তোলা: dry | apply (§৪.২)
   tools/lighthouse-live.mjs← live URL-এ Lighthouse → docs/lighthouse-live.json
   tools/verify.mjs         ← নিজে নিজে test (npm run build && npm run verify)
+  functions/api/event.js   ← Cloudflare Pages Function: analytics /api/event → Supabase store_events (§৬)
+  tools/test-store-events.mjs ← ওই Function-এর offline test
   docs/market-analysis.md  ← কেন এভাবে বানানো হলো
   docs/VERIFY-REPORT.md    ← শেষ test-এর report, screenshots docs/screenshots/
 ```

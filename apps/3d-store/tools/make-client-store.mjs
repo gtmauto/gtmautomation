@@ -34,6 +34,7 @@ export function clientTemplate(clientId, o = {}) {
     store: {
       id: clientId,
       tenantId: clientId,
+      analytics: false,
       name,
       tagline: String(o.tagline || DEFAULTS.tagline),
       primaryColor: String(o.primaryColor || DEFAULTS.primaryColor),

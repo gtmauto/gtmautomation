@@ -322,7 +322,8 @@ try {
   }
   const hits = grep.split('\n').filter(Boolean);
   // tools/deploy-pages.mjs names CLOUDFLARE_* env vars and says "token" in its comments; it never holds a value — the value scan below still covers it.
-  const sensitive = hits.filter((h) => !/(README|docs\/|verify\.mjs|tools\/deploy-pages\.mjs|keyboard|KeyboardEvent|e\.key|\.key ===|keydown|key: |localStorage|const key|cache)/.test(h));
+  // the Supabase-reading tools and the Pages Function name env vars (SUPABASE_SECRET_KEY, SUPABASE_STORE_EVENTS_KEY) — values never; the value scan below still covers them
+  const sensitive = hits.filter((h) => !/(README|docs\/|verify\.mjs|tools\/deploy-pages\.mjs|tools\/sync-store-from-supabase\.mjs|tools\/make-client-store\.mjs|tools\/test-store-events\.mjs|functions\/|keyboard|KeyboardEvent|e\.key|\.key ===|keydown|key: |localStorage|const key|cache)/.test(h));
   check(sensitive.length === 0, `git grep token|secret|password|key= → ${hits.length} lines, ${sensitive.length} sensitive`, sensitive.join('\n'));
   // value-shaped secrets anywhere in tracked files (Meta EAA…, OpenAI sk-…, GitHub ghp_/github_pat_, AWS AKIA…, JWT, PEM, Google AIza…, Telegram bot token)
   let vals = '';

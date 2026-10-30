@@ -1,17 +1,17 @@
 {
   "url": "http://localhost:4173/",
-  "fetchTime": "2026-10-30T13:04:18.986Z",
+  "fetchTime": "2026-10-30T16:56:17.913Z",
   "scores": {
-    "performance": 0.76,
+    "performance": 0.7,
     "accessibility": 1,
     "best-practices": 1
   },
   "metrics": {
-    "first-contentful-paint": 795.43905,
-    "largest-contentful-paint": 2116.8781,
-    "total-blocking-time": 1070.5,
-    "cumulative-layout-shift": 0.001235213290390623,
-    "speed-index": 1662.9721426779797,
-    "interactive": 2195.5805275000002
+    "first-contentful-paint": 793.1695,
+    "largest-contentful-paint": 2122.339,
+    "total-blocking-time": 2628,
+    "cumulative-layout-shift": 0.01773129081395917,
+    "speed-index": 1597.0355478784368,
+    "interactive": 3616.6695
   }
 }

@@ -2,6 +2,7 @@
   "store": {
     "id": "demo-dokan",
     "tenantId": "demo-dokan",
+    "analytics": false,
     "name": "Ghor Bazar",
     "tagline": "ঘরে বসে কিনুন, Messenger বা WhatsApp-এ অর্ডার করুন",
     "primaryColor": "#0E7C7B",

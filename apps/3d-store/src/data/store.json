@@ -2,6 +2,7 @@
   "store": {
     "id": "ghor-bazar",
     "tenantId": "demo-dokan",
+    "analytics": false,
     "name": "Ghor Bazar",
     "tagline": "ঘরে বসে কিনুন, ক্যাশ অন ডেলিভারি",
     "primaryColor": "#0E7C7B",
