@@ -1,0 +1,38 @@
+{
+  "base": "https://ghor-bazar-3d.pages.dev/",
+  "fetchTime": "2026-10-30T11:31:39.229Z",
+  "runs": {
+    "3d": {
+      "url": "https://ghor-bazar-3d.pages.dev/?view=3d",
+      "scores": {
+        "performance": 0.79,
+        "accessibility": 1,
+        "best-practices": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 950.658,
+        "largest-contentful-paint": 950.658,
+        "total-blocking-time": 873.9999999999999,
+        "cumulative-layout-shift": 0.0004580411274800746,
+        "speed-index": 3038.696395975229,
+        "interactive": 2738.658
+      }
+    },
+    "fallback": {
+      "url": "https://ghor-bazar-3d.pages.dev/",
+      "scores": {
+        "performance": 0.73,
+        "accessibility": 1,
+        "best-practices": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 927.548,
+        "largest-contentful-paint": 1517.548,
+        "total-blocking-time": 1676.9999999999998,
+        "cumulative-layout-shift": 0.001235213290390623,
+        "speed-index": 2457.5752871448794,
+        "interactive": 3056.548
+      }
+    }
+  }
+}

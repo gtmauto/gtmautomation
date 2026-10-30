@@ -112,7 +112,19 @@ Button চাপলে এই link খোলে:
 
 ## ৩. আসল ছবি বসানো
 
-Demo-র ছবিগুলো computer-এ বানানো placeholder। আসল ছবি দিতে:
+Demo-র ছবিগুলো computer-এ বানানো placeholder। আসল ছবি দিতে **সবচেয়ে সহজ পথ: script**।
+
+1. ছবিগুলো একটা folder-এ রাখুন। **File-এর নামে SKU থাকতে হবে**, যেমন `PJ-003.jpg`, `sr-002 front.jpeg`, `SH_06.png` (বড়-ছোট হাতের অক্ষর, dash/underscore যেকোনোটা চলে)।
+2. Terminal-এ (আগে `--dry` দিয়ে দেখে নিন, কিছু লেখা হয় না):
+
+```bash
+node tools/prep-photos.mjs "C:/path/to/photos" --dry
+node tools/prep-photos.mjs "C:/path/to/photos"
+```
+
+Script নিজে ছবি **চৌকো** করে (product-এর চারপাশে smart crop), **512×512 PNG** বানায়, **২০০ KB-র নিচে** নামায়, আর `public/products/<sku>.png` নামে বসায়। `store.json` বদলাতে হয় না, কারণ `"image"` path আগে থেকেই ওই নামে আছে। শেষে বলে দেয় কোন SKU-র ছবি এখনও বাকি (ওগুলোতে placeholder-ই থাকে)। পুরো ছবি (crop ছাড়া, সাদা background) চাইলে `--fit contain`।
+
+**হাতে করতে চাইলে** (script ছাড়া):
 
 1. ছবি তুলুন **সাদা/হালকা background-এ**, product মাঝখানে।
 2. **চৌকো** করে cut করুন (যেমন 800×800)।
@@ -123,7 +135,9 @@ Demo-র ছবিগুলো computer-এ বানানো placeholder। �
 
 ---
 
-## ৪. Build করে online-এ তোলা (Cloudflare Pages, drag-and-drop)
+## ৪. Build করে online-এ তোলা (Cloudflare Pages)
+
+**Live এখন:** <https://ghor-bazar-3d.pages.dev> (Cloudflare Pages project `ghor-bazar-3d`, প্রথম deploy 2026-10-30)। gtmautomation.net-এর server এই app serve করে না; store-এর ঠিকানা এটাই।
 
 ### ৪.১ Build
 
@@ -135,7 +149,17 @@ npm run build
 
 একটা `dist/` folder তৈরি হবে (মোট ~৭৫০ KB)। **এই folder-টাই website।**
 
-### ৪.২ Cloudflare Pages-এ তোলা (প্রথমবার)
+### ৪.২ Script দিয়ে তোলা (GTM-এর laptop থেকে)
+
+```bash
+npm run build
+node tools/deploy-pages.mjs dry
+node tools/deploy-pages.mjs apply
+```
+
+`dry` শুধু দেখে: token ঠিক আছে কি না, project আছে কি না, `dist/`-এ কী আছে; কিছু ওঠে না। `apply` project না থাকলে বানায়, 27-টা file তোলে, তারপর **নিজেই প্রমাণ দেয়** live page আর `dist/index.html` হুবহু এক কি না। Token GTM Automation project-এর `.env` থেকে নামে পড়ে (`CLOUDFLARE_PAGES_TOKEN`), কখনও print হয় না। Deploy-এর পর live speed মাপতে: `node tools/lighthouse-live.mjs` (লেখে `docs/lighthouse-live.json`)।
+
+### ৪.২ক Drag-and-drop দিয়ে তোলা (script ছাড়া, প্রথমবার)
 
 1. [dash.cloudflare.com](https://dash.cloudflare.com) → login → বাঁ দিকে **Workers & Pages** → **Create** → **Pages** tab → **Upload assets**।
 2. Project-এর নাম দিন (যেমন `ghor-bazar-3d`) → **Create project**।
@@ -148,7 +172,7 @@ npm run build
 
 ### ৪.৪ নিজের domain
 
-Pages project → **Custom domains** → `shop.আপনার-domain.com` যোগ করুন। Cloudflare নিজেই DNS ঠিক করে দেয়।
+Pages project → **Custom domains** → `shop.আপনার-domain.com` যোগ করুন। Cloudflare নিজেই DNS ঠিক করে দেয়। (2026-10-30: এখনও কোনো custom domain নেই; gtmautomation.net-এর subdomain দিতে হলে মালিকের "yes" লাগে, DNS-এ হাত পড়ে।)
 
 ---
 
@@ -195,6 +219,9 @@ apps/3d-store/
   public/fonts/            ← বাংলা font (Noto Sans Bengali, free/OFL)
   src/                     ← code (Vite + TypeScript + Three.js)
   tools/gen-images.mjs     ← demo ছবি বানানোর script (npm run gen:images)
+  tools/prep-photos.mjs    ← আসল ছবি → চৌকো PNG ≤200 KB (§৩)
+  tools/deploy-pages.mjs   ← Cloudflare Pages-এ তোলা: dry | apply (§৪.২)
+  tools/lighthouse-live.mjs← live URL-এ Lighthouse → docs/lighthouse-live.json
   tools/verify.mjs         ← নিজে নিজে test (npm run build && npm run verify)
   docs/market-analysis.md  ← কেন এভাবে বানানো হলো
   docs/VERIFY-REPORT.md    ← শেষ test-এর report, screenshots docs/screenshots/
