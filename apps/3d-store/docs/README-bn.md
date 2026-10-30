@@ -113,6 +113,25 @@ Button চাপলে এই link খোলে:
 
 ---
 
+### ২.৬ Dashboard থেকে store.json নিজে বানানো (sync script)
+
+GTM dashboard-এর "পণ্য ও স্টক"-ই আসল তালিকা। হাতে store.json না লিখে এক command-এ বানিয়ে নিন:
+
+```bash
+node tools/sync-store-from-supabase.mjs demo-dokan
+node tools/sync-store-from-supabase.mjs demo-dokan --write
+```
+
+প্রথম লাইন শুধু দেখায় কী বদলাবে (কিছু লেখে না); `--write` দিলে `src/data/store.json` বদলায়। তারপর `npm run build` আর deploy (§৪.২)। `--photos` দিলে dashboard-এর ছবিও নামিয়ে চৌকো করে বসায়।
+
+নিয়মগুলো:
+- **SKU-র format:** ২–৪টা ইংরেজি অক্ষর, dash, ২–৪টা সংখ্যা (যেমন `PJ-003`, `TOY-0012`)। অন্য format-এর পণ্য (যেমন `DD-SAR-001`) বাদ পড়ে, কারণ bot লিংক থেকে ওই code পড়তে পারে না; script বলে দেয় কোনগুলো বাদ গেল।
+- **Section = dashboard-এর category।** ঘরে দেয়াল তিনটা, তাই সর্বোচ্চ ৩টা category, প্রতিটায় ৬টা পণ্য (dashboard-এর sort order অনুযায়ী); বাকিগুলো তালিকায় বাদ-এর কারণসহ আসে। আগে থেকে থাকা section-এর দেয়াল আর সাজানো বদলায় না।
+- **দাম** = sale price থাকলে সেটা, নইলে regular; sale থাকলে badge "অফার"। আগের badge (জনপ্রিয় ইত্যাদি) থেকে যায়; একেবারে নতুন পণ্য ১৪ দিনের মধ্যে যোগ হলে "নতুন"।
+- **সাইজ** = পণ্যের variant (M/L/XL বা 39/40…), **স্টক** = variant-এর যোগফল (variant না থাকলে পণ্যের স্টক)।
+- `viewsToday` script কখনও বানায় না; আগের মান থাকলে সেটাই থাকে।
+- ছবি: পুরোনো SKU-র ছবি যেমন আছে; নতুন SKU-র জন্য `/products/<sku>.png` লাগবে (§৩)।
+
 ## ৩. আসল ছবি বসানো
 
 Demo-র ছবিগুলো computer-এ বানানো placeholder। আসল ছবি দিতে **সবচেয়ে সহজ পথ: script**।
@@ -223,6 +242,8 @@ apps/3d-store/
   src/                     ← code (Vite + TypeScript + Three.js)
   tools/gen-images.mjs     ← demo ছবি বানানোর script (npm run gen:images)
   tools/prep-photos.mjs    ← আসল ছবি → চৌকো PNG ≤200 KB (§৩)
+  tools/sync-store-from-supabase.mjs ← dashboard (Supabase) → store.json, dry | --write | --photos (§২.৬)
+  tools/test-sync-store.mjs← ওই mapping-এর offline test
   tools/deploy-pages.mjs   ← Cloudflare Pages-এ তোলা: dry | apply (§৪.২)
   tools/lighthouse-live.mjs← live URL-এ Lighthouse → docs/lighthouse-live.json
   tools/verify.mjs         ← নিজে নিজে test (npm run build && npm run verify)
