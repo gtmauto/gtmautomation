@@ -1,6 +1,6 @@
 # Phase 1 verification report
 
-Generated 2026-10-30T13:00:42.943Z by `npm run verify` (Chrome headless + Lighthouse on the built `dist/`).
+Generated 2026-10-30T13:04:26.451Z by `npm run verify` (Chrome headless + Lighthouse on the built `dist/`).
 
 ## Build size
 
@@ -13,12 +13,12 @@ Generated 2026-10-30T13:00:42.943Z by `npm run verify` (Chrome headless + Lighth
 ## Loading on simulated Fast 3G (1.6 Mbps down, 750 kbps up, 150 ms RTT)
 
 - transferred (gzip): index-D9-yNKe3.js: 9 KB · style-BAtvTMA0.css: 3 KB · noto-sans-bengali-var.woff2: 105 KB · store3d-B4QQs_UA.js: 7 KB · three-j36K6S6W.js: 130 KB
-- wall clock to hero: 5247 ms
-- first contentful paint: 872 ms
-- loading screen hidden (glide starts): 2834 ms
-- hero wall reached (glide done): 5023 ms
+- wall clock to hero: 5407 ms
+- first contentful paint: 756 ms
+- loading screen hidden (glide starts): 3042 ms
+- hero wall reached (glide done): 5059 ms
 ✅ first paint < 2.5 s
-✅ loading → glide → hero < 6.5 s on Fast 3G (brief asked < 3 s; owner accepted ≈ 5 s with the 2 s glide, 2026-10-30) — 5023 ms
+✅ loading → glide → hero < 6.5 s on Fast 3G (brief asked < 3 s; owner accepted ≈ 5 s with the 2 s glide, 2026-10-30) — 5059 ms
 ✅ coach mark visible on first visit
 
 ## Interaction checks (360 × 740, touch)
@@ -88,14 +88,14 @@ Generated 2026-10-30T13:00:42.943Z by `npm run verify` (Chrome headless + Lighth
 
 ### 3D view, GPU WebGL (a phone with a GPU)
 
-- Performance: 72 · Accessibility: 100 · Best practices: 100
-- FCP 0.8 s · LCP 0.8 s · TBT 1,770 ms · CLS 0 · SI 3.4 s
-❌ Lighthouse mobile Performance ≥ 80 (3D view) — 72
+- Performance: 80 · Accessibility: 100 · Best practices: 100
+- FCP 0.8 s · LCP 0.8 s · TBT 850 ms · CLS 0 · SI 2.6 s
+✅ Lighthouse mobile Performance ≥ 80 (3D view) — 80
 
 ### default URL on a CPU-only (SwiftShader) browser → auto 2D fallback
 
-- Performance: 71 · Accessibility: 100 · Best practices: 100
-- FCP 0.8 s · LCP 2.1 s · TBT 1,760 ms · CLS 0 · SI 3.5 s
+- Performance: 76 · Accessibility: 100 · Best practices: 100
+- FCP 0.8 s · LCP 2.1 s · TBT 1,070 ms · CLS 0.001 · SI 1.7 s
 
 ## Secrets scan
 
