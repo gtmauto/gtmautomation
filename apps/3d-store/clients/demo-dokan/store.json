@@ -1,0 +1,288 @@
+{
+  "store": {
+    "id": "demo-dokan",
+    "tenantId": "demo-dokan",
+    "name": "Ghor Bazar",
+    "tagline": "ঘরে বসে কিনুন, Messenger বা WhatsApp-এ অর্ডার করুন",
+    "primaryColor": "#0E7C7B",
+    "logo": "/brand/logo.svg",
+    "messengerPage": "REPLACE_ME",
+    "whatsappNumber": "REPLACE_ME"
+  },
+  "sections": [
+    {
+      "id": "s1",
+      "label": "পাঞ্জাবি",
+      "display": "rack",
+      "wall": "north"
+    },
+    {
+      "id": "s2",
+      "label": "জুতা",
+      "display": "shelf",
+      "wall": "east"
+    },
+    {
+      "id": "s3",
+      "label": "শাড়ি",
+      "display": "pegboard",
+      "wall": "west"
+    }
+  ],
+  "products": [
+    {
+      "sku": "PJ-001",
+      "section": "s1",
+      "name": "সাদা কটন পাঞ্জাবি",
+      "price": 1450,
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "stock": 7,
+      "image": "/products/pj-001.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "PJ-002",
+      "section": "s1",
+      "name": "নেভি এমব্রয়ডারি পাঞ্জাবি",
+      "price": 1850,
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "stock": 3,
+      "image": "/products/pj-002.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "PJ-003",
+      "section": "s1",
+      "name": "মেরুন সিল্ক পাঞ্জাবি",
+      "price": 2250,
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "stock": 5,
+      "image": "/products/pj-003.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "PJ-004",
+      "section": "s1",
+      "name": "অলিভ লিনেন পাঞ্জাবি",
+      "price": 1650,
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "stock": 10,
+      "image": "/products/pj-004.png",
+      "badge": "অফার"
+    },
+    {
+      "sku": "PJ-005",
+      "section": "s1",
+      "name": "কালো প্রিন্টেড পাঞ্জাবি",
+      "price": 1350,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "stock": 2,
+      "image": "/products/pj-005.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "PJ-006",
+      "section": "s1",
+      "name": "আকাশি চেক পাঞ্জাবি",
+      "price": 1550,
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "stock": 8,
+      "image": "/products/pj-006.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SH-001",
+      "section": "s2",
+      "name": "ব্রাউন লেদার স্যান্ডেল",
+      "price": 1250,
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "stock": 9,
+      "image": "/products/sh-001.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SH-002",
+      "section": "s2",
+      "name": "কালো ফরমাল শু",
+      "price": 2100,
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "stock": 4,
+      "image": "/products/sh-002.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SH-003",
+      "section": "s2",
+      "name": "সাদা স্নিকার",
+      "price": 1900,
+      "sizes": [
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "stock": 6,
+      "image": "/products/sh-003.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SH-004",
+      "section": "s2",
+      "name": "নাগরা জুতা",
+      "price": 1100,
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "stock": 3,
+      "image": "/products/sh-004.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SH-005",
+      "section": "s2",
+      "name": "লেডিস ফ্ল্যাট স্যান্ডেল",
+      "price": 850,
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40"
+      ],
+      "stock": 11,
+      "image": "/products/sh-005.png",
+      "badge": "অফার"
+    },
+    {
+      "sku": "SH-006",
+      "section": "s2",
+      "name": "স্পোর্টস রানিং শু",
+      "price": 2400,
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "stock": 5,
+      "image": "/products/sh-006.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SR-001",
+      "section": "s3",
+      "name": "লাল জামদানি শাড়ি",
+      "price": 3200,
+      "sizes": [],
+      "stock": 4,
+      "image": "/products/sr-001.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SR-002",
+      "section": "s3",
+      "name": "টাঙ্গাইল তাঁতের শাড়ি",
+      "price": 1800,
+      "sizes": [],
+      "stock": 6,
+      "image": "/products/sr-002.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SR-003",
+      "section": "s3",
+      "name": "হাফ সিল্ক শাড়ি",
+      "price": 2400,
+      "sizes": [],
+      "stock": 3,
+      "image": "/products/sr-003.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SR-004",
+      "section": "s3",
+      "name": "সুতি প্রিন্ট শাড়ি",
+      "price": 950,
+      "sizes": [],
+      "stock": 12,
+      "image": "/products/sr-004.png",
+      "badge": "অফার"
+    },
+    {
+      "sku": "SR-005",
+      "section": "s3",
+      "name": "কাতান শাড়ি",
+      "price": 4500,
+      "sizes": [],
+      "stock": 2,
+      "image": "/products/sr-005.png",
+      "badge": "নতুন"
+    },
+    {
+      "sku": "SR-006",
+      "section": "s3",
+      "name": "মসলিন শাড়ি",
+      "price": 5200,
+      "sizes": [],
+      "stock": 1,
+      "image": "/products/sr-006.png",
+      "badge": "নতুন"
+    }
+  ],
+  "posters": [
+    {
+      "text": "ঘরে বসে কিনুন",
+      "sub": "Messenger বা WhatsApp-এ লিখুন, বাকিটা আমরা",
+      "wall": "north",
+      "offset": -0.7
+    },
+    {
+      "text": "Ghor Bazar-এ স্বাগতম",
+      "sub": "পণ্যে ট্যাপ করে দাম, সাইজ আর স্টক দেখুন",
+      "wall": "north",
+      "offset": 0.7
+    }
+  ]
+}

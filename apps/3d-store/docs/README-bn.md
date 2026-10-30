@@ -243,6 +243,9 @@ apps/3d-store/
   tools/gen-images.mjs     ← demo ছবি বানানোর script (npm run gen:images)
   tools/prep-photos.mjs    ← আসল ছবি → চৌকো PNG ≤200 KB (§৩)
   tools/sync-store-from-supabase.mjs ← dashboard (Supabase) → store.json, dry | --write | --photos (§২.৬)
+  tools/make-client-store.mjs ← client-প্রতি clients/<id>/store.json + products/ (§৯)
+  tools/build-client.mjs   ← clients/<id>/ → dist-<id>/ (STORE_DIR/STORE_PUBLIC_DIR/STORE_OUT_DIR → vite.config.ts) (§৯)
+  clients/<id>/            ← এক client-এর store.json + products/ (demo-র src/data অপরিবর্তিত)
   tools/test-sync-store.mjs← ওই mapping-এর offline test
   tools/deploy-pages.mjs   ← Cloudflare Pages-এ তোলা: dry | apply (§৪.২)
   tools/lighthouse-live.mjs← live URL-এ Lighthouse → docs/lighthouse-live.json
@@ -258,6 +261,22 @@ npm run build && npm run verify
 ```
 
 ---
+
+## ৯. প্রতিটা client-এর জন্য আলাদা store (নতুন client এলে)
+
+Demo-র (`src/data/`) কিছু না ছুঁয়ে client-প্রতি আলাদা folder, আলাদা build, আলাদা Cloudflare Pages project। তিনটা command:
+
+```bash
+node tools/make-client-store.mjs toy-shop --name "Affrah's Toys World" --page <Page username বা id> --wa 8801XXXXXXXXX --write --photos
+node tools/build-client.mjs toy-shop
+node tools/deploy-pages.mjs dry --dist dist-toy-shop --store clients/toy-shop/store.json --project store-toy-shop
+```
+
+- **আগে dashboard:** client-এর পণ্য GTM dashboard-এ থাকতে হবে (client id যেমন `toy-shop`), SKU §২.৬-এর format-এ। প্রথম command Supabase থেকে পড়ে `clients/toy-shop/store.json` আর `clients/toy-shop/products/` বানায়; `--photos` dashboard-এর ছবি নামায়। Page না দিলে client-এর connected Page (Page id) নেওয়া হয়, না থাকলে `REPLACE_ME`। WhatsApp = **client-এর নিজের** নম্বর; GTM-এর WhatsApp নম্বরে client-এর অর্ডার আসতে দেওয়া যাবে না।
+- **Branding:** প্রথমবার নাম (dashboard-এর client name), default রং/logo আর দুটো নিরপেক্ষ পোস্টার (ডেলিভারি-সময় বা বদলের কোনো প্রতিশ্রুতি নেই)। পরে `clients/toy-shop/store.json`-এ হাতে বদলালে সেটাই থাকে; পণ্য আবার sync করলে branding বদলায় না।
+- **Build:** দ্বিতীয় command `dist-toy-shop/` বানায় আর নিজে যাচাই করে: client-এর নাম, tenant id, section, পোস্টার bundle-এ গেছে কি না, demo-র কিছু ঢোকেনি কি না, সব ছবি আছে কি না।
+- **Deploy:** তৃতীয় command-এ `dry` → ঠিক থাকলে `apply`; project `store-toy-shop` নিজে তৈরি হয়, ঠিকানা `store-toy-shop.pages.dev` (custom domain client চাইলে Pages → Custom domains)।
+- **Bot:** client-এর নিজের Page connect থাকলে (connect.html) bot ওই tenant-এর পণ্যই পড়ে; link-এ `s_toy-shop__TOY-0012`।
 
 ## ৮. সাবধানতা
 

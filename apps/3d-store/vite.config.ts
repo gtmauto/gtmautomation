@@ -1,12 +1,26 @@
 import { defineConfig, type Plugin } from 'vite';
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 /**
- * Injects store name / tagline / colour / logo from src/data/store.json into index.html
+ * Per-client builds (Phase 2 step e, tools/build-client.mjs): three env vars pick another store without touching the source.
+ *   STORE_DIR        folder holding store.json (default src/data)            → HTML injection + the `./data/store.json` import
+ *   STORE_PUBLIC_DIR static folder (default public; a client build assembles brand + fonts + that client's products)
+ *   STORE_OUT_DIR    build output (default dist; a client build uses dist-<client>)
+ */
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const STORE_DIR = path.resolve(ROOT, process.env.STORE_DIR || 'src/data');
+const STORE_JSON = path.join(STORE_DIR, 'store.json');
+const STORE_PUBLIC_DIR = path.resolve(ROOT, process.env.STORE_PUBLIC_DIR || 'public');
+const STORE_OUT_DIR = path.resolve(ROOT, process.env.STORE_OUT_DIR || 'dist');
+
+/**
+ * Injects store name / tagline / colour / logo from store.json into index.html
  * ({{STORE_NAME}} etc.) so the loading screen is branded before any JS runs and nothing is hardcoded.
  */
 function storeHtml(): Plugin {
-  const json = JSON.parse(readFileSync(new URL('./src/data/store.json', import.meta.url), 'utf8'));
+  const json = JSON.parse(readFileSync(STORE_JSON, 'utf8'));
   const store = json.store as Record<string, string>;
   const map: Record<string, string> = {
     STORE_NAME: store.name,
@@ -50,7 +64,13 @@ function preload3D(): Plugin {
 export default defineConfig({
   base: '/',
   plugins: [storeHtml(), preload3D()],
+  publicDir: STORE_PUBLIC_DIR,
+  // a client build points the one `./data/store.json` import at the client's file (no source change, same type)
+  // (alias matches the WHOLE import specifier `./data/store.json`; a partial match would leave the leading "." in the path)
+  resolve: { alias: process.env.STORE_DIR ? [{ find: /^\.{1,2}[\\/]data[\\/]store\.json$/, replacement: STORE_JSON.replace(/\\/g, '/') }] : [] },
   build: {
+    outDir: STORE_OUT_DIR,
+    emptyOutDir: true,
     target: 'es2020',
     sourcemap: false,
     cssCodeSplit: false,

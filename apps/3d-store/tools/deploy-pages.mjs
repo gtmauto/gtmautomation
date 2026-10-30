@@ -4,6 +4,7 @@
  *
  *   node tools/deploy-pages.mjs dry    [--project NAME] [--env FILE]   # token check + does the project exist? writes nothing
  *   node tools/deploy-pages.mjs apply  [--project NAME] [--env FILE]   # create project if missing → wrangler pages deploy → prove live
+ *   per-client store (step e): add --dist dist-<client> --store clients/<client>/store.json --project store-<client>
  *
  * Credentials are read by NAME only and never printed:
  *   1. process.env CLOUDFLARE_PAGES_TOKEN (or CLOUDFLARE_API_TOKEN) + CLOUDFLARE_ACCOUNT_ID, else
@@ -21,12 +22,13 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, '..');
-const DIST = path.join(APP, 'dist');
 const WRANGLER = 'wrangler@3.114.9';
 const argv = process.argv.slice(2);
 const MODE = argv[0];
 const arg = (k, d) => { const i = argv.indexOf(k); return i > 0 && argv[i + 1] ? argv[i + 1] : d; };
 const PROJECT = arg('--project', process.env.PAGES_PROJECT || 'ghor-bazar-3d');
+const DIST = path.resolve(APP, arg('--dist', 'dist'));            // a client build lives in dist-<client> (tools/build-client.mjs)
+const STORE_JSON = path.resolve(APP, arg('--store', 'src/data/store.json'));   // the store.json that build came from (pre-flight + REPLACE_ME warning)
 const ENV_FILE = path.resolve(arg('--env', path.resolve(APP, '..', '..', '..', '..', '.env')));
 if (!['dry', 'apply'].includes(MODE)) { console.log('usage: dry | apply  [--project NAME] [--env FILE]'); process.exit(2); }
 if (!/^[a-z0-9][a-z0-9-]{0,57}$/.test(PROJECT)) { console.error('project name must be lowercase letters, digits, dashes:', PROJECT); process.exit(2); }
@@ -50,9 +52,9 @@ if (!TOKEN || !ACCOUNT) { console.error('missing CLOUDFLARE_PAGES_TOKEN/CLOUDFLA
 const redact = (s) => String(s).split(TOKEN).join('<token>').split(ACCOUNT).join('<account>');
 
 /* ---- pre-flight on dist ---- */
-const store = JSON.parse(fs.readFileSync(path.join(APP, 'src', 'data', 'store.json'), 'utf8')).store;
+const store = JSON.parse(fs.readFileSync(STORE_JSON, 'utf8')).store;
 const indexPath = path.join(DIST, 'index.html');
-if (!fs.existsSync(indexPath)) { console.error('dist/index.html missing — run `npm run build` first'); process.exit(1); }
+if (!fs.existsSync(indexPath)) { console.error(`${path.relative(APP, indexPath)} missing — run \`npm run build\` (or \`node tools/build-client.mjs <client>\`) first`); process.exit(1); }
 const dist = fs.readFileSync(indexPath);
 const html = dist.toString('utf8');
 if (!html.includes(store.name)) { console.error('dist/index.html does not carry the store name from store.json — stale build? run `npm run build`'); process.exit(1); }

@@ -8,7 +8,11 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --port 4173 --strictPort",
     "gen:images": "node tools/gen-images.mjs",
-    "verify": "node tools/verify.mjs"
+    "verify": "node tools/verify.mjs",
+    "sync": "node tools/sync-store-from-supabase.mjs",
+    "client": "node tools/make-client-store.mjs",
+    "build:client": "node tools/build-client.mjs",
+    "test:tools": "node tools/test-sync-store.mjs && node tools/test-make-client-store.mjs"
   },
   "dependencies": {
     "three": "0.186.1"
