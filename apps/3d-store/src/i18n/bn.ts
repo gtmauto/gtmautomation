@@ -1,6 +1,6 @@
 /** All UI strings in Bangla. English words that are the normal word in Bangladesh stay English. */
 export const bn = {
-  loading: 'দোকান খুলছে…',
+  loading: 'শপ খুলছে…',
   loadingHint: 'একটু অপেক্ষা করুন',
   storePill: 'Store',
   simpleView: 'সাধারণ view',
