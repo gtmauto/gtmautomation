@@ -23,7 +23,8 @@ export function validateBatch(body) {
   const rows = [];
   for (const e of body.events) {
     if (!e || typeof e !== 'object' || !EVENTS.includes(e.event)) return { ok: false, error: 'event' };
-    const row = { client_id: client, store_id: store, session_id: session, event: e.event };
+    // every row carries the SAME key set (PostgREST bulk insert: PGRST102 "All object keys must match" otherwise — hit live 2026-10-30)
+    const row = { client_id: client, store_id: store, session_id: session, event: e.event, sku: null, skus: null, section: null, channel: null, reason: null, client_ts: null };
     if (e.sku != null) { if (!SKU_RE.test(String(e.sku))) return { ok: false, error: 'sku' }; row.sku = String(e.sku).toUpperCase(); }
     if (e.skus != null) { if (!Array.isArray(e.skus) || e.skus.length > 20 || !e.skus.every((s) => SKU_RE.test(String(s)))) return { ok: false, error: 'skus' }; row.skus = e.skus.map((s) => String(s).toUpperCase()); }
     if (e.section != null) { const s = short(e.section, 40); if (!s) return { ok: false, error: 'section' }; row.section = s; }

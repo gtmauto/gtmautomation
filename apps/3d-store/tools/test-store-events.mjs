@@ -13,7 +13,7 @@ console.log('1. validateBatch');
 {
   const v = validateBatch(good());
   check('valid batch → 5 rows, sku upper-cased, ts → client_ts', v.ok && v.rows.length === 5 && v.rows[1].sku === 'PJ-003' && v.rows[0].client_ts === '2026-10-30T16:00:00.000Z' && v.rows[3].skus.join() === 'PJ-003,SR-001', JSON.stringify(v).slice(0, 300));
-  check('rows carry client/store/session only (no ip/ua fields)', Object.keys(v.rows[0]).sort().join() === 'client_id,client_ts,event,section,session_id,store_id');
+  check('every row carries the same full key set with nulls (PostgREST bulk insert), no ip/ua fields', v.rows.every((r) => Object.keys(r).sort().join() === 'channel,client_id,client_ts,event,reason,section,session_id,sku,skus,store_id') && v.rows[1].section === 'panjabi' && v.rows[1].channel === null);
   const bad = (mut) => { const b = good(); mut(b); return validateBatch(b).ok === false; };
   check('bad client id', bad((b) => { b.client = 'Demo Dokan'; }));
   check('bad session (not hex)', bad((b) => { b.session = 'xyz'; }));
@@ -24,7 +24,7 @@ console.log('1. validateBatch');
   check('too many events', bad((b) => { b.events = Array.from({ length: 21 }, () => ({ event: 'section_view' })); }));
   check('empty events', bad((b) => { b.events = []; }));
   check('array body rejected', validateBatch([]).ok === false && validateBatch(null).ok === false);
-  check('absurd ts ignored (no client_ts)', (() => { const b = good(); b.events[0].ts = 5; return validateBatch(b).rows[0].client_ts === undefined; })());
+  check('absurd ts ignored (client_ts null)', (() => { const b = good(); b.events[0].ts = 5; return validateBatch(b).rows[0].client_ts === null; })());
 }
 
 console.log('2. uaClass');
