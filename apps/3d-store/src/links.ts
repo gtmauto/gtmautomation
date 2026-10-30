@@ -1,16 +1,20 @@
 import type { Product, StoreInfo, CartItem } from './types';
 import { bn, bnNumber } from './i18n/bn';
 
-/** m.me/<page>?ref=<sku> — the bot reads ref and knows the product. */
+/** m.me/<page>?ref=s_<tenantId>__<sku> — the bot reads ref, knows the shop (tenant) and the product (store-ref-1). */
 export function messengerUrl(store: StoreInfo, ref: string): string {
-  const safeRef = ref.replace(/[^A-Za-z0-9_\-.:]/g, '_').slice(0, 250);
+  const tenant = (store.tenantId || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+  const full = tenant ? `s_${tenant}__${ref}` : ref;
+  const safeRef = full.replace(/[^A-Za-z0-9_\-.:]/g, '_').slice(0, 250);
   return `https://m.me/${encodeURIComponent(store.messengerPage)}?ref=${encodeURIComponent(safeRef)}`;
 }
 
-/** wa.me/<number>?text=<prefilled Bangla order text> */
+/** wa.me/<number>?text=<prefilled Bangla order text + "শপ কোড: <tenantId>" so the bot knows which shop's SKUs these are> */
 export function whatsappUrl(store: StoreInfo, text: string): string {
   const num = store.whatsappNumber === 'REPLACE_ME' ? 'REPLACE_ME' : store.whatsappNumber.replace(/\D/g, '');
-  return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
+  const tenant = (store.tenantId || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+  const full = tenant ? `${text}\n${bn.shopCode}: ${tenant}` : text;
+  return `https://wa.me/${num}?text=${encodeURIComponent(full)}`;
 }
 
 export function productOrderText(p: Product, size?: string, qty = 1): string {

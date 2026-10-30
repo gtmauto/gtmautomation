@@ -39,6 +39,7 @@ export const bn = {
   orderTextSize: 'সাইজ',
   orderTextQty: 'পরিমাণ',
   orderTextOutro: 'ক্যাশ অন ডেলিভারি হবে?',
+  shopCode: 'শপ কোড',
 } as const;
 
 const BN_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];

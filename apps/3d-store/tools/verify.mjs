@@ -184,7 +184,7 @@ try {
         w: document.querySelector('#panel a.secondary')?.href,
         thumbs: document.querySelectorAll('#strip .thumb').length,
       }));
-      const ok = got.name === p.name && got.sizes.join() === p.sizes.join() && got.m?.includes(`ref=${encodeURIComponent(p.sku)}`) && got.thumbs === 6;
+      const ok = got.name === p.name && got.sizes.join() === p.sizes.join() && got.m?.includes(`ref=s_demo-dokan__${encodeURIComponent(p.sku)}`) && got.thumbs === 6;
       if (ok) productsOk++;
       else check(false, `product ${p.sku} panel data`, JSON.stringify(got));
       ctaLog.push(`- ${p.sku} ${p.name}: messenger → ${got.m}`);
@@ -220,7 +220,7 @@ try {
     await page.waitForSelector('#panel:not([hidden])');
     await page.click('#panel .size:has-text("XL")');
     const href = await page.getAttribute('#panel a.primary', 'href');
-    check(href?.includes('ref=PJ-003-XL'), 'size chip is added to the Messenger ref', href);
+    check(href?.includes('ref=s_demo-dokan__PJ-003-XL'), 'size chip is added to the Messenger ref (tenant prefix + sku + size)', href);
     // cart
     await page.click('#panel .btn.tertiary');
     await page.waitForTimeout(200);
@@ -232,7 +232,8 @@ try {
     const cartLinks = await page.evaluate(() => [...document.querySelectorAll('#cartSheet a')].map((a) => a.href));
     ctaLog.push(`- CART messenger → ${cartLinks[0]}`);
     ctaLog.push(`  CART whatsapp → ${decodeURIComponent(cartLinks[1] ?? '')}`);
-    check(cartLinks[0]?.includes('ref=CART_PJ-003x1-XL'), 'cart Messenger ref carries sku × qty + size', cartLinks[0]);
+    check(cartLinks[0]?.includes('ref=s_demo-dokan__CART_PJ-003x1-XL'), 'cart Messenger ref carries tenant + sku × qty + size', cartLinks[0]);
+    check(decodeURIComponent(cartLinks[1] ?? '').includes('শপ কোড: demo-dokan'), 'cart WhatsApp text ends with the shop code', decodeURIComponent(cartLinks[1] ?? '').slice(-60));
     await page.keyboard.press('Escape');
   }
 

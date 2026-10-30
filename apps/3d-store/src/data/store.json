@@ -1,12 +1,13 @@
 {
   "store": {
     "id": "ghor-bazar",
+    "tenantId": "demo-dokan",
     "name": "Ghor Bazar",
     "tagline": "ঘরে বসে কিনুন, ক্যাশ অন ডেলিভারি",
     "primaryColor": "#0E7C7B",
     "logo": "/brand/logo.svg",
-    "messengerPage": "REPLACE_ME",
-    "whatsappNumber": "REPLACE_ME"
+    "messengerPage": "gtmautomation",
+    "whatsappNumber": "8801886723675"
   },
   "sections": [
     { "id": "panjabi", "label": "পাঞ্জাবি", "display": "rack", "wall": "north" },

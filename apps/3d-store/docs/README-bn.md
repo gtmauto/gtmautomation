@@ -81,14 +81,17 @@ product-এর পর কমা `,` থাকতে হবে, শেষের�
 - `primaryColor` = button আর সাইনবোর্ডের রং (hex code, যেমন `#C0392B`)।
 - `logo` = `public/brand/logo.svg` বদলে নিজের logo দিন (SVG বা PNG, চৌকো)।
 
-### ২.৩ Messenger আর WhatsApp number বসানো (সবচেয়ে জরুরি)
+### ২.৩ Messenger, WhatsApp number আর tenantId বসানো (সবচেয়ে জরুরি)
 
 - `messengerPage`: Facebook Page-এর username। Page-এর link যদি হয় `facebook.com/ghorbazarbd` → লিখুন `"ghorbazarbd"`।
 - `whatsappNumber`: দেশের code সহ, `+` বা space ছাড়া। যেমন `"8801XXXXXXXXX"`।
+- `tenantId`: GTM dashboard-এ এই শপের client id (যেমন `"demo-dokan"`)। Bot এই id দিয়ে Supabase থেকে পণ্যের দাম, স্টক, সাইজ টেনে আনে, তাই **store.json-এর SKU আর dashboard-এর SKU এক হতে হবে।**
+
+**Demo (2026-10-30):** `messengerPage` = `gtmautomation` (GTM-এর নিজের Page), `whatsappNumber` = GTM-এর WhatsApp bot number, `tenantId` = `demo-dokan` (demo tenant; ১৮টা পণ্য ওখানে seed করা)। আসল client এলে তিনটাই তার নিজেরটা হবে।
 
 Button চাপলে এই link খোলে:
-- Messenger: `https://m.me/<messengerPage>?ref=<sku>` — bot `ref`-এ product code পায়।
-- WhatsApp: `https://wa.me/<whatsappNumber>?text=...` — বাংলায় লেখা অর্ডার message আগে থেকে বসানো থাকে (product-এর নাম, code, দাম, সাইজ)।
+- Messenger: `https://m.me/<messengerPage>?ref=s_<tenantId>__<sku>[-<size>]` — bot `ref`-এ শপ আর product code পায়; ব্যাগ হলে `s_<tenantId>__CART_<sku>x<qty>-<size>_…`।
+- WhatsApp: `https://wa.me/<whatsappNumber>?text=...` — বাংলায় লেখা অর্ডার message আগে থেকে বসানো থাকে (product-এর নাম, code, দাম, সাইজ), শেষ লাইনে `শপ কোড: <tenantId>`।
 
 ### ২.৪ Section বদলানো
 

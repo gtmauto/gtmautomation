@@ -3,6 +3,8 @@ export type DisplayType = 'rack' | 'shelf' | 'pegboard';
 
 export interface StoreInfo {
   id: string;
+  /** GTM tenant (Supabase client_id) whose products these are — goes into the Messenger ref (s_<tenantId>__…) and the WhatsApp text (শপ কোড) so the bot can look the SKUs up. */
+  tenantId: string;
   name: string;
   tagline: string;
   primaryColor: string;
