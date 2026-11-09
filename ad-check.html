@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ad-check-1 (2026-11-09, STAGING): free "অ্যাড খরচ চেক" calculator. Not linked from any page yet; go live only on
+       the owner's yes (commit + push to main → VM auto-pull). Everything is computed in the browser; nothing is sent. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ফ্রি অ্যাড খরচ চেক: ডেলিভারি হওয়া অর্ডারে আসল খরচ কত? | GTM Automation</title>
+  <meta name="description" content="গত মাসের অ্যাড খরচ, অর্ডার, ডেলিভারি আর ফেরতের সংখ্যা দিন — প্রতিটা ডেলিভারি হওয়া অর্ডারে আসলে কত খরচ পড়ছে আর কোথায় টাকা নষ্ট হচ্ছে, এখানেই হিসাব করে দেখুন। ফ্রি, কোনো তথ্য কোথাও যায় না।" />
+  <link rel="canonical" href="https://gtmautomation.net/ad-check.html" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ফ্রি অ্যাড খরচ চেক | GTM Automation" />
+  <meta property="og:description" content="প্রতিটা ডেলিভারি হওয়া অর্ডারে আসলে কত খরচ পড়ছে — নিজের সংখ্যা দিয়ে হিসাব করুন।" />
+  <meta property="og:url" content="https://gtmautomation.net/ad-check.html" />
+  <meta property="og:image" content="https://gtmautomation.net/assets/og-1200x630.png?v=20261012" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="og:site_name" content="GTM Automation Bangladesh" />
+  <meta name="theme-color" content="#05070f" />
+
+  <link rel="stylesheet" href="assets/fonts/kalpurush.css" />
+  <link rel="preload" href="assets/fonts/noto-sans-bengali-bengali-w400-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/fonts/fonts.css" />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://www.facebook.com; upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com; font-src 'self'; connect-src 'self' https://www.facebook.com https://connect.facebook.net; frame-src https://www.facebook.com" />
+  <!-- Meta Pixel (dataset 2912285685817296), same rules as every page since 2026-10-29: PageView, ViewContent (ad-check),
+       Contact on wa.me taps. Automatic advanced matching OFF; no number typed here is ever sent. -->
+  <script>
+    (function () {
+      var START = Date.parse('2026-10-29T00:00:00+06:00');
+      if (Date.now() < START && !/[?&]pixeltest=1(&|$)/.test(location.search)) return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('set', 'autoConfig', false, '2912285685817296');
+      fbq('init', '2912285685817296');
+      fbq('track', 'PageView');
+      fbq('track', 'ViewContent', { content_name: 'ad-check' });
+      document.addEventListener('click', function (ev) {
+        var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+        if (!a) return;
+        var h = a.getAttribute('href') || '';
+        var ch = /wa\.me\//.test(h) ? 'whatsapp' : /(^|\/\/)m\.me\//.test(h) ? 'messenger' : /ig\.me\//.test(h) ? 'instagram' : /t\.me\//.test(h) ? 'telegram' : '';
+        if (ch) fbq('track', 'Contact', { content_name: ch });
+      }, true);
+    })();
+  </script>
+  <script src="assets/utm.js?v=f9816a83" defer></script>
+
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;overflow-x:hidden}
+    body{font-family:'Kalpurush','Noto Sans Bengali',sans-serif;background:#05070f;color:#e2e8f0;line-height:1.7;-webkit-font-smoothing:antialiased}
+    a{color:#38bdf8}
+    .wrap{max-width:760px;margin:0 auto;padding:0 16px}
+    header{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
+    .logo span{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#fff;overflow:hidden}
+    .home{color:#cbd5e1;font-size:.95rem;text-decoration:none}
+    h1{font-size:1.65rem;line-height:1.45;margin:28px 0 8px;color:#fff;font-weight:800}
+    .lead{color:#cbd5e1;margin:0 0 6px;font-size:1.02rem}
+    .honest{color:#fbbf24;font-size:.95rem;margin:6px 0 0}
+    .card{margin-top:22px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.04);padding:18px}
+    .card h2{margin:0 0 12px;font-size:1.2rem;color:#fff;font-weight:800}
+    .grid{display:grid;gap:14px}
+    @media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+    label{display:block;font-weight:700;color:#f1f5f9;font-size:.98rem}
+    .hint{display:block;font-weight:400;color:#94a3b8;font-size:.85rem;line-height:1.5;margin-top:2px}
+    input[type=text]{width:100%;margin-top:6px;min-height:48px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(5,7,15,.7);color:#fff;font:inherit;font-size:1.05rem}
+    input[type=text]:focus{outline:2px solid #38bdf8;outline-offset:1px;border-color:#38bdf8}
+    .check{display:flex;gap:10px;align-items:flex-start;margin-top:8px;font-weight:400;color:#cbd5e1;font-size:.92rem;cursor:pointer}
+    .check input{width:20px;height:20px;margin-top:3px;flex:none}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 18px;border-radius:12px;border:0;font:inherit;font-weight:800;font-size:1.02rem;cursor:pointer;text-decoration:none}
+    .btn-main{background:linear-gradient(90deg,#38bdf8,#818cf8);color:#05070f;width:100%;margin-top:18px}
+    .btn-wa{background:#25D366;color:#05210f}
+    .btn-ghost{background:transparent;color:#e2e8f0;border:1px solid rgba(255,255,255,.25)}
+    .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+    .err{color:#fca5a5;margin:10px 0 0;font-size:.95rem}
+    .verdict{border-radius:14px;padding:14px 16px;font-weight:700;font-size:1.05rem;line-height:1.6}
+    .v-green{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.5);color:#a7f3d0}
+    .v-amber{background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.5);color:#fde68a}
+    .v-red{background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.5);color:#fecaca}
+    .v-grey{background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.4);color:#e2e8f0}
+    .nums{display:grid;gap:10px;margin-top:14px}
+    @media(min-width:600px){.nums{grid-template-columns:1fr 1fr}}
+    .num{border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;background:rgba(5,7,15,.5)}
+    .num b{display:block;color:#fff;font-size:1.35rem;line-height:1.3}
+    .num small{color:#94a3b8;font-size:.86rem}
+    ol.fixes{margin:10px 0 0;padding-left:22px}
+    ol.fixes li{margin:8px 0;color:#e2e8f0}
+    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .formula{color:#94a3b8;font-size:.88rem;margin-top:12px;line-height:1.6}
+    footer{color:#64748b;font-size:.85rem;padding:28px 0 40px}
+    [hidden]{display:none!important}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="/" aria-label="GTM Automation — হোম"><span><img src="assets/logo-mark.svg" alt="" width="32" height="32" /></span>GTM Automation</a>
+      <a class="home" href="/">হোম</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>অ্যাডে টাকা যাচ্ছে, কিন্তু প্রতিটা <em style="font-style:normal;color:#38bdf8">ডেলিভারি হওয়া</em> অর্ডারে আসলে কত খরচ?</h1>
+    <p class="lead">লাইক, রিচ বা মেসেজ না — আসল হিসাব হলো যে অর্ডার কাস্টমার হাতে নিয়েছে, তার পেছনে কত টাকা গেল। ফেরত পার্সেলের খরচও এর মধ্যে।</p>
+    <p class="lead">গত মাসের সংখ্যাগুলো বসান। হিসাব আপনার ফোনেই হয়, কোনো তথ্য কোথাও যায় না।</p>
+    <p class="honest">শুধু আপনার দেওয়া সংখ্যা থেকে হিসাব, কোনো গ্যারান্টি নয়।</p>
+
+    <form id="ac-form" class="card" novalidate>
+      <h2>আপনার গত মাসের সংখ্যা</h2>
+      <div class="grid">
+        <div>
+          <label for="f-spend">অ্যাডে মোট খরচ (৳)<span class="hint">Ads Manager বা ব্যাংক স্টেটমেন্ট থেকে</span></label>
+          <input id="f-spend" type="text" inputmode="decimal" autocomplete="off" placeholder="যেমন: ১৫০০০" />
+          <label class="check"><input id="f-vat" type="checkbox" checked /><span>এই টাকায় ১৫% VAT ধরা আছে<span class="hint">না থাকলে টিক তুলে দিন, আমরা ১৫% যোগ করব</span></span></label>
+        </div>
+        <div>
+          <label for="f-orders">মোট অর্ডার এসেছে<span class="hint">কনফার্ম হওয়া অর্ডার</span></label>
+          <input id="f-orders" type="text" inputmode="numeric" autocomplete="off" placeholder="যেমন: ৬০" />
+        </div>
+        <div>
+          <label for="f-delivered">ডেলিভারি হয়েছে (কাস্টমার নিয়েছে)</label>
+          <input id="f-delivered" type="text" inputmode="numeric" autocomplete="off" placeholder="যেমন: ৪৫" />
+        </div>
+        <div>
+          <label for="f-returned">ফেরত এসেছে</label>
+          <input id="f-returned" type="text" inputmode="numeric" autocomplete="off" placeholder="যেমন: ১০" />
+        </div>
+        <div>
+          <label for="f-aov">একটা অর্ডারের গড় দাম (৳)<span class="hint">ডেলিভারি চার্জ ছাড়া</span></label>
+          <input id="f-aov" type="text" inputmode="decimal" autocomplete="off" placeholder="যেমন: ১২০০" />
+        </div>
+        <div>
+          <label for="f-cost">প্রোডাক্টের কেনা দাম, বিক্রির দামের কত %?<span class="hint">যেমন ৬০ মানে ৳১০০-এর জিনিস ৳৬০-এ কেনা</span></label>
+          <input id="f-cost" type="text" inputmode="decimal" autocomplete="off" placeholder="যেমন: ৬০" />
+        </div>
+        <div>
+          <label for="f-retcost">একটা পার্সেল ফেরত এলে মোট খরচ (৳)<span class="hint">ডেলিভারি চার্জ + রিটার্ন চার্জ + প্যাকিং। ১৫০ শুধু একটা উদাহরণ — নিজেরটা বসান</span></label>
+          <input id="f-retcost" type="text" inputmode="decimal" autocomplete="off" value="১৫০" />
+        </div>
+        <div>
+          <label for="f-profit">প্রতি অর্ডারে কত লাভ রাখতে চান (৳)</label>
+          <input id="f-profit" type="text" inputmode="decimal" autocomplete="off" placeholder="যেমন: ১৫০" />
+        </div>
+      </div>
+      <button class="btn btn-main" type="submit">হিসাব দেখুন</button>
+      <p id="ac-err" class="err" role="alert" hidden></p>
+    </form>
+
+    <section id="ac-out" class="card" hidden aria-live="polite">
+      <h2>আপনার হিসাব</h2>
+      <div id="ac-verdict" class="verdict"></div>
+      <div class="nums">
+        <div class="num"><small>প্রতি ডেলিভারি হওয়া অর্ডারে খরচ</small><b id="o-cpdo">—</b><small>অ্যাড + ফেরতের খরচ ÷ ডেলিভারি</small></div>
+        <div class="num"><small>আপনার মার্জিনে সর্বোচ্চ যত খরচ চলে</small><b id="o-max">—</b><small>এর বেশি গেলে লস</small></div>
+        <div class="num"><small>ফেরতের হার</small><b id="o-rr">—</b><small>ফেরত ÷ (ডেলিভারি + ফেরত)</small></div>
+        <div class="num"><small>ডেলিভারি হওয়া বিক্রি ÷ অ্যাড খরচ</small><b id="o-roas">—</b><small>অ্যাডের ৳১-এ কত টাকার বিক্রি হাতে পৌঁছাল</small></div>
+      </div>
+      <h2 style="margin-top:20px">এখনই দেখার মতো ৩টা জিনিস</h2>
+      <ol id="ac-fixes" class="fixes"></ol>
+      <p class="formula">হিসাবের নিয়ম: সর্বোচ্চ খরচ = গড় দাম × মার্জিন − (ফেরতের হার × একটা ফেরতের খরচ) − যত লাভ রাখতে চান। এটা একটু সাবধানী হিসাব; আসল ফল আপনার পণ্য, অ্যাড আর কাস্টমারের ওপর নির্ভর করে।</p>
+      <p class="honest">শুধু আপনার দেওয়া সংখ্যা থেকে হিসাব, কোনো গ্যারান্টি নয়।</p>
+
+      <h2 style="margin-top:22px">হাতে-কলমে দেখে দিতে চান?</h2>
+      <p class="lead">আপনার অ্যাডের স্ক্রিনশট আর সংখ্যা পাঠালে আমরা নিজে দেখে ৩টা নির্দিষ্ট পরামর্শ পাঠাই। ফ্রি, কোনো শর্ত নেই।</p>
+      <label class="check"><input id="f-include" type="checkbox" /> উপরের সংখ্যাগুলোও WhatsApp মেসেজে যোগ করুন (পাঠানোর আগে আপনি দেখে নেবেন)</label>
+      <div class="row">
+        <a id="ac-wa" class="btn btn-wa" href="https://wa.me/8801604737171?text=%E0%A6%85%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A1%20%E0%A6%9A%E0%A7%87%E0%A6%95" target="_blank" rel="noopener">WhatsApp-এ লিখুন: অ্যাড চেক</a>
+        <button id="ac-reset" class="btn btn-ghost" type="button">আবার হিসাব করুন</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>কেন এই সংখ্যাটা?</h2>
+      <p class="lead">একটা পার্সেল ফেরত এলে শুধু ডেলিভারি চার্জ যায় না — রিটার্ন চার্জ, প্যাকিং, সময়, আর যে অ্যাডের টাকায় অর্ডারটা এসেছিল, সেটাও যায়। তাই "অর্ডার প্রতি খরচ" দেখলে ছবিটা ভালো দেখায়, কিন্তু "ডেলিভারি হওয়া অর্ডার প্রতি খরচ" দেখায় আসলে কত গেল।</p>
+    </section>
+  </main>
+
+  <footer class="wrap">GTM Automation · <a href="/">gtmautomation.net</a> · <a href="privacy.html">প্রাইভেসি</a></footer>
+
+  <script id="ad-check-calc">
+  /* Pure calculator (no DOM) — the node test `.freebuff/test-ad-check-page.mjs` extracts and runs this block. */
+  var AdCheck = (function () {
+    var BN = '০১২৩৪৫৬৭৮৯';
+    function toNum(v) {
+      if (v === null || v === undefined) return NaN;
+      var s = String(v).trim().replace(/[০-৯]/g, function (d) { return String(BN.indexOf(d)); });
+      s = s.replace(/[,\s৳%]/g, '').replace(/টাকা/g, '');
+      if (s === '' || !/^-?\d*\.?\d+$/.test(s)) return NaN;
+      return Number(s);
+    }
+    function bnDigits(s) { return String(s).replace(/[0-9]/g, function (d) { return BN[+d]; }); }
+    function fmtTaka(n) {
+      if (!isFinite(n)) return '—';
+      var neg = n < 0, x = Math.round(Math.abs(n)), str = String(x), last3 = str.slice(-3), rest = str.slice(0, -3);
+      if (rest) last3 = ',' + last3;
+      rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+      return (neg ? '−' : '') + '৳' + bnDigits(rest + last3);
+    }
+    function fmtPct(r) { return isFinite(r) ? bnDigits((Math.round(r * 1000) / 10).toString()) + '%' : '—'; }
+    function fmtX(r) { return isFinite(r) ? bnDigits((Math.round(r * 10) / 10).toString()) + ' গুণ' : '—'; }
+
+    /* in: {spend, vatIncluded, orders, delivered, returned, aov, costPct, returnCost, profit} */
+    function calc(i) {
+      var spend = i.vatIncluded ? i.spend : i.spend * 1.15;
+      var settled = i.delivered + i.returned;
+      var returnRate = settled > 0 ? i.returned / settled : 0;
+      var margin = 1 - i.costPct / 100;
+      var returnTotal = i.returned * i.returnCost;
+      var cpdo = i.delivered > 0 ? (spend + returnTotal) / i.delivered : Infinity;
+      var deliveredSales = i.delivered * i.aov;
+      var roas = spend > 0 ? deliveredSales / spend : Infinity;
+      /* cpdo already carries the returned-parcel cost, so the ceiling is margin − wanted profit (no second return deduction) */
+      var maxCpdo = i.aov * margin - i.profit;
+      var lowData = i.delivered < 10 || spend <= 0;
+      var verdict;
+      if (lowData) verdict = 'grey';
+      else if (maxCpdo <= 0) verdict = 'red';
+      else if (cpdo <= maxCpdo) verdict = 'green';
+      else if (cpdo <= maxCpdo * 1.3) verdict = 'amber';
+      else verdict = 'red';
+      var fixes = [];
+      if (lowData) fixes.push('ডেটা কম, আরও ২ সপ্তাহ দেখুন — ১০টার কম ডেলিভারি দিয়ে কোনো অ্যাডকে ভালো বা খারাপ বলা যায় না।');
+      if (returnRate >= 0.15) {
+        fixes.push('ফেরত বেশি: পোস্টে সাইজ গায়ে পরে দেখান (উচ্চতা বলে দিন) আর রং দিনের আলোয় তুলুন, ফিল্টার ছাড়া।');
+        fixes.push('অর্ডার কনফার্মের আগে কাস্টমারের উচ্চতা/মাপ জিজ্ঞেস করে সাইজ মিলিয়ে নিন, আর ঠিকানা ও ফোন আরেকবার পড়ে শোনান।');
+      }
+      if (!lowData && (maxCpdo <= 0 || cpdo > maxCpdo)) {
+        fixes.push('যে অ্যাডে মেসেজ আসে কিন্তু অর্ডার আসে না, সেটা থামান — তবে কমপক্ষে ৳৫০০ খরচ আর ৩ দিনের আগে বিচার করবেন না।');
+        fixes.push('একই ছবি নতুন রঙে না — ৩টা সত্যিই আলাদা অ্যাড বানান: গায়ে পরা ভিডিও, কাস্টমারের প্রশ্নের উত্তর, প্যাকিং ভিডিও।');
+        fixes.push('Boost না: Ads Manager-এ Sales বা মেসেজের লক্ষ্য দিয়ে অ্যাড বানান। Boost বেশিরভাগ সময় লাইক আর রিচ কেনে।');
+      }
+      if (!lowData && maxCpdo > 0 && cpdo <= maxCpdo) fixes.push('হিসাব এখন আপনার মার্জিনের মধ্যে আছে। যে অ্যাডগুলো এই খরচের নিচে, শুধু সেগুলোতেই বাজেট একটু একটু বাড়ান।');
+      fixes.push('যারা আগে কিনেছে, তাদের অনুমতি নিয়ে নতুন স্টকের খবর দিন — পুরনো কাস্টমারের অর্ডারে অ্যাডের খরচ সবচেয়ে কম।');
+      fixes.push('প্রতি সপ্তাহে একবার এই হিসাবটা করুন, যাতে কোন অ্যাড কাজ করছে আর কোনটা না, দ্রুত বোঝা যায়।');
+      return { spend: spend, returnRate: returnRate, margin: margin, cpdo: cpdo, roas: roas, maxCpdo: maxCpdo,
+               lowData: lowData, verdict: verdict, fixes: fixes.slice(0, 3) };
+    }
+    return { toNum: toNum, calc: calc, fmtTaka: fmtTaka, fmtPct: fmtPct, fmtX: fmtX, bnDigits: bnDigits };
+  })();
+  if (typeof module !== 'undefined') module.exports = AdCheck;
+  </script>
+
+  <script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var WA = 'https://wa.me/8801604737171?text=';
+    var last = null;
+    var VERDICT = {
+      green: ['v-green', '🟢 ভালো: প্রতিটা ডেলিভারি হওয়া অর্ডারে খরচ আপনার মার্জিনের মধ্যে আছে।'],
+      amber: ['v-amber', '🟡 সীমার কাছে: খরচ মার্জিনের একটু ওপরে — ছোট কয়েকটা বদলেই ঠিক করা যায়।'],
+      red: ['v-red', '🔴 লস হচ্ছে: প্রতিটা ডেলিভারি হওয়া অর্ডারে যত খরচ, মার্জিনে তত টাকা নেই।'],
+      grey: ['v-grey', '⚪ ডেটা কম: এই সংখ্যা দিয়ে এখনই ভালো-খারাপ বলা যায় না। নিচের পরামর্শ দেখুন।']
+    };
+    function read() {
+      var n = AdCheck.toNum;
+      return { spend: n($('f-spend').value), vatIncluded: $('f-vat').checked, orders: n($('f-orders').value),
+               delivered: n($('f-delivered').value), returned: n($('f-returned').value), aov: n($('f-aov').value),
+               costPct: n($('f-cost').value), returnCost: n($('f-retcost').value), profit: n($('f-profit').value) };
+    }
+    function waHref() {
+      var text = 'অ্যাড চেক';
+      if (last && $('f-include').checked) {
+        var i = last.input, r = last.res, b = AdCheck.bnDigits;
+        text += '\nঅ্যাড খরচ: ' + AdCheck.fmtTaka(r.spend) + '\nঅর্ডার: ' + b(i.orders) + ', ডেলিভারি: ' + b(i.delivered) +
+          ', ফেরত: ' + b(i.returned) + '\nগড় দাম: ' + AdCheck.fmtTaka(i.aov) + ', কেনা দাম: ' + b(i.costPct) + '%' +
+          '\nডেলিভারি অর্ডারে খরচ: ' + AdCheck.fmtTaka(r.cpdo);
+      }
+      $('ac-wa').href = WA + encodeURIComponent(text);
+    }
+    $('ac-form').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var i = read(), err = $('ac-err');
+      var need = [['spend', 'অ্যাড খরচ'], ['orders', 'মোট অর্ডার'], ['delivered', 'ডেলিভারি'], ['returned', 'ফেরত'],
+                  ['aov', 'গড় দাম'], ['costPct', 'কেনা দাম %'], ['returnCost', 'ফেরতের খরচ'], ['profit', 'লাভ']];
+      var bad = need.filter(function (k) { return !(isFinite(i[k[0]]) && i[k[0]] >= 0); }).map(function (k) { return k[1]; });
+      if (!bad.length && i.costPct >= 100) bad.push('কেনা দাম % (১০০-এর কম হতে হবে)');
+      if (!bad.length && i.delivered + i.returned > i.orders) bad.push('ডেলিভারি + ফেরত, মোট অর্ডারের বেশি হতে পারে না');
+      if (bad.length) { err.textContent = 'এগুলো ঠিক করে লিখুন: ' + bad.join(', '); err.hidden = false; return; }
+      err.hidden = true;
+      var r = AdCheck.calc(i);
+      last = { input: i, res: r };
+      var v = VERDICT[r.verdict];
+      $('ac-verdict').className = 'verdict ' + v[0];
+      $('ac-verdict').textContent = v[1];
+      $('o-cpdo').textContent = isFinite(r.cpdo) ? AdCheck.fmtTaka(r.cpdo) : '—';
+      $('o-max').textContent = r.maxCpdo > 0 ? AdCheck.fmtTaka(r.maxCpdo) : 'মার্জিনে জায়গা নেই';
+      $('o-rr').textContent = AdCheck.fmtPct(r.returnRate);
+      $('o-roas').textContent = AdCheck.fmtX(r.roas);
+      var ol = $('ac-fixes'); ol.textContent = '';
+      r.fixes.forEach(function (f) { var li = document.createElement('li'); li.textContent = f; ol.appendChild(li); });
+      $('ac-out').hidden = false;
+      waHref();
+      $('ac-out').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    $('f-include').addEventListener('change', waHref);
+    $('ac-reset').addEventListener('click', function () {
+      $('ac-out').hidden = true; last = null; $('f-include').checked = false; waHref();
+      $('ac-form').scrollIntoView({ behavior: 'smooth', block: 'start' }); $('f-spend').focus();
+    });
+  })();
+  </script>
+</body>
+</html>
