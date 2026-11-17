@@ -958,6 +958,9 @@
         <p class="mt-3 text-center text-slate-400">নাম আর WhatsApp/ইমেইল দিন — ২৪ ঘণ্টার মধ্যে যোগাযোগ করে আপনার Page/নম্বর কানেক্ট করি, তারপর ৭ দিন গোনা শুরু। কার্ড লাগে না, সেটআপ ফি নেই। <a href="connect.html" class="text-neon-blue hover:underline">নিজে-কানেক্ট</a> অপশন Facebook-এর অনুমোদনের পর চালু হবে।</p>
 
         <form id="early-access-form" class="mt-8 space-y-5" novalidate>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+            <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" maxlength="200"></label>
+          </div>
           <div>
             <label for="name" class="mb-1.5 block text-sm font-semibold text-slate-200">আপনার নাম</label>
             <input id="name" name="name" type="text" required maxlength="120" autocomplete="name"
@@ -1368,6 +1371,7 @@
         const data = {
           name: name.value.trim(),
           contact: c,
+          website: form.elements.namedItem('website').value,
           contact_type: emailRe.test(c) ? 'email' : 'whatsapp',
           daily_messages: volume.value,
           estimated_daily_messages: ESTIMATED_DAILY_MESSAGES[volume.value] ?? null,
